@@ -23,7 +23,7 @@ import xml.dom.minidom
 import copy
 
 # load modules
-import config
+from . import config
 import mspy
 
 

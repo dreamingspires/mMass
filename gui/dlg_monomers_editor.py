@@ -20,8 +20,8 @@ import re
 import wx
 
 # load modules
-import mwx
-import config
+from . import mwx
+from . import config
 import mspy
 
 
@@ -324,8 +324,8 @@ class dlgMonomersEditor(wx.Dialog):
             
             # skip by search filter
             if search and not (
-                    all(map(lambda x: x in monomer.abbr.lower(), search)) or
-                    all(map(lambda x: x in monomer.name.lower(), search))
+                    all([x in monomer.abbr.lower() for x in search]) or
+                    all([x in monomer.name.lower() for x in search])
                 ):
                 continue
             
@@ -355,7 +355,7 @@ class dlgMonomersEditor(wx.Dialog):
             return
         
         # add new data
-        digits = '%0.' + `config.main['mzDigits']` + 'f'
+        digits = '%0.' + repr(config.main['mzDigits']) + 'f'
         for row, item in enumerate(self.itemsMap):
             
             # format data

@@ -19,20 +19,20 @@
 import re
 import threading
 import wx
-import httplib
+import http.client
 import socket
 import webbrowser
 import tempfile
 import os.path
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
-import doc
+from . import doc
 
 
 # FLOATING PANEL WITH MASCOT SEARCH
@@ -120,7 +120,7 @@ class panelMascot(wx.MiniFrame):
         self.query_butt.Bind(wx.EVT_BUTTON, self.onToolSelected)
         
         server_label = wx.StaticText(panel, -1, "Server:")
-        choices=libs.mascot.keys()
+        choices=list(libs.mascot.keys())
         choices.insert(0, 'Select Server')
         self.server_choice = wx.Choice(panel, -1, choices=choices, size=(220, mwx.SMALL_CHOICE_HEIGHT))
         if config.mascot['common']['server'] in libs.mascot:
@@ -730,7 +730,7 @@ class panelMascot(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -955,7 +955,7 @@ class panelMascot(wx.MiniFrame):
         # get data from the server
         socket.setdefaulttimeout(5)
         try:
-            conn = httplib.HTTPConnection(server['host'])
+            conn = http.client.HTTPConnection(server['host'])
             conn.connect()
             conn.request('GET', server['path'] + server['params'])
             response = conn.getresponse()

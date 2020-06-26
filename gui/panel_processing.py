@@ -22,13 +22,13 @@ import wx
 import copy
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
-import doc
+from . import doc
 
 
 # FLOATING PANEL WITH PROCESSING TOOLS
@@ -817,7 +817,7 @@ class panelProcessing(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -836,7 +836,7 @@ class panelProcessing(wx.MiniFrame):
         """Show presets."""
         
         # get presets
-        presets = libs.presets['processing'].keys()
+        presets = list(libs.presets['processing'].keys())
         presets.sort()
         
         # make menu

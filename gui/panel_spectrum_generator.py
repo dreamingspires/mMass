@@ -21,9 +21,9 @@ import wx
 import numpy
 
 # load modules
-import mwx
-import images
-import config
+from . import mwx
+from . import images
+from . import config
 import mspy
 import mspy.plot
 
@@ -280,7 +280,7 @@ class panelSpectrumGenerator(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -487,7 +487,7 @@ class panelSpectrumGenerator(wx.MiniFrame):
         self.spectrumCanvas.setProperties(axisFont=axisFont)
         
         # set cursor
-        cursor = (wx.StockCursor(wx.CURSOR_ARROW), images.lib['cursorsCrossMeasure'])
+        cursor = (wx.Cursor(wx.CURSOR_ARROW), images.lib['cursorsCrossMeasure'])
         self.spectrumCanvas.setCursorImage(cursor[bool(config.spectrum['showTracker'])])
         self.spectrumCanvas.setMFunction([None, 'cross'][config.spectrum['showTracker']])
         

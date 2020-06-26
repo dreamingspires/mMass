@@ -19,11 +19,11 @@
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
 
 
@@ -200,8 +200,8 @@ class panelMonomerLibrary(wx.MiniFrame):
             
             # check search
             if search and not (
-                    all(map(lambda x: x in monomer.abbr.lower(), search)) or
-                    all(map(lambda x: x in monomer.name.lower(), search))
+                    all([x in monomer.abbr.lower() for x in search]) or
+                    all([x in monomer.name.lower() for x in search])
                 ):
                 continue
             

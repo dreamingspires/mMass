@@ -21,11 +21,11 @@ import numpy
 import copy
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import doc
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import doc
 import mspy
 import mspy.plot
 
@@ -670,7 +670,7 @@ class panelMassCalculator(wx.MiniFrame):
         else:
             self.ionseriesNegative_radio.SetValue(True)
         
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
         
         # get all params
@@ -814,7 +814,7 @@ class panelMassCalculator(wx.MiniFrame):
             return
         
         # add new data
-        format = '%0.' + `config.main['mzDigits']` + 'f'
+        format = '%0.' + repr(config.main['mzDigits']) + 'f'
         for row, ion in enumerate(self.currentIons):
             
             # format data

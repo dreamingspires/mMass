@@ -22,12 +22,12 @@ import tempfile
 import os.path
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
+from .ids import *
+from . import mwx
+from . import images
+from . import config
 import mspy
-import doc
+from . import doc
 
 
 # FLOATING PANEL WITH PROFOUND SEARCH

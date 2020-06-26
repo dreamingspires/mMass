@@ -21,10 +21,10 @@ import copy
 import xml.dom.minidom
 
 # load modules
-from ids import *
-import mwx
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import config
+from . import libs
 import mspy
 
 

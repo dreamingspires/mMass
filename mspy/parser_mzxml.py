@@ -27,12 +27,12 @@ import numpy
 from copy import deepcopy
 
 # load stopper
-from mod_stopper import CHECK_FORCE_QUIT
+from .mod_stopper import CHECK_FORCE_QUIT
 
 # load objects
-import obj_peak
-import obj_peaklist
-import obj_scan
+from . import obj_peak
+from . import obj_peaklist
+from . import obj_scan
 
 # compile basic patterns
 RETENTION_TIME_PATTERN = re.compile('^PT((\d*\.?\d*)M)?((\d*\.?\d*)S)?$')
@@ -52,7 +52,7 @@ class parseMZXML():
         
         # check path
         if not os.path.exists(path):
-            raise IOError, 'File not found! --> ' + self.path
+            raise IOError('File not found! --> ' + self.path)
     # ----
     
     
@@ -228,7 +228,7 @@ class parseMZXML():
         
         # format
         if scanData['spectrumType'] == 'discrete':
-            data = map(list, zip(data[::2], data[1::2]))
+            data = list(map(list, list(zip(data[::2], data[1::2]))))
         else:
             data = numpy.array(data)
             data.shape = (-1,2)

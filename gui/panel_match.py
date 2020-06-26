@@ -20,13 +20,13 @@ import threading
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
+from .ids import *
+from . import mwx
+from . import images
+from . import config
 import mspy
 import mspy.plot
-import doc
+from . import doc
 
 
 # FLOATING PANEL WITH MATCH TOOLS
@@ -375,7 +375,7 @@ class panelMatch(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -640,7 +640,7 @@ class panelMatch(wx.MiniFrame):
             self.currentErrors = []
             self.currentCalibrationPoints = []
             
-            digits = '%0.' + `config.main['mzDigits']` + 'f'
+            digits = '%0.' + repr(config.main['mzDigits']) + 'f'
             for pIndex, peak in enumerate(self.currentPeaklist):
                 for x, item in enumerate(self.currentData):
                     

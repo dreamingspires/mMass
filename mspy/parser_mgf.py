@@ -21,12 +21,12 @@ import os.path
 from copy import deepcopy
 
 # load stopper
-from mod_stopper import CHECK_FORCE_QUIT
+from .mod_stopper import CHECK_FORCE_QUIT
 
 # load objects
-import obj_peak
-import obj_peaklist
-import obj_scan
+from . import obj_peak
+from . import obj_peaklist
+from . import obj_scan
 
 
 # PARSE MGF DATA
@@ -42,7 +42,7 @@ class parseMGF():
         
         # check path
         if not os.path.exists(path):
-            raise IOError, 'File not found! --> ' + self.path
+            raise IOError('File not found! --> ' + self.path)
     # ----
     
     
@@ -184,7 +184,7 @@ class parseMGF():
                 try: point[0] = float(parts[0])
                 except ValueError: continue
                 try: point[1] = float(parts[1])
-                except ValueError, IndexError: pass
+                except ValueError as IndexError: pass
                 self._scans[currentID]['data'].append(point)
                 self._scans[currentID]['pointsCount'] += 1
                 continue

@@ -22,11 +22,11 @@ import wx
 import numpy
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
 import mspy.plot
 
@@ -172,7 +172,7 @@ class panelCalibration(wx.MiniFrame):
         # make controls
         references_label = wx.StaticText(ctrlPanel, -1, "References:")
         references_label.SetFont(wx.SMALL_FONT)
-        choices = libs.references.keys()
+        choices = list(libs.references.keys())
         choices.sort()
         choices.insert(0,'Reference lists')
         self.references_choice = wx.Choice(ctrlPanel, -1, choices=choices, size=(250, mwx.SMALL_CHOICE_HEIGHT))
@@ -331,7 +331,7 @@ class panelCalibration(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -590,8 +590,8 @@ class panelCalibration(wx.MiniFrame):
             return
         
         # add new data
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        ppmFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        ppmFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         fontSkipped = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.NORMAL)
         fontUsed = wx.SMALL_FONT
         for row, item in enumerate(self.currentReferences):

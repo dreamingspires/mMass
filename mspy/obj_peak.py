@@ -16,13 +16,13 @@
 # -------------------------------------------------------------------------
 
 # load stopper
-from mod_stopper import CHECK_FORCE_QUIT
+from .mod_stopper import CHECK_FORCE_QUIT
 
 # load objects
-import blocks
+from . import blocks
 
 # load modules
-import mod_basics
+from . import mod_basics
 
 
 # PEAK OBJECT DEFINITION
@@ -58,7 +58,7 @@ class peak:
         
         # get additional attributes
         self.attributes = {}
-        for name, value in attr.items():
+        for name, value in list(attr.items()):
             self.attributes[name] = value
     # ----
     

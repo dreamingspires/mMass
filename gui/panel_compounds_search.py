@@ -21,13 +21,13 @@ import math
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
-import doc
+from . import doc
 
 from gui.panel_match import panelMatch
 
@@ -107,7 +107,7 @@ class panelCompoundsSearch(wx.MiniFrame):
         self.tool_label = wx.StaticText(panel, -1, "Compounds:")
         self.tool_label.SetFont(wx.SMALL_FONT)
         
-        choices = libs.compounds.keys()
+        choices = list(libs.compounds.keys())
         choices.sort()
         choices.insert(0,'Compounds lists')
         self.compounds_choice = wx.Choice(panel, -1, choices=choices, size=(250, mwx.SMALL_CHOICE_HEIGHT))
@@ -337,7 +337,7 @@ class panelCompoundsSearch(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -713,10 +713,10 @@ class panelCompoundsSearch(wx.MiniFrame):
             return
         
         # add new data
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        errFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        errFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         if config.match['units'] == 'ppm':
-            errFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+            errFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         fontMatched = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         
         row = -1

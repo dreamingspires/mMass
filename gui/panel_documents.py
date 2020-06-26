@@ -19,14 +19,14 @@
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
+from .ids import *
+from . import mwx
+from . import images
+from . import config
 import mspy
-import doc
+from . import doc
 
-from dlg_notation import dlgNotation
+from .dlg_notation import dlgNotation
 
 
 # DOCUMENTS PANEL
@@ -1289,7 +1289,7 @@ class documentsTree(wx.TreeCtrl):
         """Make bullet bitmap with specified colour."""
         
         # create empty bitmap
-        bitmap = wx.EmptyBitmap(13, 12)
+        bitmap = wx.Bitmap(13, 12)
         dc = wx.MemoryDC()
         dc.SelectObject(bitmap)
         

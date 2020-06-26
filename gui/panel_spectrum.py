@@ -20,10 +20,10 @@ import wx
 import numpy
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
+from .ids import *
+from . import mwx
+from . import images
+from . import config
 import mspy
 import mspy.plot
 
@@ -408,7 +408,7 @@ class panelSpectrum(wx.Panel):
             self.toolsRuler_butt.SetBitmapLabel(images.lib['spectrumRulerOn'])
             self.spectrumCanvas.setMFunction(cursorTracker)
             self.spectrumCanvas.setLMBFunction('xDistance')
-            cursor = (wx.StockCursor(wx.CURSOR_ARROW), images.lib['cursorsCrossMeasure'])
+            cursor = (wx.Cursor(wx.CURSOR_ARROW), images.lib['cursorsCrossMeasure'])
         
         elif tool == 'labelpeak':
             self.toolsLabelPeak_butt.SetBitmapLabel(images.lib['spectrumLabelPeakOn'])
@@ -595,12 +595,12 @@ class panelSpectrum(wx.Panel):
         distance = self.spectrumCanvas.getDistance()
         
         # format numbers
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        intFormat = '%0.' + `config.main['intDigits']` + 'f'
-        distFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        ppmFormat = '%0.' + `config.main['ppmDigits']` + 'f'
-        areaFormat = '%0.' + `config.main['intDigits']` + 'f'
-        chargeFormat = '%0.' + `config.main['chargeDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        intFormat = '%0.' + repr(config.main['intDigits']) + 'f'
+        distFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        ppmFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
+        areaFormat = '%0.' + repr(config.main['intDigits']) + 'f'
+        chargeFormat = '%0.' + repr(config.main['chargeDigits']) + 'f'
         
         if position and abs(position[1]) > 10000:
             intFormat = '%.2e'

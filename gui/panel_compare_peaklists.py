@@ -21,9 +21,9 @@ import wx
 import wx.grid
 
 # load modules
-import mwx
-import images
-import config
+from . import mwx
+from . import images
+from . import config
 import mspy
 
 
@@ -313,7 +313,7 @@ class panelComparePeaklists(wx.MiniFrame):
         self.documentsGrid.SetMinSize(self.documentsGrid.GetSize())
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
         self.documentsGrid.SetMinSize((-1,-1))
     # ----
@@ -617,7 +617,7 @@ class panelComparePeaklists(wx.MiniFrame):
                     self.documentsGrid.SetColLabelValue(x, 'm/z')
         
         # set formats
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         defaultColour = self.documentsGrid.GetDefaultCellBackgroundColour()
         
         # add data
@@ -679,7 +679,7 @@ class panelComparePeaklists(wx.MiniFrame):
                 self.peaklistGrid.SetColSize(x, 20)
         
         # set formats
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         defaultColour = self.peaklistGrid.GetDefaultCellBackgroundColour()
         
         # add data
@@ -733,10 +733,10 @@ class panelComparePeaklists(wx.MiniFrame):
         self.matchesGrid.SetColSize(0, 20)
         
         # set formats
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        errFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        errFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         if config.comparePeaklists['units'] == 'ppm':
-            errFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+            errFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         
         # add data
         for i, match in enumerate(self.currentMatches):

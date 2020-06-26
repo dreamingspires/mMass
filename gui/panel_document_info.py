@@ -19,11 +19,11 @@
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
 
 
@@ -332,7 +332,7 @@ class panelDocumentInfo(wx.MiniFrame):
         """Show presets."""
         
         # get presets
-        presets = libs.presets['operator'].keys()
+        presets = list(libs.presets['operator'].keys())
         presets.sort()
         
         # make menu

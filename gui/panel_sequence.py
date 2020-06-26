@@ -21,11 +21,11 @@ import wx
 import numpy
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
 
 from gui.panel_match import panelMatch
@@ -511,7 +511,7 @@ class panelSequence(wx.MiniFrame):
         digestEnzyme_label = wx.StaticText(ctrlPanel, -1, "Enzyme:")
         digestEnzyme_label.SetFont(wx.SMALL_FONT)
         
-        enzymes = mspy.enzymes.keys()
+        enzymes = list(mspy.enzymes.keys())
         enzymes.sort()
         self.digestEnzyme_choice = wx.Choice(ctrlPanel, -1, choices=enzymes, size=(140, mwx.SMALL_CHOICE_HEIGHT))
         if config.sequence['digest']['enzyme'] in enzymes:
@@ -733,7 +733,7 @@ class panelSequence(wx.MiniFrame):
         searchEnzyme_label = wx.StaticText(ctrlPanel, -1, "Enzyme:")
         searchEnzyme_label.SetFont(wx.SMALL_FONT)
         
-        enzymes = mspy.enzymes.keys()
+        enzymes = list(mspy.enzymes.keys())
         enzymes.sort()
         self.searchEnzyme_choice = wx.Choice(ctrlPanel, -1, choices=enzymes, size=(150, mwx.SMALL_CHOICE_HEIGHT))
         if config.sequence['search']['enzyme'] in enzymes:
@@ -970,7 +970,7 @@ class panelSequence(wx.MiniFrame):
         # fit layout
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
     # ----
     
@@ -990,9 +990,9 @@ class panelSequence(wx.MiniFrame):
         
         # get presets
         if self.currentTool == 'modifications':
-            presets = libs.presets['modifications'].keys()
+            presets = list(libs.presets['modifications'].keys())
         elif self.currentTool == 'fragment':
-            presets = libs.presets['fragments'].keys()
+            presets = list(libs.presets['fragments'].keys())
         presets.sort()
         
         # make menu
@@ -2148,7 +2148,7 @@ class panelSequence(wx.MiniFrame):
         
         # get mass
         if len(self.currentSequence):
-            format = '%0.' + `config.main['mzDigits']` + 'f'
+            format = '%0.' + repr(config.main['mzDigits']) + 'f'
             mass = self.currentSequence.mass()
             label += 'Mo. mass: '+format % mass[0]
             label += '     Av. mass: '+format % mass[1]
@@ -2272,7 +2272,7 @@ class panelSequence(wx.MiniFrame):
             return
         
         currentMods = []
-        format = '%0.' + `config.main['mzDigits']` + 'f'
+        format = '%0.' + repr(config.main['mzDigits']) + 'f'
         
         # get modifications
         for mod in self.currentSequence.modifications:
@@ -2379,10 +2379,10 @@ class panelSequence(wx.MiniFrame):
             return
         
         # add new data
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        errFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        errFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         if config.match['units'] == 'ppm':
-            errFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+            errFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         fontMatched = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         
         row = -1
@@ -2438,10 +2438,10 @@ class panelSequence(wx.MiniFrame):
             return
         
         # add new data
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        errFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        errFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         if config.match['units'] == 'ppm':
-            errFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+            errFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         fontMatched = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         fontFiltered = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.NORMAL)
         
@@ -2504,10 +2504,10 @@ class panelSequence(wx.MiniFrame):
             return
         
         # add new data
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        errFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        errFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         if config.sequence['search']['units'] == 'ppm':
-            errFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+            errFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         
         row = -1
         for index, item in enumerate(self.currentSearch):
@@ -2687,7 +2687,7 @@ class panelSequence(wx.MiniFrame):
         # get modifications
         modifications = []
         for mod in self.currentSequence.modifications:
-            if type(mod[1]) in (str, unicode):
+            if type(mod[1]) in (str, str):
                 modifications.append(mod)
         
         # check presets
@@ -3053,7 +3053,7 @@ class panelSequence(wx.MiniFrame):
             count = occupied.count(x)
             if type(x) == int and count > maxMods:
                 return False
-            elif type(x) in (str, unicode):
+            elif type(x) in (str, str):
                 available = sequence.count(x)
                 for y in occupied:
                     if type(y) == int and sequence[y] == x:
@@ -3405,7 +3405,7 @@ class sequenceCanvas(wx.TextCtrl):
         
         # check sequence
         if not isinstance(sequence, mspy.sequence):
-            raise TypeError, 'Sequence must be mspy.sequence object!'
+            raise TypeError('Sequence must be mspy.sequence object!')
         
         # update gui
         self.enable(True)
@@ -3575,7 +3575,7 @@ class sequenceGrid(wx.StaticBoxSizer):
         # enable/disable items
         length = len(self.currentSequence)
         end = 0
-        for x in reversed(range(len(self.items))):
+        for x in reversed(list(range(len(self.items)))):
             item = self.items[x]
             value = self.items[x].GetValue()
             
@@ -3618,7 +3618,7 @@ class sequenceGrid(wx.StaticBoxSizer):
         
         # check sequence
         if not isinstance(sequence, mspy.sequence):
-            raise TypeError, 'Sequence must be mspy.sequence object!'
+            raise TypeError('Sequence must be mspy.sequence object!')
         
         # check number of items
         while len(self.currentSequence) - len(self.items) > 0:

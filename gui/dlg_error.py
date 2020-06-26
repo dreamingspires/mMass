@@ -22,9 +22,9 @@ import numpy
 import wx
 
 # load modules
-import mwx
-import config
-import images
+from . import mwx
+from . import config
+from . import images
 
 
 # SYSTEM ERROR
@@ -52,7 +52,8 @@ class dlgError(wx.Dialog):
         self.exception += '\nSystem: %s' % str(platform.system())
         self.exception += '\nMac: %s' % str(platform.mac_ver())
         self.exception += '\nMSW: %s' % str(platform.win32_ver())
-        self.exception += '\nLinux: %s' % str(platform.dist())
+#        self.exception += '\nLinux: %s' % str(platform.dist())
+# TODO: dist attribute of platform module does not exist (any more?)
         self.exception += '\n-------------------------\n'
         self.exception += 'Add your comments:\n'
         

@@ -20,15 +20,15 @@ import numpy
 import copy
 
 # load stopper
-from mod_stopper import CHECK_FORCE_QUIT
+from .mod_stopper import CHECK_FORCE_QUIT
 
 # load objects
-import obj_peak
-import obj_peaklist
+from . import obj_peak
+from . import obj_peaklist
 
 # load modules
-import mod_signal
-import mod_peakpicking
+from . import mod_signal
+from . import mod_peakpicking
 
 
 # SCAN OBJECT DEFINITION
@@ -68,7 +68,7 @@ class scan:
         
         # get additional attributes
         self.attributes = {}
-        for name, value in attr.items():
+        for name, value in list(attr.items()):
             self.attributes[name] = value
     # ----
     
@@ -368,7 +368,7 @@ class scan:
         
         # check scan
         if not isinstance(other, scan):
-            raise TypeError, "Cannot combine with non-scan object!"
+            raise TypeError("Cannot combine with non-scan object!")
         
         # use profiles only
         if len(self.profile) or len(other.profile):
@@ -395,7 +395,7 @@ class scan:
         
         # check scan
         if not isinstance(other, scan):
-            raise TypeError, "Cannot overlay with non-scan object!"
+            raise TypeError("Cannot overlay with non-scan object!")
         
         # use profiles only
         if len(self.profile) or len(other.profile):
@@ -418,7 +418,7 @@ class scan:
         
         # check scan
         if not isinstance(other, scan):
-            raise TypeError, "Cannot subtract non-scan object!"
+            raise TypeError("Cannot subtract non-scan object!")
         
         # use profiles only
         if len(self.profile) and len(other.profile):

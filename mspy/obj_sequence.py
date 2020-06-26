@@ -20,17 +20,17 @@ import re
 import copy
 
 # load stopper
-from mod_stopper import CHECK_FORCE_QUIT
+from .mod_stopper import CHECK_FORCE_QUIT
 
 # load blocks
-import blocks
+from . import blocks
 
 # load objects
-import obj_compound
+from . import obj_compound
 
 # load modules
-import mod_basics
-import mod_pattern
+from . import mod_basics
+from . import mod_pattern
 
 
 # SEQUENCE OBJECT DEFINITION
@@ -61,7 +61,7 @@ class sequence:
         
         for monomer in self.chain:
             if not monomer in blocks.monomers:
-                raise KeyError, 'Unknown monomer in the sequence! --> ' + monomer
+                raise KeyError('Unknown monomer in the sequence! --> ' + monomer)
         
         # set terminal groups
         if self.cyclic:
@@ -102,12 +102,12 @@ class sequence:
         
         # get additional attributes
         self.attributes = {}
-        for name, value in attr.items():
+        for name, value in list(attr.items()):
             self.attributes[name] = value
     # ----
     
     
-    def __nonzero__(self):
+    def __bool__(self):
         """Check sequence length."""
         return bool(len(self.chain))
     # ----
@@ -129,7 +129,7 @@ class sequence:
         
         # check slice
         if stop <= start and not self.cyclic:
-            raise ValueError, 'Invalid slice!'
+            raise ValueError('Invalid slice!')
         
         # break the links
         parent = copy.deepcopy(self)
@@ -155,7 +155,7 @@ class sequence:
                 peptide.modifications.append(mod)
             elif mod[1] == 'cTerm' and (stop == -1 or stop == len(parent)):
                 peptide.modifications.append(mod)
-            elif type(mod[1]) in (str, unicode) and mod[1] in peptide.chain:
+            elif type(mod[1]) in (str, str) and mod[1] in peptide.chain:
                 peptide.modifications.append(mod)
             elif type(mod[1]) == int:
                 if start <= mod[1] < stop:
@@ -170,7 +170,7 @@ class sequence:
         
         # add labels
         for mod in parent.labels:
-            if type(mod[1]) in (str, unicode) and mod[1] in peptide.chain:
+            if type(mod[1]) in (str, str) and mod[1] in peptide.chain:
                 peptide.labels.append(mod)
             elif type(mod[1]) == int:
                 if start <= mod[1] < stop:
@@ -216,7 +216,7 @@ class sequence:
     # ----
     
     
-    def next(self):
+    def __next__(self):
         if self._index < len(self.chain):
             self._index += 1
             return self.chain[self._index-1]
@@ -242,15 +242,15 @@ class sequence:
         
         # check slice
         if stop < start:
-            raise ValueError, 'Invalid slice!'
+            raise ValueError('Invalid slice!')
         
         # check value
         if not isinstance(value, sequence):
-            raise TypeError, 'Invalid object to instert!'
+            raise TypeError('Invalid object to instert!')
         
         # check chain type
         if value.chainType != self.chainType:
-            raise TypeError, 'Invalid chain type to instert!'
+            raise TypeError('Invalid chain type to instert!')
         
         # break the links
         value = copy.deepcopy(value)
@@ -274,7 +274,7 @@ class sequence:
         
         # adding modifications not implemented
         if value.modifications or value.labels:
-            raise NotImplementedError, "Sequence __setslice__ doesn't support modifications and labels."
+            raise NotImplementedError("Sequence __setslice__ doesn't support modifications and labels.")
         
         # clear some values
         self.history = [('init', 0, len(self.chain))]
@@ -292,7 +292,7 @@ class sequence:
         
         # check slice
         if stop < start:
-            raise ValueError, 'Invalid slice!'
+            raise ValueError('Invalid slice!')
         
         # remove sequence
         self.chain = self.chain[:start] + self.chain[stop:]
@@ -304,7 +304,7 @@ class sequence:
                 if mod[1] >= stop:
                     mod[1] -= (stop - start)
                 keep.append(mod)
-            elif type(mod[1]) in (str, unicode) and (mod[1] in self.chain or mod[1] in ('nTerm', 'cTerm')):
+            elif type(mod[1]) in (str, str) and (mod[1] in self.chain or mod[1] in ('nTerm', 'cTerm')):
                 keep.append(mod)
         self.modifications = keep
         
@@ -315,7 +315,7 @@ class sequence:
                 if mod[1] >= stop:
                     mod[1] -= (stop - start)
                 keep.append(mod)
-            elif type(mod[1]) in (str, unicode) and mod[1] in self.chain:
+            elif type(mod[1]) in (str, str) and mod[1] in self.chain:
                 keep.append(mod)
         self.labels = keep
         
@@ -382,7 +382,7 @@ class sequence:
         
         # add monomers to formula
         for monomer in self.chain:
-            for el, count in blocks.monomers[monomer].composition.items():
+            for el, count in list(blocks.monomers[monomer].composition.items()):
                 if el in self._composition:
                     self._composition[el] += count
                 else:
@@ -392,9 +392,9 @@ class sequence:
         mods = self.modifications + self.labels
         for name, position, state in mods:
             multi = 1
-            if type(position) in (str, unicode) and position !='' and not position in ('nTerm', 'cTerm'):
+            if type(position) in (str, str) and position !='' and not position in ('nTerm', 'cTerm'):
                 multi = self.chain.count(position)
-            for el, count in blocks.modifications[name].composition.items():
+            for el, count in list(blocks.modifications[name].composition.items()):
                 if el in self._composition:
                     self._composition[el] += multi*count
                 else:
@@ -403,7 +403,7 @@ class sequence:
         # add terminal formulae
         if not self.cyclic:
             termCmpd = obj_compound.compound(self.nTermFormula + self.cTermFormula)
-            for el, count in termCmpd.composition().items():
+            for el, count in list(termCmpd.composition().items()):
                 if el in self._composition:
                     self._composition[el] += count
                 else:
@@ -412,7 +412,7 @@ class sequence:
         # subtract neutral losses for fragments
         for loss in self.fragmentLosses:
             lossCmpd = obj_compound.compound(loss)
-            for el, count in lossCmpd.composition().items():
+            for el, count in list(lossCmpd.composition().items()):
                 if el in self._composition:
                     self._composition[el] -= count
                 else:
@@ -421,14 +421,14 @@ class sequence:
         # add neutral gains for fragments
         for gain in self.fragmentGains:
             gainCmpd = obj_compound.compound(gain)
-            for el, count in gainCmpd.composition().items():
+            for el, count in list(gainCmpd.composition().items()):
                 if el in self._composition:
                     self._composition[el] += count
                 else:
                     self._composition[el] = count
         
         # remove zeros
-        for atom in self._composition.keys():
+        for atom in list(self._composition.keys()):
             if self._composition[atom] == 0:
                 del self._composition[atom]
         
@@ -563,7 +563,7 @@ class sequence:
         
         # check cyclic peptides
         if self.cyclic:
-            raise TypeError, 'Search function is not supported for cyclic peptides!'
+            raise TypeError('Search function is not supported for cyclic peptides!')
         
         matches = []
         
@@ -737,7 +737,7 @@ class sequence:
         self.cyclic = True
         
         # set break points
-        breakPoints = range(len(self))
+        breakPoints = list(range(len(self)))
         if breakPoint != None:
             breakPoints = [breakPoint]
         
@@ -779,7 +779,7 @@ class sequence:
     def indexes(self):
         """Calculate parent indexes from sequence history."""
         
-        ranges = range(self.history[0][1], self.history[0][2])
+        ranges = list(range(self.history[0][1], self.history[0][2]))
         for item in self.history[1:]:
             if item[0] == 'slice':
                 ranges = ranges[item[1] : item[2]]
@@ -841,7 +841,7 @@ class sequence:
         
         # check modification
         if not name in blocks.modifications:
-            raise KeyError, 'Unknown modification! --> ' + name
+            raise KeyError('Unknown modification! --> ' + name)
         
         # check position
         try: position = int(position)
@@ -888,7 +888,7 @@ class sequence:
         
         # check modification
         if not name in blocks.modifications:
-            raise KeyError, 'Unknown modification! --> ' + name
+            raise KeyError('Unknown modification! --> ' + name)
         
         # check position
         try: position = int(position)
@@ -1012,7 +1012,7 @@ class sequence:
             elif x in ('nTerm', 'cTerm'):
                 if count > maxMods:
                     return False
-            elif type(x) in (str, unicode):
+            elif type(x) in (str, str):
                 available = chain.count(x)
                 for y in positions:
                     if type(y) == int and chain[y] == x:

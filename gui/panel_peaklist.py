@@ -19,14 +19,14 @@
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
+from .ids import *
+from . import mwx
+from . import images
+from . import config
 import mspy
-import doc
+from . import doc
 
-from dlg_notation import dlgNotation
+from .dlg_notation import dlgNotation
 
 
 # PEAKLIST PANEL
@@ -764,9 +764,9 @@ class panelPeaklist(wx.Panel):
         """Refresh item data in the list."""
         
         # set formats
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        intFormat = '%0.' + `config.main['intDigits']` + 'f'
-        fwhmFormat = '%0.' + `max(config.main['mzDigits'],3)` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        intFormat = '%0.' + repr(config.main['intDigits']) + 'f'
+        fwhmFormat = '%0.' + repr(max(config.main['mzDigits'],3)) + 'f'
         
         # insert data
         x = 0
@@ -813,7 +813,7 @@ class panelPeaklist(wx.Panel):
             
             elif column == 'group':
                 if item[x] != None:
-                    data = unicode(item[x])
+                    data = str(item[x])
             
             else:
                 continue
@@ -854,7 +854,7 @@ class panelPeaklist(wx.Panel):
             if peak.fwhm:
                 self.peakFwhm_value.SetValue(str(round(peak.fwhm,6)))
             if peak.group:
-                self.peakGroup_value.SetValue(unicode(peak.group))
+                self.peakGroup_value.SetValue(str(peak.group))
             if peak.isotope == 0:
                 self.peakMonoisotopic_check.SetValue(True)
             else:
@@ -976,7 +976,7 @@ class panelPeaklist(wx.Panel):
                 if 'resol' in config.export['peaklistColumns']:
                     line += str(peak.resolution) + '\t'
                 if 'group' in config.export['peaklistColumns']:
-                    line += unicode(peak.group) + '\t'
+                    line += str(peak.group) + '\t'
                 buff += '%s\n' % (line.rstrip())
             
             # make text object for data

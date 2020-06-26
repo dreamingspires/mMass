@@ -20,11 +20,11 @@ import threading
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
 
 
@@ -356,7 +356,7 @@ class panelEnvelopeFit(wx.MiniFrame):
         self.spectrumCanvas.SetMinSize(self.spectrumCanvas.GetSize())
         self.Layout()
         self.mainSizer.Fit(self)
-        try: wx.Yield()
+        try: wx.GetApp().Yield()
         except: pass
         self.spectrumCanvas.SetMinSize((-1,-1))
     # ----
@@ -578,7 +578,7 @@ class panelEnvelopeFit(wx.MiniFrame):
         self.spectrumCanvas.setProperties(axisFont=axisFont)
         
         # set cursor
-        cursor = (wx.StockCursor(wx.CURSOR_ARROW), images.lib['cursorsCrossMeasure'])
+        cursor = (wx.Cursor(wx.CURSOR_ARROW), images.lib['cursorsCrossMeasure'])
         self.spectrumCanvas.setCursorImage(cursor[bool(config.spectrum['showTracker'])])
         self.spectrumCanvas.setMFunction([None, 'cross'][config.spectrum['showTracker']])
         
@@ -627,7 +627,7 @@ class panelEnvelopeFit(wx.MiniFrame):
         if self.currentFit == None:
             data = []
         else:
-            data = self.currentFit.ncomposition.items()
+            data = list(self.currentFit.ncomposition.items())
             data.sort()
         
         # clear previous data and set new

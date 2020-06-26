@@ -19,11 +19,11 @@
 import wx
 
 # load modules
-from ids import *
-import mwx
-import images
-import config
-import libs
+from .ids import *
+from . import mwx
+from . import images
+from . import config
+from . import libs
 import mspy
 
 from gui.panel_match import panelMatch
@@ -83,7 +83,7 @@ class panelMassFilter(wx.MiniFrame):
         references_label = wx.StaticText(panel, -1, "References:")
         references_label.SetFont(wx.SMALL_FONT)
         
-        choices = libs.references.keys()
+        choices = list(libs.references.keys())
         choices.sort()
         choices.insert(0,'Reference lists')
         self.references_choice = wx.Choice(panel, -1, choices=choices, size=(200, mwx.SMALL_CHOICE_HEIGHT))
@@ -369,10 +369,10 @@ class panelMassFilter(wx.MiniFrame):
             return
         
         # add new data
-        mzFormat = '%0.' + `config.main['mzDigits']` + 'f'
-        errFormat = '%0.' + `config.main['mzDigits']` + 'f'
+        mzFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
+        errFormat = '%0.' + repr(config.main['mzDigits']) + 'f'
         if config.match['units'] == 'ppm':
-            errFormat = '%0.' + `config.main['ppmDigits']` + 'f'
+            errFormat = '%0.' + repr(config.main['ppmDigits']) + 'f'
         fontMatched = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         fontSkipped = wx.Font(mwx.SMALL_FONT_SIZE, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.NORMAL)
         
