@@ -298,7 +298,7 @@ class panelPeaklist(wx.Panel):
         buttons.Add(self.peakReplace_butt, 0)
         
         mainSizer = wx.BoxSizer(wx.VERTICAL)
-        mainSizer.Add(grid, 0, wx.EXPAND|wx.ALIGN_CENTER|wx.ALL, 10)
+        mainSizer.Add(grid, 0, wx.EXPAND|wx.ALL, 10)
         mainSizer.Add(buttons, 0, wx.ALIGN_CENTER|wx.RIGHT|wx.LEFT|wx.BOTTOM, 10)
         
         # fit layout

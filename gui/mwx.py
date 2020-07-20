@@ -245,7 +245,7 @@ class sortListCtrl(wx.ListCtrl):
         
         self._defaultColour = self.GetBackgroundColour()
         self._altColour = self.GetBackgroundColour()
-        self._currentAttr = wx.ListItemAttr()
+        self._currentAttr = wx.ItemAttr()
         
         self._getItemTextFn = None
         self._getItemAttrFn = None

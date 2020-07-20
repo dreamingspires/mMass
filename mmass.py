@@ -45,8 +45,8 @@ class mMass(wx.App):
         self.frame = mainFrame(None, -1, 'mMass')
         
         # bind main app frame to server
-        if server != None:
-            server.app = self.frame
+        #if server != None:
+        #    server.app = self.frame
         
         # show frame
         self.SetTopWindow(self.frame)
@@ -134,9 +134,7 @@ class TCPServerHandler(socketserver.BaseRequestHandler):
     
     
 
-
-if __name__ == '__main__':
-    
+def main():    
     server = None
     
     # use server

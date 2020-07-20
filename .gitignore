@@ -2,3 +2,5 @@
 *__pycache__
 mspy/build/
 *~
+dist/
+mmass3.egg-info/

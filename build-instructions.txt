@@ -1,0 +1,26 @@
+
+To build wxPython, the following dependencies are required:
+https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html
+
+Fedora 32 GNU/Linux:
+python3
+python3-devel
+gtk3
+gtk3-devel
+gstreamer1
+gstreamer1-devel
+freeglut
+freeglut-devel
+libjpeg-turbo
+libjpeg-turbo-devel
+libpng
+libpng-devel
+libtiff
+libtiff-devel
+SDL
+SDL-devel
+libnotify
+libnotify-devel
+libSM
+libSM-devel
+(libwebkitgtk seems not to exist any more)
