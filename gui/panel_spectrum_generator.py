@@ -35,7 +35,7 @@ class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
     """Spectrum generator tool."""
     
     def __init__(self, parent):
-        wx.MiniFrame.__init__(self, parent, -1, 'Spectrum Generator', size=(700, 400), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Spectrum Generator', size=(700, 400), style=wx.DEFAULT_FRAME_STYLE & ~ wx.MAXIMIZE_BOX)
         
         self.parent = parent
         

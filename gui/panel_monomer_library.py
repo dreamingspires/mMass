@@ -34,7 +34,7 @@ class panelMonomerLibrary(wx.MiniFrame):
     """Monomer library."""
     
     def __init__(self, parent, filterIn=[], filterOut=[], DnD=True):
-        wx.MiniFrame.__init__(self, parent, -1, 'Monomer Library', size=(250, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Monomer Library', size=(250, 300), style=wx.DEFAULT_FRAME_STYLE & ~ wx.MAXIMIZE_BOX)
         
         self.parent = parent
         self.filterIn = filterIn

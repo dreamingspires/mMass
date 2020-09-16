@@ -37,7 +37,7 @@ class panelMassCalculator(wx.MiniFrame):
     """Mass calculator tools."""
     
     def __init__(self, parent, tool='pattern'):
-        wx.MiniFrame.__init__(self, parent, -1, 'Mass Calculator', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Mass Calculator', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ wx.MAXIMIZE_BOX)
         
         self.parent = parent
         

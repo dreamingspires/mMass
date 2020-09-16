@@ -36,7 +36,7 @@ class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
     """Data match tool."""
     
     def __init__(self, parentTool, mainFrame, module):
-        wx.MiniFrame.__init__(self, parentTool, -1, 'Match Data', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parentTool, -1, 'Match Data', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ wx.MAXIMIZE_BOX)
         
         self.parentTool = parentTool
         self.mainFrame = mainFrame

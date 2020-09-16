@@ -35,7 +35,7 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
     """Document export tools."""
     
     def __init__(self, parent, tool='image'):
-        wx.MiniFrame.__init__(self, parent, -1, 'Export', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BORDER | wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Export', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BORDER | wx.MAXIMIZE_BOX))
         
         self.parent = parent
         self.processing = None

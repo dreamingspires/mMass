@@ -37,7 +37,7 @@ class panelProspector(wx.MiniFrame):
     """ProteinProspector search tools."""
     
     def __init__(self, parent, tool=config.prospector['common']['searchType']):
-        wx.MiniFrame.__init__(self, parent, -1, 'Protein Prospector', size=(300, -1), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BORDER | wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Protein Prospector', size=(300, -1), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BORDER | wx.MAXIMIZE_BOX))
         
         self.parent = parent
         

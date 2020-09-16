@@ -39,7 +39,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
     """Sequence tools."""
     
     def __init__(self, parent, tool='editor'):
-        wx.MiniFrame.__init__(self, parent, -1, 'Sequence', size=(500, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Sequence', size=(500, 300), style=wx.DEFAULT_FRAME_STYLE & ~ wx.MAXIMIZE_BOX)
         
         self.parent = parent
         self.matchPanel = None

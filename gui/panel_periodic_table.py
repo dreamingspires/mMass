@@ -34,7 +34,7 @@ class panelPeriodicTable(wx.MiniFrame):
     """Periodic table of elements."""
     
     def __init__(self, parent):
-        wx.MiniFrame.__init__(self, parent, -1, 'Periodic Table of the Elements', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.RESIZE_BORDER | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Periodic Table of the Elements', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BORDER | wx.MAXIMIZE_BOX))
         
         self.parent = parent
         

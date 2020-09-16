@@ -39,7 +39,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
     """Compounds search tool."""
     
     def __init__(self, parent, tool='compounds'):
-        wx.MiniFrame.__init__(self, parent, -1, 'Compounds Search', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ (wx.RESIZE_BOX | wx.MAXIMIZE_BOX))
+        wx.MiniFrame.__init__(self, parent, -1, 'Compounds Search', size=(400, 300), style=wx.DEFAULT_FRAME_STYLE & ~ wx.MAXIMIZE_BOX)
         
         self.parent = parent
         self.matchPanel = None
