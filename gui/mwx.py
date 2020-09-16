@@ -175,6 +175,9 @@ elif wx.Platform == '__WXGTK__':
     PERIODIC_TABLE_GRID = (-7,-7)
     
 
+def cmp(a, b):
+    return (a > b) - (a < b)
+
 
 # RUN AFTER APP INIT
 # ------------------
@@ -499,7 +502,7 @@ class sortListCtrl(wx.ListCtrl):
                 line = ''
                 for col in range(self.GetColumnCount()):
                     item = self.GetItem(row, col)
-                    line += item.GetText() + '\t'
+                    line += item.GetItemLabel() + '\t'
                 buff += '%s\n' % (line.rstrip())
         
         # get all
@@ -508,7 +511,7 @@ class sortListCtrl(wx.ListCtrl):
                 line = ''
                 for col in range(self.GetColumnCount()):
                     item = self.GetItem(row, col)
-                    line += item.GetText() + '\t'
+                    line += item.GetItemLabel() + '\t'
                 buff += '%s\n' % (line.rstrip())
         
         # make text object for data

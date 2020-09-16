@@ -229,8 +229,8 @@ class dlgPresetsEditor(wx.Dialog):
         
         # add new data
         for row, item in enumerate(self.itemsMap):
-            self.itemsList.InsertStringItem(row, item[0])
-            self.itemsList.SetStringItem(row, 1, item[1])
+            self.itemsList.InsertItem(row, item[0])
+            self.itemsList.SetItem(row, 1, item[1])
             self.itemsList.SetItemData(row, row)
         
         # sort

@@ -50,7 +50,7 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # select default tool
         self.onToolSelected(tool=self.currentTool)
@@ -615,13 +615,13 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
                     errorAfter = ppmFormat % (item[5])
             
             # add data
-            self.referencesList.InsertStringItem(row, '')
-            self.referencesList.SetStringItem(row, 0, item[0])
-            self.referencesList.SetStringItem(row, 1, theoretical)
-            self.referencesList.SetStringItem(row, 2, measured)
-            self.referencesList.SetStringItem(row, 3, calibrated)
-            self.referencesList.SetStringItem(row, 4, errorBefore)
-            self.referencesList.SetStringItem(row, 5, errorAfter)
+            self.referencesList.InsertItem(row, '')
+            self.referencesList.SetItem(row, 0, item[0])
+            self.referencesList.SetItem(row, 1, theoretical)
+            self.referencesList.SetItem(row, 2, measured)
+            self.referencesList.SetItem(row, 3, calibrated)
+            self.referencesList.SetItem(row, 4, errorBefore)
+            self.referencesList.SetItem(row, 5, errorAfter)
             self.referencesList.SetItemData(row, row)
             
             # mark skipped

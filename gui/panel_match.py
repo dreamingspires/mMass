@@ -53,7 +53,7 @@ class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # select default tool
         self.onToolSelected(tool=self.currentTool)
@@ -737,8 +737,8 @@ class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
         
         # add new data
         for row, item in enumerate(self.currentSummary):
-            self.summaryList.InsertStringItem(row, item[0])
-            self.summaryList.SetStringItem(row, 1, str(item[1]))
+            self.summaryList.InsertItem(row, item[0])
+            self.summaryList.SetItem(row, 1, str(item[1]))
             self.summaryList.SetItemData(row, row)
         
         # update background

@@ -820,9 +820,9 @@ class panelPeaklist(wx.Panel):
             
             # add data
             if x == 0 and insert:
-                self.peakList.InsertStringItem(row, data)
+                self.peakList.InsertItem(row, data)
             else:
-                self.peakList.SetStringItem(row, x, data)
+                self.peakList.SetItem(row, x, data)
             
             x += 1
     # ----

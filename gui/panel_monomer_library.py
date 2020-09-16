@@ -43,7 +43,7 @@ class panelMonomerLibrary(wx.MiniFrame):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # update list
         self.updateMonomerList()
@@ -224,8 +224,8 @@ class panelMonomerLibrary(wx.MiniFrame):
         
         # add new data
         for row, item in enumerate(self.monomerMap):
-            self.monomerList.InsertStringItem(row, item[0])
-            self.monomerList.SetStringItem(row, 1, item[1])
+            self.monomerList.InsertItem(row, item[0])
+            self.monomerList.SetItem(row, 1, item[1])
             self.monomerList.SetItemData(row, row)
         
         # sort

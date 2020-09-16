@@ -1,3 +1,4 @@
+import pdb
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 
@@ -58,7 +59,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # select default tool
         self.onToolSelected(tool=self.currentTool)
@@ -431,11 +432,11 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         
         self.sequenceEditorSizer = wx.BoxSizer(wx.VERTICAL)
         if wx.Platform == '__WXMAC__':
-            self.sequenceEditorSizer.Add(sequenceTitleSizer, 0, wx.EXPAND|wx.ALIGN_CENTER|wx.ALL, mwx.PANEL_SPACE_MAIN)
+            self.sequenceEditorSizer.Add(sequenceTitleSizer, 0, wx.EXPAND | wx.ALL, mwx.PANEL_SPACE_MAIN)
         else:
-            self.sequenceEditorSizer.Add(sequenceTitleSizer, 0, wx.EXPAND|wx.ALIGN_CENTER|wx.LEFT|wx.RIGHT|wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
-        self.sequenceEditorSizer.Add(self.sequenceCanvas, 1, wx.EXPAND|wx.ALIGN_CENTER|wx.LEFT|wx.RIGHT|wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
-        self.sequenceEditorSizer.Add(self.sequenceGrid, 1, wx.EXPAND|wx.ALIGN_CENTER|wx.LEFT|wx.RIGHT|wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
+            self.sequenceEditorSizer.Add(sequenceTitleSizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
+        self.sequenceEditorSizer.Add(self.sequenceCanvas, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
+        self.sequenceEditorSizer.Add(self.sequenceGrid, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
         self.sequenceEditorSizer.Hide(2)
         
         self.sequenceEditorSizer.Fit(panel)
@@ -1016,7 +1017,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         
         # get presets name
         item = self.presets_popup.FindItemById(evt.GetId())
-        name = item.GetText()
+        name = item.GetItemLabel()
         
         # apply presets
         if self.currentTool == 'modifications':
@@ -1202,6 +1203,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
                 return
         
         # empty current sequence and set new type
+        pdb.set_trace()
         del self.currentSequence[:]
         self.currentSequence.chainType = chainType
         
@@ -1409,7 +1411,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         for index in selected:
             
             # get position
-            position = self.modificationsList.GetItem(index, 0).GetText()
+            position = self.modificationsList.GetItem(index, 0).GetItemLabel()
             pos = position.split(' ')
             if position == 'N-terminus':
                 amino = 'nTerm'
@@ -1421,10 +1423,10 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
                 amino = int(pos[1])-1
             
             # get name
-            name = self.modificationsList.GetItem(index, 1).GetText()
+            name = self.modificationsList.GetItem(index, 1).GetItemLabel()
             
             # get type
-            modtype = self.modificationsList.GetItem(index, 2).GetText()
+            modtype = self.modificationsList.GetItem(index, 2).GetItemLabel()
             modtype = modtype[0]
             
             # delete modification
@@ -2311,12 +2313,12 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         
         # update list
         for row, item in enumerate(currentMods):
-            self.modificationsList.InsertStringItem(row, item[0])
-            self.modificationsList.SetStringItem(row, 1, item[1])
-            self.modificationsList.SetStringItem(row, 2, item[2])
-            self.modificationsList.SetStringItem(row, 3, item[3])
-            self.modificationsList.SetStringItem(row, 4, item[4])
-            self.modificationsList.SetStringItem(row, 5, item[5])
+            self.modificationsList.InsertItem(row, item[0])
+            self.modificationsList.SetItem(row, 1, item[1])
+            self.modificationsList.SetItem(row, 2, item[2])
+            self.modificationsList.SetItem(row, 3, item[3])
+            self.modificationsList.SetItem(row, 4, item[4])
+            self.modificationsList.SetItem(row, 5, item[5])
             self.modificationsList.SetItemData(row, row)
         
         # sort data
@@ -2404,12 +2406,12 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             
             # add data
             row += 1
-            self.digestList.InsertStringItem(row, section)
-            self.digestList.SetStringItem(row, 1, str(item[1]))
-            self.digestList.SetStringItem(row, 2, mz)
-            self.digestList.SetStringItem(row, 3, str(item[3]))
-            self.digestList.SetStringItem(row, 4, item[4])
-            self.digestList.SetStringItem(row, 5, error)
+            self.digestList.InsertItem(row, section)
+            self.digestList.SetItem(row, 1, str(item[1]))
+            self.digestList.SetItem(row, 2, mz)
+            self.digestList.SetItem(row, 3, str(item[3]))
+            self.digestList.SetItem(row, 4, item[4])
+            self.digestList.SetItem(row, 5, error)
             self.digestList.SetItemData(row, index)
             
             # mark matched
@@ -2464,12 +2466,12 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             
             # add data
             row += 1
-            self.fragmentsList.InsertStringItem(row, item[0])
-            self.fragmentsList.SetStringItem(row, 1, section)
-            self.fragmentsList.SetStringItem(row, 2, mz)
-            self.fragmentsList.SetStringItem(row, 3, str(item[3]))
-            self.fragmentsList.SetStringItem(row, 4, item[4])
-            self.fragmentsList.SetStringItem(row, 5, error)
+            self.fragmentsList.InsertItem(row, item[0])
+            self.fragmentsList.SetItem(row, 1, section)
+            self.fragmentsList.SetItem(row, 2, mz)
+            self.fragmentsList.SetItem(row, 3, str(item[3]))
+            self.fragmentsList.SetItem(row, 4, item[4])
+            self.fragmentsList.SetItem(row, 5, error)
             self.fragmentsList.SetItemData(row, index)
             
             # mark filtered and matched fragments
@@ -2519,10 +2521,10 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             
             # add data
             row += 1
-            self.searchList.InsertStringItem(row, section)
-            self.searchList.SetStringItem(row, 1, mz)
-            self.searchList.SetStringItem(row, 2, item[3])
-            self.searchList.SetStringItem(row, 3, error)
+            self.searchList.InsertItem(row, section)
+            self.searchList.SetItem(row, 1, mz)
+            self.searchList.SetItem(row, 2, item[3])
+            self.searchList.SetItem(row, 3, error)
             self.searchList.SetItemData(row, index)
         
         # sort data
@@ -3537,7 +3539,7 @@ class sequenceGrid(wx.StaticBoxSizer):
         self.grid.AddGrowableCol(9)
         
         # add to self
-        self.Add(self.grid, 1, wx.EXPAND|wx.ALIGN_CENTER|wx.ALL, 10)
+        self.Add(self.grid, 1, wx.EXPAND|wx.ALL, 10)
         
         # lock items
         self._lockItems()

@@ -50,7 +50,7 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
     # ----
     
     
@@ -828,13 +828,13 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
             
             # add data
             row += 1
-            self.formulaeList.InsertStringItem(row, item[0])
-            self.formulaeList.SetStringItem(row, 1, mass)
-            self.formulaeList.SetStringItem(row, 2, mz)
-            self.formulaeList.SetStringItem(row, 3, error)
-            self.formulaeList.SetStringItem(row, 4, hc)
-            self.formulaeList.SetStringItem(row, 5, rdbe)
-            self.formulaeList.SetStringItem(row, 6, similarity)
+            self.formulaeList.InsertItem(row, item[0])
+            self.formulaeList.SetItem(row, 1, mass)
+            self.formulaeList.SetItem(row, 2, mz)
+            self.formulaeList.SetItem(row, 3, error)
+            self.formulaeList.SetItem(row, 4, hc)
+            self.formulaeList.SetItem(row, 5, rdbe)
+            self.formulaeList.SetItem(row, 6, similarity)
             self.formulaeList.SetItemData(row, index)
         
         # sort data

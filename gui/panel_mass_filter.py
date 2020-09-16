@@ -48,7 +48,7 @@ class panelMassFilter(wx.MiniFrame):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
     # ----
     
     
@@ -394,10 +394,10 @@ class panelMassFilter(wx.MiniFrame):
             
             # add data
             row += 1
-            self.referencesList.InsertStringItem(row, '')
-            self.referencesList.SetStringItem(row, 0, item[0])
-            self.referencesList.SetStringItem(row, 1, theoretical)
-            self.referencesList.SetStringItem(row, 2, error)
+            self.referencesList.InsertItem(row, '')
+            self.referencesList.SetItem(row, 0, item[0])
+            self.referencesList.SetItem(row, 1, theoretical)
+            self.referencesList.SetItem(row, 2, error)
             self.referencesList.SetItemData(row, index)
             
             # mark matched

@@ -7,3 +7,7 @@ In doc.py, line 550, we changed the strings into bytes strings
 When moving the cursor from an open dropdown to outside the window:
     Debug: window wxMenuBar(0x563af2a564f0) lost focus even though it didn't have it
 
+Migrate deprecated slicing methods:
+    __getslice__ -> __getitem__
+    __delslice__ -> __delitem__
+    __setslice__ -> __setitem__

@@ -45,7 +45,7 @@ class panelAbout(frame):
         
         # make gui items
         sizer = self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # fit layout
         self.Layout()

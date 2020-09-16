@@ -363,13 +363,13 @@ class dlgMonomersEditor(wx.Dialog):
             avMass = digits % (item[5])
             
             # add data
-            self.itemsList.InsertStringItem(row, item[0])
-            self.itemsList.SetStringItem(row, 1, item[1])
-            self.itemsList.SetStringItem(row, 2, item[2])
-            self.itemsList.SetStringItem(row, 3, item[3])
-            self.itemsList.SetStringItem(row, 4, str(moMass))
-            self.itemsList.SetStringItem(row, 5, str(avMass))
-            self.itemsList.SetStringItem(row, 6, item[6])
+            self.itemsList.InsertItem(row, item[0])
+            self.itemsList.SetItem(row, 1, item[1])
+            self.itemsList.SetItem(row, 2, item[2])
+            self.itemsList.SetItem(row, 3, item[3])
+            self.itemsList.SetItem(row, 4, str(moMass))
+            self.itemsList.SetItem(row, 5, str(avMass))
+            self.itemsList.SetItem(row, 6, item[6])
             self.itemsList.SetItemData(row, row)
         
         # sort

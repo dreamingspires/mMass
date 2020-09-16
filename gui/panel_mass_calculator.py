@@ -52,7 +52,7 @@ class panelMassCalculator(wx.MiniFrame):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # select default tool
         self.onToolSelected(tool=self.currentTool)
@@ -823,9 +823,9 @@ class panelMassCalculator(wx.MiniFrame):
             average = format % (ion[2])
             
             # add data
-            self.ionsList.InsertStringItem(row, title)
-            self.ionsList.SetStringItem(row, 1, mono)
-            self.ionsList.SetStringItem(row, 2, average)
+            self.ionsList.InsertItem(row, title)
+            self.ionsList.SetItem(row, 1, mono)
+            self.ionsList.SetItem(row, 2, average)
             self.ionsList.SetItemData(row, row)
         
         # sort data

@@ -54,7 +54,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
         
         # make gui items
         self.makeGUI()
-        wx.EVT_CLOSE(self, self.onClose)
+        self.Bind(wx.EVT_CLOSE, self.onClose)
         
         # select default tool
         self.onToolSelected(tool=self.currentTool)
@@ -747,13 +747,13 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
             
             # add data
             row += 1
-            self.compoundsList.InsertStringItem(row, '')
-            self.compoundsList.SetStringItem(row, 0, item[0])
-            self.compoundsList.SetStringItem(row, 1, mz)
-            self.compoundsList.SetStringItem(row, 2, z)
-            self.compoundsList.SetStringItem(row, 3, adduct)
-            self.compoundsList.SetStringItem(row, 4, formula)
-            self.compoundsList.SetStringItem(row, 5, error)
+            self.compoundsList.InsertItem(row, '')
+            self.compoundsList.SetItem(row, 0, item[0])
+            self.compoundsList.SetItem(row, 1, mz)
+            self.compoundsList.SetItem(row, 2, z)
+            self.compoundsList.SetItem(row, 3, adduct)
+            self.compoundsList.SetItem(row, 4, formula)
+            self.compoundsList.SetItem(row, 5, error)
             self.compoundsList.SetItemData(row, index)
             
             # mark matched

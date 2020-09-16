@@ -262,12 +262,12 @@ class dlgEnzymesEditor(wx.Dialog):
                 modsAfter = 'allowed'
             
             # add data
-            self.itemsList.InsertStringItem(row, item[0])
-            self.itemsList.SetStringItem(row, 1, item[1])
-            self.itemsList.SetStringItem(row, 2, item[2])
-            self.itemsList.SetStringItem(row, 3, item[3])
-            self.itemsList.SetStringItem(row, 4, modsBefore)
-            self.itemsList.SetStringItem(row, 5, modsAfter)
+            self.itemsList.InsertItem(row, item[0])
+            self.itemsList.SetItem(row, 1, item[1])
+            self.itemsList.SetItem(row, 2, item[2])
+            self.itemsList.SetItem(row, 3, item[3])
+            self.itemsList.SetItem(row, 4, modsBefore)
+            self.itemsList.SetItem(row, 5, modsAfter)
             self.itemsList.SetItemData(row, row)
         
         # sort
