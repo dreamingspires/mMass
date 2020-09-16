@@ -596,9 +596,8 @@ def saveMonomers(path=os.path.join(blocksdir, 'monomers.xml')):
     
     # save monomers file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -625,9 +624,8 @@ def saveEnzymes(path=os.path.join(blocksdir, 'enzymes.xml')):
     
     # save enzymes file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -654,9 +652,8 @@ def saveModifications(path=os.path.join(blocksdir, 'modifications.xml')):
     
     # save modifications file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False

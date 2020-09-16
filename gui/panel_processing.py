@@ -301,12 +301,14 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         # make elements
         baselinePrecision_label = wx.StaticText(panel, -1, "Precision:")
         self.baselinePrecision_slider = wx.Slider(panel, -1, config.processing['baseline']['precision'], 1, 100, size=(150, -1), style=mwx.SLIDER_STYLE)
-        self.baselinePrecision_slider.SetTickFreq(10,1)
+        self.imageFontsScale_slider.SetTick(1)
+        self.baselinePrecision_slider.SetTickFreq(10)
         self.baselinePrecision_slider.Bind(wx.EVT_SCROLL, self.onBaselineChanged)
         
         baselineOffset_label = wx.StaticText(panel, -1, "Relative offset:")
         self.baselineOffset_slider = wx.Slider(panel, -1, config.processing['baseline']['offset']*100, 0, 100, size=(150, -1), style=mwx.SLIDER_STYLE)
-        self.baselineOffset_slider.SetTickFreq(10,1)
+        self.imageFontsScale_slider.SetTick(1)
+        self.baselineOffset_slider.SetTickFreq(10)
         self.baselineOffset_slider.Bind(wx.EVT_SCROLL, self.onBaselineChanged)
         
         # pack elements
@@ -349,7 +351,8 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         
         smoothingCycles_label = wx.StaticText(panel, -1, "Cycles:")
         self.smoothingCycles_slider = wx.Slider(panel, -1, config.processing['smoothing']['cycles'], 1, 5, size=(150, -1), style=mwx.SLIDER_STYLE)
-        self.smoothingCycles_slider.SetTickFreq(1,1)
+        self.imageFontsScale_slider.SetTick(1)
+        self.smoothingCycles_slider.SetTickFreq(1)
         self.smoothingCycles_slider.Bind(wx.EVT_SCROLL, self.onSmoothingChanged)
         
         # pack elements
@@ -394,7 +397,8 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         
         peakpickingHeight_label = wx.StaticText(panel, -1, "Picking height:")
         self.peakpickingHeight_slider = wx.Slider(panel, -1, config.processing['peakpicking']['pickingHeight']*100, 1, 100, size=(150, -1), style=mwx.SLIDER_STYLE)
-        self.peakpickingHeight_slider.SetTickFreq(10,1)
+        self.imageFontsScale_slider.SetTick(1)
+        self.peakpickingHeight_slider.SetTickFreq(10)
         self.peakpickingHeight_slider.Bind(wx.EVT_SCROLL, self.onPeakpickingChanged)
         
         peakpickingBaseline_label = wx.StaticText(panel, -1, "Apply baseline:")

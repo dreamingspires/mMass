@@ -896,9 +896,8 @@ def savePresets(path=os.path.join(config.confdir, 'presets.xml')):
     
     # save config file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -921,9 +920,8 @@ def saveReferences(path=os.path.join(config.confdir, 'references.xml')):
     
     # save config file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -946,9 +944,8 @@ def saveCompounds(path=os.path.join(config.confdir, 'compounds.xml')):
     
     # save config file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -976,9 +973,8 @@ def saveMascot(path=os.path.join(config.confdir, 'mascot.xml')):
     
     # save config file
     try:
-        save = file(path, 'w')
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, 'wb') as f:
+            f.write(buff.encode("utf-8"))
         return True
     except:
         return False

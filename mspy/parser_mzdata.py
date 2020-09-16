@@ -61,9 +61,8 @@ class parseMZDATA():
         
         # parse document
         try:
-            document = file(self.path)
-            parser.parse(document)
-            document.close()
+            with open(self.path, 'rb') as document:
+                parser.parse(document)
             self._scans = handler.data
         except xml.sax.SAXException:
             self._scans = False
@@ -95,9 +94,8 @@ class parseMZDATA():
         
         # parse document
         try:
-            document = file(self.path)
-            parser.parse(document)
-            document.close()
+            with open(self.path, 'rb') as document:
+                parser.parse(document)
         except stopParsing:
             self._info = handler.data
         except xml.sax.SAXException:
@@ -121,9 +119,8 @@ class parseMZDATA():
         
         # parse document
         try:
-            document = file(self.path)
-            parser.parse(document)
-            document.close()
+            with open(self.path, 'rb') as document:
+                parser.parse(document)
             self._scanlist = handler.data
         except xml.sax.SAXException:
             self._scanlist = False
@@ -145,9 +142,8 @@ class parseMZDATA():
             parser = xml.sax.make_parser()
             parser.setContentHandler(handler)
             try:
-                document = file(self.path)
-                parser.parse(document)
-                document.close()
+                with open(self.path, 'rb') as document:
+                    parser.parse(document)
                 data = handler.data
             except stopParsing:
                 data = handler.data

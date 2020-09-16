@@ -114,9 +114,8 @@ class parseMGF():
         
         # open document
         try:
-            document = file(self.path)
-            rawData = document.readlines()
-            document.close()
+            with open(self.path, 'rb') as document:
+                rawData = document.readlines()
         except IOError:
             return False
         

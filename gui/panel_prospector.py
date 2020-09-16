@@ -617,9 +617,8 @@ class panelProspector(wx.MiniFrame):
         htmlData = self.makeSearchHTML()
         try:
             path = os.path.join(tempfile.gettempdir(), 'mmass_prospector_search.html')
-            htmlFile = file(path, 'w')
-            htmlFile.write(htmlData.encode("utf-8"))
-            htmlFile.close()
+            with open(path, 'wb') as f:
+                f.write(htmlData.encode("utf-8"))
             webbrowser.open('file://'+path, autoraise=1)
         except:
             wx.Bell()

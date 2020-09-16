@@ -156,11 +156,13 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
         
         imageFontsScale_label = wx.StaticText(panel, -1, "Font scale:")
         self.imageFontsScale_slider = wx.Slider(panel, -1, config.export['imageFontsScale'], 1, 10, size=(140, -1), style=mwx.SLIDER_STYLE)
-        self.imageFontsScale_slider.SetTickFreq(1,1)
+        self.imageFontsScale_slider.SetTick(1)
+        self.imageFontsScale_slider.SetTickFreq(1)
         
         imageDrawingsScale_label = wx.StaticText(panel, -1, "Line scale:")
         self.imageDrawingsScale_slider = wx.Slider(panel, -1, config.export['imageDrawingsScale'], 1, 10, size=(140, -1), style=mwx.SLIDER_STYLE)
-        self.imageDrawingsScale_slider.SetTickFreq(1,1)
+        self.imageFontsScale_slider.SetTick(1)
+        self.imageDrawingsScale_slider.SetTickFreq(1)
         
         # pack elements
         grid = wx.GridBagSizer(mwx.GRIDBAG_VSPACE, mwx.GRIDBAG_HSPACE)
@@ -801,9 +803,8 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
             
         # save file
         try:
-            save = file(path, 'w')
-            save.write(buff.encode("utf-8"))
-            save.close()
+            with open(path, 'wb') as f:
+                f.write(buff.encode("utf-8"))
         except IOError:
             wx.Bell()
     # ----
@@ -835,9 +836,8 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
         
         # save file
         try:
-            save = file(path, 'w')
-            save.write(buff.encode("utf-8"))
-            save.close()
+            with open(path, 'wb') as f:
+                f.write(buff.encode("utf-8"))
         except IOError:
             wx.Bell()
     # ----

@@ -53,8 +53,8 @@ class parseFASTA():
         
         # open document
         try:
-            document = file(self.path)
-            rawData = document.readlines()
+            with open(self.path, 'rb') as document:
+                rawData = document.readlines()
             document.close()
         except IOError:
             return False

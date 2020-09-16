@@ -299,9 +299,8 @@ class mascot():
         
         # save file
         try:
-            save = file(path, 'w')
-            save.write(self.resultsXML.encode("utf-8"))
-            save.close()
+            with open(path, 'wb') as f:
+                f.write(self.resultsXML.encode("utf-8"))
             return True
         except:
             return False
