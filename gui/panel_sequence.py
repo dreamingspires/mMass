@@ -35,7 +35,7 @@ from gui.panel_monomer_library import panelMonomerLibrary
 # FLOATING PANEL WITH SEQUENCE TOOLS
 # ----------------------------------
 
-class panelSequence(wx.MiniFrame):
+class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
     """Sequence tools."""
     
     def __init__(self, parent, tool='editor'):

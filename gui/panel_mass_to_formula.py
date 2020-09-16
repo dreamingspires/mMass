@@ -34,7 +34,7 @@ import mspy
 # FLOATING PANEL WITH MASS TO FORMULA TOOL
 # ----------------------------------------
 
-class panelMassToFormula(wx.MiniFrame):
+class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
     """Mass to formula tool."""
     
     def __init__(self, parent):

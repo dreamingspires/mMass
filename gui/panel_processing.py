@@ -34,7 +34,7 @@ from . import doc
 # FLOATING PANEL WITH PROCESSING TOOLS
 # ------------------------------------
 
-class panelProcessing(wx.MiniFrame):
+class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
     """Data processing tools."""
     
     def __init__(self, parent, tool='peakpicking'):

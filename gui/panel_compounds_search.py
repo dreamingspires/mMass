@@ -35,7 +35,7 @@ from gui.panel_match import panelMatch
 # FLOATING PANEL WITH COUPOUND SEARCH TOOL
 # ----------------------------------------
 
-class panelCompoundsSearch(wx.MiniFrame):
+class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
     """Compounds search tool."""
     
     def __init__(self, parent, tool='compounds'):

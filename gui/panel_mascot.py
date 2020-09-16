@@ -38,7 +38,7 @@ from . import doc
 # FLOATING PANEL WITH MASCOT SEARCH
 # ---------------------------------
 
-class panelMascot(wx.MiniFrame):
+class panelMascot(wx.MiniFrame, mspy.MakeModalMixin):
     """Mascot search tool."""
     
     def __init__(self, parent, tool=config.mascot['common']['searchType']):

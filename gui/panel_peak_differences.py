@@ -30,7 +30,7 @@ import mspy
 # FLOATING PANEL WITH PEAK DIFFERENCES TOOL
 # -----------------------------------------
 
-class panelPeakDifferences(wx.MiniFrame):
+class panelPeakDifferences(wx.MiniFrame, mspy.MakeModalMixin):
     """Peak differences tool."""
     
     def __init__(self, parent):

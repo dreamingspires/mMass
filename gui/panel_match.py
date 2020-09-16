@@ -32,7 +32,7 @@ from . import doc
 # FLOATING PANEL WITH MATCH TOOLS
 # -------------------------------
 
-class panelMatch(wx.MiniFrame):
+class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
     """Data match tool."""
     
     def __init__(self, parentTool, mainFrame, module):

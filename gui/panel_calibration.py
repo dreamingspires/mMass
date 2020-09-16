@@ -34,7 +34,7 @@ import mspy.plot
 # FLOATING PANEL WITH CALIBRATION TOOL
 # ------------------------------------
 
-class panelCalibration(wx.MiniFrame):
+class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
     """Calibration tool."""
     
     def __init__(self, parent, tool='references'):

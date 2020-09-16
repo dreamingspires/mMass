@@ -692,7 +692,7 @@ class gauge(wx.Gauge):
     
 
 
-class gaugePanel(wx.Dialog):
+class gaugePanel(wx.Dialog, mspy.MakeModalMixin):
     """Processing panel."""
     
     def __init__(self, parent, label, title='Progress...'):
@@ -721,7 +721,7 @@ class gaugePanel(wx.Dialog):
         try: wx.GetApp().Yield()
         except: pass
     # ----
-    
+
     
     def setLabel(self, label):
         """Set new label."""

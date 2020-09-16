@@ -547,8 +547,8 @@ class document():
             precision = 'd'
         
         # convert data to binary
-        mzArray = ''
-        intArray = ''
+        mzArray = b''
+        intArray = b''
         for point in spectrum:
             mzArray += struct.pack(precision, point[0])
             intArray += struct.pack(precision, point[1])

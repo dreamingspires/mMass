@@ -30,7 +30,7 @@ import mspy
 # FLOATING PANEL WITH COMPARE PEAKLISTS TOOL
 # ------------------------------------------
 
-class panelComparePeaklists(wx.MiniFrame):
+class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
     """Compare peaklists tool."""
     
     def __init__(self, parent):

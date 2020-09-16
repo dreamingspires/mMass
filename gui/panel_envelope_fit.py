@@ -31,7 +31,7 @@ import mspy
 # FLOATING PANEL WITH ENVELOPE FIT TOOL
 # -------------------------------------
 
-class panelEnvelopeFit(wx.MiniFrame):
+class panelEnvelopeFit(wx.MiniFrame, mspy.MakeModalMixin):
     """Envelope fit tool."""
     
     def __init__(self, parent):

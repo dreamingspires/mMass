@@ -31,7 +31,7 @@ import mspy.plot
 # FLOATING PANEL WITH SPECTRUM GENERATOR TOOL
 # -------------------------------------------
 
-class panelSpectrumGenerator(wx.MiniFrame):
+class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
     """Spectrum generator tool."""
     
     def __init__(self, parent):
