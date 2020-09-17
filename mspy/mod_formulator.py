@@ -23,7 +23,7 @@ from . import obj_compound
 
 # load modules
 from . import mod_basics
-from . import calculations
+import calculations
 
 
 # MASS TO FORMULA FUNCTIONS

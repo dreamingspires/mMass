@@ -2,8 +2,6 @@ Disable auto updating (this should be the package manager's job)
     Remove option in File->Preferences...
     Remove option in Help
 
-Fix C code building on multiple platforms
-
 Auto PEP8 conformance
 
 Move mixin into gui
