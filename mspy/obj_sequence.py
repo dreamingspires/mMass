@@ -530,7 +530,7 @@ class sequence:
         """Get mass."""
         
         # get mass
-        if self._mass == None:
+        if self._mass is None:
             self._mass = obj_compound.compound(self.formula()).mass()
         
         # return mass
@@ -958,7 +958,7 @@ class sequence:
         """Remove modification from sequence."""
         
         # remove all modifications
-        if name == None:
+        if name is None:
             del self.modifications[:]
         
         # remove modification

@@ -86,7 +86,7 @@ class peak:
         """Get neutral peak mass."""
         
         # check charge
-        if self.charge == None:
+        if self.charge is None:
             return None
         
         # check mass buffer

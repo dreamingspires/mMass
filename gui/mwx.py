@@ -445,7 +445,7 @@ class sortListCtrl(wx.ListCtrl):
         
         # get column and direction
         direction = self._currentDirection
-        if col == None:
+        if col is None:
             col = self._currentColumn
         else:
             if self._currentColumn != col:

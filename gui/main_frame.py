@@ -1002,7 +1002,7 @@ class mainFrame(wx.Frame):
         """Document content has changed."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return
         
         # update spectrum panel
@@ -1218,7 +1218,7 @@ class mainFrame(wx.Frame):
         """Create blank document."""
         
         # make document
-        if document == None:
+        if document is None:
             document = doc.document()
             document.title = 'Blank Document'
         
@@ -1268,7 +1268,7 @@ class mainFrame(wx.Frame):
         """Duplicate selected document."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return False
         
@@ -1360,9 +1360,9 @@ class mainFrame(wx.Frame):
         """Close current document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             docIndex = self.currentDocument
-        if docIndex == None:
+        if docIndex is None:
             wx.Bell()
             return False
         
@@ -1508,9 +1508,9 @@ class mainFrame(wx.Frame):
         """Save current document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             docIndex = self.currentDocument
-        if docIndex == None:
+        if docIndex is None:
             wx.Bell()
             return False
         
@@ -1646,7 +1646,7 @@ class mainFrame(wx.Frame):
         """Print report."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -1708,7 +1708,7 @@ class mainFrame(wx.Frame):
         """Show document information panel."""
         
         # check document
-        if not self.documentInfoPanel and self.currentDocument == None:
+        if not self.documentInfoPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -1773,7 +1773,7 @@ class mainFrame(wx.Frame):
         """Disable all documents except one."""
         
         # remeber current visibility
-        if self.documentsSoloCurrent == None:
+        if self.documentsSoloCurrent is None:
             self.documentsSoloPrevious = {}
             for x, document in enumerate(self.documents):
                 self.documentsSoloPrevious[x] = document.visible
@@ -1829,7 +1829,7 @@ class mainFrame(wx.Frame):
         """Flip spectrum vertically."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -1881,7 +1881,7 @@ class mainFrame(wx.Frame):
         """Change document colour."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -1932,7 +1932,7 @@ class mainFrame(wx.Frame):
         """Change document style."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -1955,7 +1955,7 @@ class mainFrame(wx.Frame):
         """Delete all annotations and sequence matches."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return
         
         # backup annotations and matches
@@ -1977,7 +1977,7 @@ class mainFrame(wx.Frame):
         """Delete annotations."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return
         
         # delete annotations
@@ -1996,7 +1996,7 @@ class mainFrame(wx.Frame):
         """Use annotations for calibration."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return
         
         # get annotations
@@ -2290,7 +2290,7 @@ class mainFrame(wx.Frame):
         """Undo last operation."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2392,12 +2392,12 @@ class mainFrame(wx.Frame):
         """Show sequence tools panel."""
         
         # check document
-        if not self.sequencePanel and self.currentDocument == None:
+        if not self.sequencePanel and self.currentDocument is None:
             wx.Bell()
             return
         
         # select first sequence in document or make new
-        if not self.sequencePanel and self.currentDocument != None and self.currentSequence == None and evt and evt.GetId()==ID_toolsSequence:
+        if not self.sequencePanel and self.currentDocument != None and self.currentSequence is None and evt and evt.GetId()==ID_toolsSequence:
             if self.documents[self.currentDocument].sequences:
                 self.documentsPanel.selectSequence(self.currentDocument, 0)
             else:
@@ -2405,7 +2405,7 @@ class mainFrame(wx.Frame):
                 return
         
         # disable tools if no sequence selected
-        if not self.sequencePanel and self.currentSequence == None and evt and evt.GetId()!=ID_toolsSequence:
+        if not self.sequencePanel and self.currentSequence is None and evt and evt.GetId()!=ID_toolsSequence:
             wx.Bell()
             return
         
@@ -2450,7 +2450,7 @@ class mainFrame(wx.Frame):
         """Show calibration tools panel."""
         
         # check document
-        if not self.calibrationPanel and self.currentDocument == None:
+        if not self.calibrationPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2510,7 +2510,7 @@ class mainFrame(wx.Frame):
             self.massCalculatorPanel.Show(True)
         
         # set no formula
-        if formula == None:
+        if formula is None:
             self.massCalculatorPanel.setData(None)
             self.massCalculatorPanel.Raise()
         
@@ -2579,7 +2579,7 @@ class mainFrame(wx.Frame):
         """docstring for onToolsMassDefectPlot"""
         
         # check document
-        if not self.massDefectPlotPanel and self.currentDocument == None:
+        if not self.massDefectPlotPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2609,7 +2609,7 @@ class mainFrame(wx.Frame):
         """Show mass filter tool panel."""
         
         # check document
-        if not self.massFilterPanel and self.currentDocument == None:
+        if not self.massFilterPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2639,7 +2639,7 @@ class mainFrame(wx.Frame):
         """Show compounds search tool panel."""
         
         # check document
-        if not self.compoundsSearchPanel and self.currentDocument == None:
+        if not self.compoundsSearchPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2669,7 +2669,7 @@ class mainFrame(wx.Frame):
         """Show differences tool panel."""
         
         # check document
-        if not self.peakDifferencesPanel and self.currentDocument == None:
+        if not self.peakDifferencesPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2726,7 +2726,7 @@ class mainFrame(wx.Frame):
         """Show spectrum generator tool panel."""
         
         # check document
-        if not self.spectrumGeneratorPanel and self.currentDocument == None:
+        if not self.spectrumGeneratorPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2756,7 +2756,7 @@ class mainFrame(wx.Frame):
         """Show envelope fit panel."""
         
         # check document
-        if not self.envelopeFitPanel and self.currentDocument == None:
+        if not self.envelopeFitPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2779,7 +2779,7 @@ class mainFrame(wx.Frame):
         # get data from sequence
         if sequence != None:
             formula = sequence.formula()
-            if scale == None and config.envelopeFit['loss'] == 'H' and config.envelopeFit['gain'] == 'H{2}':
+            if scale is None and config.envelopeFit['loss'] == 'H' and config.envelopeFit['gain'] == 'H{2}':
                 scale = (0, len(sequence) - sequence.count('P') - 1)
         
         # set data
@@ -2792,7 +2792,7 @@ class mainFrame(wx.Frame):
         """Show Mascot search panel."""
         
         # check document
-        if not self.mascotPanel and self.currentDocument == None:
+        if not self.mascotPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2838,7 +2838,7 @@ class mainFrame(wx.Frame):
         """Show ProFound search panel."""
         
         # check document
-        if not self.profoundPanel and self.currentDocument == None:
+        if not self.profoundPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2869,7 +2869,7 @@ class mainFrame(wx.Frame):
         """Show MS-Fit search panel."""
         
         # check document
-        if not self.prospectorPanel and self.currentDocument == None:
+        if not self.prospectorPanel and self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2910,7 +2910,7 @@ class mainFrame(wx.Frame):
         """Swap peaklist and spectrum data."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -2974,7 +2974,7 @@ class mainFrame(wx.Frame):
         """Append new sequence to current document."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -3002,7 +3002,7 @@ class mainFrame(wx.Frame):
         """Import sequence from file to current document."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -3056,7 +3056,7 @@ class mainFrame(wx.Frame):
         # check selection
         docIndex = self.currentDocument
         seqIndex = self.currentSequence
-        if self.currentDocument == None or self.currentSequence == None:
+        if self.currentDocument is None or self.currentSequence is None:
             return
         
         # update sequence panel
@@ -3080,7 +3080,7 @@ class mainFrame(wx.Frame):
         """Delete sequence matches."""
         
         # check selection
-        if self.currentDocument == None or self.currentSequence == None:
+        if self.currentDocument is None or self.currentSequence is None:
             return
         
         # delete matches
@@ -3099,7 +3099,7 @@ class mainFrame(wx.Frame):
         """Use sequence matches for calibration."""
         
         # check selection
-        if self.currentDocument == None or self.currentSequence == None:
+        if self.currentDocument is None or self.currentSequence is None:
             return
         
         # get matches
@@ -3119,7 +3119,7 @@ class mainFrame(wx.Frame):
         """Sort current sequences by title."""
         
         # check selection
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return
         
         # update document
@@ -3142,7 +3142,7 @@ class mainFrame(wx.Frame):
         """Show isotopic pattern of current sequence."""
         
         # check selection
-        if self.currentDocument == None or self.currentSequence == None:
+        if self.currentDocument is None or self.currentSequence is None:
             wx.Bell()
             return
         
@@ -3159,7 +3159,7 @@ class mainFrame(wx.Frame):
         """Send current sequence to envelope fit tool."""
         
         # check selection
-        if self.currentDocument == None or self.currentSequence == None:
+        if self.currentDocument is None or self.currentSequence is None:
             wx.Bell()
             return
         
@@ -4004,7 +4004,7 @@ class mainFrame(wx.Frame):
         selected = self.documentsPanel.getSelectedItemType()
         
         # hide annotation marks
-        if not selected or self.currentDocument == None:
+        if not selected or self.currentDocument is None:
             self.spectrumPanel.updateNotationMarks(None, refresh=refresh)
             return
         
@@ -4049,7 +4049,7 @@ class mainFrame(wx.Frame):
             return
         
         # document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             enable = False
             document = None
         else:
@@ -4116,7 +4116,7 @@ class mainFrame(wx.Frame):
         self.toolbar.EnableTool(ID_toolsDocumentReport, enable)
         
         # sequence
-        if self.currentDocument == None or self.currentSequence == None:
+        if self.currentDocument is None or self.currentSequence is None:
             enable = False
             sequence = None
         else:
@@ -4223,7 +4223,7 @@ class mainFrame(wx.Frame):
         """Get spectrum profile from current document."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return None
         
         # get spectrum
@@ -4242,7 +4242,7 @@ class mainFrame(wx.Frame):
         """Get peaklist from current document."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return None
         
         peaklist = []
@@ -4266,7 +4266,7 @@ class mainFrame(wx.Frame):
         
         # get peaklist
         for peak in whitelist:
-            if 'X' in filters and peak.charge == None:
+            if 'X' in filters and peak.charge is None:
                 continue
             elif 'I' in filters and not peak.isotope in (0, None):
                 continue

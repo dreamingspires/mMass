@@ -623,7 +623,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
         """Annotate matched peaks."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -723,7 +723,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
         for index, item in enumerate(self.currentCompounds):
             
             # filter data
-            if self._compoundsFilter == 1 and item[5] == None:
+            if self._compoundsFilter == 1 and item[5] is None:
                 continue
             elif self._compoundsFilter == -1 and item[5] != None:
                 continue

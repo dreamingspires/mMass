@@ -291,7 +291,7 @@ class panelMassFilter(wx.MiniFrame):
         """Annotate matched peaks."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -321,7 +321,7 @@ class panelMassFilter(wx.MiniFrame):
         """Remove matched masses from current peaklist."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -380,7 +380,7 @@ class panelMassFilter(wx.MiniFrame):
         for index, item in enumerate(self.currentReferences):
             
             # filter data
-            if self._referencesFilter == 1 and item[2] == None:
+            if self._referencesFilter == 1 and item[2] is None:
                 continue
             elif self._referencesFilter == -1 and item[2] != None:
                 continue

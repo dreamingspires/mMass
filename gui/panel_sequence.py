@@ -1066,7 +1066,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         # block some tools for cyclic or custom sequence
         if tool == 'editor':
             pass
-        elif self.currentSequence == None:
+        elif self.currentSequence is None:
             wx.Bell()
             return
         elif self.currentSequence.chainType != 'aminoacids' and not tool in ('editor', 'fragment'):
@@ -1157,7 +1157,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         # set filters
         filterIn = []
         filterOut = []
-        if self.currentSequence == None or self.currentSequence.chainType == 'aminoacids':
+        if self.currentSequence is None or self.currentSequence.chainType == 'aminoacids':
             filterIn = ['_InternalAA']
             DnD = False
         else:
@@ -1288,7 +1288,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         self.updateSequenceInfo()
         
         # check sequence
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             return
         
         # set editor
@@ -1958,7 +1958,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         self.currentSequence = sequence
         
         # check sequence
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             self.sequenceType_choice.Enable(False)
             self.sequenceCyclic_check.Enable(False)
             self.sequenceTitle_value.Enable(False)
@@ -1976,7 +1976,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             self.sequenceAccession_value.ChangeValue(self.currentSequence.accession)
         
         # select editor
-        if self.currentSequence == None or self.currentSequence.chainType == 'aminoacids':
+        if self.currentSequence is None or self.currentSequence.chainType == 'aminoacids':
             self.sequenceType_choice.Select(0)
             self.sequenceCanvas.setData(self.currentSequence)
             self.sequenceEditorSizer.Hide(2)
@@ -2268,7 +2268,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         self.modificationsList.DeleteAllItems()
         
         # check sequence
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             return
         
         currentMods = []
@@ -2332,7 +2332,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         """Update available fragments."""
         
         # no sequence defined
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             self.fragmentIntA_check.Enable()
             self.fragmentIntB_check.Enable()
             self.fragmentNLadder_check.Enable()
@@ -2389,7 +2389,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         for index, item in enumerate(self.currentDigest):
             
             # filter data
-            if self._digestFilter == 1 and item[5] == None:
+            if self._digestFilter == 1 and item[5] is None:
                 continue
             elif self._digestFilter == -1 and item[5] != None:
                 continue
@@ -2449,7 +2449,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         for index, item in enumerate(self.currentFragments):
             
             # filter data
-            if self._fragmentsFilter == 1 and item[5] == None:
+            if self._fragmentsFilter == 1 and item[5] is None:
                 continue
             elif self._fragmentsFilter == -1 and item[5] != None:
                 continue
@@ -2473,7 +2473,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             self.fragmentsList.SetItemData(row, index)
             
             # mark filtered and matched fragments
-            if item[6].fragmentFiltered and item[5] == None:
+            if item[6].fragmentFiltered and item[5] is None:
                 self.fragmentsList.SetItemTextColour(row, (150,150,150))
                 self.fragmentsList.SetItemFont(row, fontFiltered)
             elif item[6].fragmentFiltered and item[5] != None:
@@ -3079,7 +3079,7 @@ class sequenceCanvas(wx.TextCtrl):
         # make sequence
         if isinstance(sequence, mspy.sequence):
             self.currentSequence = sequence
-        elif sequence == None:
+        elif sequence is None:
             self.currentSequence = mspy.sequence('')
         
         # get regular amino acids
@@ -3306,7 +3306,7 @@ class sequenceCanvas(wx.TextCtrl):
         """Show current sequence in canvas."""
         
         # check sequence
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             self.ChangeValue('')
             return
         
@@ -3398,7 +3398,7 @@ class sequenceCanvas(wx.TextCtrl):
         self.currentSequence = sequence
         
         # disable editor
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             self.refresh()
             self.enable(False)
             return
@@ -3474,7 +3474,7 @@ class sequenceGrid(wx.StaticBoxSizer):
         # make sequence
         if isinstance(sequence, mspy.sequence):
             self.currentSequence = sequence
-        elif sequence == None:
+        elif sequence is None:
             self.currentSequence = mspy.sequence('')
         
         # make items grid
@@ -3566,7 +3566,7 @@ class sequenceGrid(wx.StaticBoxSizer):
         """Disable unset items."""
         
         # check sequence
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             for item in self.items:
                 item.Disable()
                 item.SetBackgroundColour((230,230,230))
@@ -3611,7 +3611,7 @@ class sequenceGrid(wx.StaticBoxSizer):
         self.currentSequence = sequence
         
         # disable editor
-        if self.currentSequence == None:
+        if self.currentSequence is None:
             self.refresh()
             self.enable(False)
             return

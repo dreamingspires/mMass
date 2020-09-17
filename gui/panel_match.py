@@ -667,7 +667,7 @@ class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
             for item in self.currentData:
                 for match in item[-1]:
                     error = match.delta(config.match['units'])
-                    if item[errorCol] == None or abs(item[errorCol]) > abs(error):
+                    if item[errorCol] is None or abs(item[errorCol]) > abs(error):
                         item[errorCol] = error
             
             # get match summary

@@ -340,7 +340,7 @@ class panelPeaklist(wx.Panel):
         evt.Skip()
         
         # check document and selected peak
-        if self.currentDocument == None or self.selectedPeak == None:
+        if self.currentDocument is None or self.selectedPeak is None:
             return
         
         # popup menu
@@ -435,7 +435,7 @@ class panelPeaklist(wx.Panel):
         """Plus button pressed."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
             
@@ -454,7 +454,7 @@ class panelPeaklist(wx.Panel):
         """Minus button pressed."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -483,7 +483,7 @@ class panelPeaklist(wx.Panel):
         """Annotate selected peak."""
         
         # check document and selected peak
-        if self.currentDocument == None or self.selectedPeak == None:
+        if self.currentDocument is None or self.selectedPeak is None:
             wx.Bell()
             return
         
@@ -527,7 +527,7 @@ class panelPeaklist(wx.Panel):
         """Delete selected peaks."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -547,7 +547,7 @@ class panelPeaklist(wx.Panel):
         """Delete peaks by selected threshold."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -606,7 +606,7 @@ class panelPeaklist(wx.Panel):
         """Delete all peaks."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -621,7 +621,7 @@ class panelPeaklist(wx.Panel):
         """Get peak data and add peak."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             wx.Bell()
             return
         
@@ -641,7 +641,7 @@ class panelPeaklist(wx.Panel):
         """Get peak data and refresh current peak."""
         
         # check selection
-        if self.selectedPeak == None:
+        if self.selectedPeak is None:
             wx.Bell()
             return
         
@@ -658,7 +658,7 @@ class panelPeaklist(wx.Panel):
         """Send selected peak to mass to formula tool."""
         
         # check document and selected peak
-        if self.currentDocument == None or self.selectedPeak == None:
+        if self.currentDocument is None or self.selectedPeak is None:
             wx.Bell()
             return
         

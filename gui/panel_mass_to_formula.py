@@ -607,7 +607,7 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
         
         # enable/disable profile check
         self.checkPattern_check.Enable(True)
-        if self.currentDocument == None or not self.currentDocument.spectrum.hasprofile():
+        if self.currentDocument is None or not self.currentDocument.spectrum.hasprofile():
             self.checkPattern_check.Enable(False)
         
         # check mass
@@ -850,7 +850,7 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
         """Compare theoretical and real isotopic pattern."""
         
         # check document
-        if self.currentDocument == None or not self.currentDocument.spectrum.hasprofile():
+        if self.currentDocument is None or not self.currentDocument.spectrum.hasprofile():
             return None
         
         # get baseline window

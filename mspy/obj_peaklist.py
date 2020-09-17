@@ -546,7 +546,7 @@ class peaklist:
         # get indexes to delete
         indexes = []
         for x, peak in enumerate(self.peaks):
-            if peak.charge == None:
+            if peak.charge is None:
                 indexes.append(x)
         
         # delete peaks

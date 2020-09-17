@@ -247,7 +247,7 @@ class dlgSelectScans(wx.Dialog):
         ticData = []
         bpcData = []
         for scanID, scan in sorted(self.scans.items()):
-            if scan['msLevel'] != 1 or scan['retentionTime'] == None:
+            if scan['msLevel'] != 1 or scan['retentionTime'] is None:
                 continue
             if scan['totIonCurrent'] != None:
                 ticData.append((scan['retentionTime']/60, scan['totIonCurrent']))
@@ -318,7 +318,7 @@ class dlgSelectScans(wx.Dialog):
         nearest = None
         retention = position[0]*60
         for scanID, scan in sorted(self.scans.items()):
-            if scan['retentionTime'] != None and diff == None:
+            if scan['retentionTime'] != None and diff is None:
                 diff = abs(scan['retentionTime'] - retention)
                 nearest = scanID
             elif scan['retentionTime'] != None:

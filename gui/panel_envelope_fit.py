@@ -595,7 +595,7 @@ class panelEnvelopeFit(wx.MiniFrame, mspy.MakeModalMixin):
         self.spectrumContainer.empty()
         
         # check fit
-        if self.currentFit == None:
+        if self.currentFit is None:
             self.spectrumCanvas.draw(self.spectrumContainer)
             self.parent.updateTmpSpectrum(None)
             return
@@ -624,7 +624,7 @@ class panelEnvelopeFit(wx.MiniFrame, mspy.MakeModalMixin):
         """Update results list."""
         
         # make data map
-        if self.currentFit == None:
+        if self.currentFit is None:
             data = []
         else:
             data = list(self.currentFit.ncomposition.items())

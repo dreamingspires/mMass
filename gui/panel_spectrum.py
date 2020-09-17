@@ -265,7 +265,7 @@ class panelSpectrum(wx.Panel):
         """Process selected mouse function."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             evt.Skip()
             if self.currentTool not in ('ruler'):
                 wx.Bell()
@@ -449,7 +449,7 @@ class panelSpectrum(wx.Panel):
         """Set spectrum properties."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # get document
@@ -697,7 +697,7 @@ class panelSpectrum(wx.Panel):
         self.currentTmpSpectrumFlip = flipped
         
         # check spectrum
-        if points == None:
+        if points is None:
             points = []
         
         # snap to current spectrum
@@ -755,7 +755,7 @@ class panelSpectrum(wx.Panel):
         self.currentNotationMarks = notations
         
         # check spectrum and view option
-        if notations == None or not config.spectrum['showNotations']:
+        if notations is None or not config.spectrum['showNotations']:
             notations = []
         
         # snap data to current spectrum
@@ -922,7 +922,7 @@ class panelSpectrum(wx.Panel):
         """Label peak in selection."""
         
         # check document
-        if self.currentDocument == None or not self.documents[self.currentDocument].spectrum.hasprofile():
+        if self.currentDocument is None or not self.documents[self.currentDocument].spectrum.hasprofile():
             return
         
         # get baseline window
@@ -962,7 +962,7 @@ class panelSpectrum(wx.Panel):
         """Label point at position."""
         
         # check document
-        if self.currentDocument == None or not self.documents[self.currentDocument].spectrum.hasprofile():
+        if self.currentDocument is None or not self.documents[self.currentDocument].spectrum.hasprofile():
             return
         
         # get baseline window
@@ -1000,7 +1000,7 @@ class panelSpectrum(wx.Panel):
         """Label isotopes."""
         
         # check document
-        if self.currentDocument == None or not self.documents[self.currentDocument].spectrum.hasprofile():
+        if self.currentDocument is None or not self.documents[self.currentDocument].spectrum.hasprofile():
             return
         
         # get baseline window
@@ -1108,7 +1108,7 @@ class panelSpectrum(wx.Panel):
         """Delete all labels within selection."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             return
         
         # remove peaks

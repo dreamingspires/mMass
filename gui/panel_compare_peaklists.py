@@ -363,7 +363,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
                 break
         
         # check peak index
-        if pkIndex == None:
+        if pkIndex is None:
             self.currentMatches = []
             self.updateMatchesGrid()
             return

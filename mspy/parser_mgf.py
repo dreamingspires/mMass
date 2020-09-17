@@ -97,7 +97,7 @@ class parseMGF():
         # check selected scan
         if scanID in self._scans:
             data = self._scans[scanID]
-        elif scanID == None:
+        elif scanID is None:
             data = self._scans[0]
         
         # return scan
@@ -132,7 +132,7 @@ class parseMGF():
                 continue
             
             # append default scan
-            if currentID == None or line == 'BEGIN IONS':
+            if currentID is None or line == 'BEGIN IONS':
                 currentID = len(self._scans)
                 scan = {
                     'title': '',

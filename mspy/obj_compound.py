@@ -182,7 +182,7 @@ class compound:
         """Get mass."""
         
         # get mass
-        if self._mass == None:
+        if self._mass is None:
             massMo = 0
             massAv = 0
             
@@ -223,7 +223,7 @@ class compound:
         """Get nominal mass."""
         
         # get mass
-        if self._nominalmass == None:
+        if self._nominalmass is None:
             
             nominalmass = 0
             

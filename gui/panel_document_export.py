@@ -820,7 +820,7 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
             spectrum = self.parent.getCurrentSpectrumPoints(currentView=True)
         
         # check spectrum
-        if spectrum == None:
+        if spectrum is None:
             wx.Bell()
             return
         

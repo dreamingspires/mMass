@@ -302,7 +302,7 @@ def baseline(signal, window=0.1, offset=0.):
         raise ValueError("Signal contains no data!")
     
     # single segment baseline
-    if window == None:
+    if window is None:
         noiseLevel, noiseWidth = noise(signal)
         noiseLevel -= noiseWidth*offset
         return numpy.array([ [signal[0][0], noiseLevel, noiseWidth], [signal[-1][0], noiseLevel, noiseWidth] ])

@@ -79,7 +79,7 @@ def labelpoint(signal, mz, baseline=None):
     # get peak baseline and s/n
     base = 0.0
     sn = None
-    if baseline == None:
+    if baseline is None:
         base, noise = mod_signal.noise(signal, x=mz)
         if noise:
             sn = (ai - base) / noise
@@ -125,7 +125,7 @@ def labelpeak(signal, mz=None, minX=None, maxX=None, pickingHeight=0.75, baselin
         raise TypeError("Baseline must be NumPy array!")
     
     # check m/z value or range
-    if mz == None and minX == None and maxX == None:
+    if mz is None and minX is None and maxX is None:
         raise TypeError("m/z value or range must be specified!")
     
     # check signal data
@@ -171,7 +171,7 @@ def labelpeak(signal, mz=None, minX=None, maxX=None, pickingHeight=0.75, baselin
     rightMZ = mod_signal.interpolate(signal[iright-1], signal[iright], y=h)
     
     # check range
-    if mz == None and (leftMZ < minX or rightMZ > maxX) and (leftMZ != rightMZ):
+    if mz is None and (leftMZ < minX or rightMZ > maxX) and (leftMZ != rightMZ):
         return None
     
     # label peak in the newly found selection
@@ -389,7 +389,7 @@ def envcentroid(isotopes, pickingHeight=0.5, intensity='maximum'):
     for x, isotope in enumerate(isotopes):
         if isotope.intensity >= minInt:
             i2 = x
-            if i1 == None:
+            if i1 is None:
                 i1 = x
     
     mz1 = isotopes[i1].mz

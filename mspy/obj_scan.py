@@ -148,7 +148,7 @@ class scan:
         """
         
         # calculate baseline
-        if self._baseline == None \
+        if self._baseline is None \
             or self._baselineParams['window'] != window \
             or self._baselineParams['offset'] != offset:
             
@@ -546,7 +546,7 @@ class scan:
         )
         
         # check peaklist
-        if peaklist == None:
+        if peaklist is None:
             return False
         
         # update peaklist

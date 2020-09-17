@@ -462,7 +462,7 @@ class scanHandler(xml.sax.handler.ContentHandler):
             self._scanHierarchy.append(scanID)
             
             # selected scan
-            if self.scanID == None or self.scanID == scanID:
+            if self.scanID is None or self.scanID == scanID:
                 self._isMatch = True
                 
                 self.data = {

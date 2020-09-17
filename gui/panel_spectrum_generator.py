@@ -347,7 +347,7 @@ class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
         """Apply current profile to current document."""
         
         # check data and document
-        if self.currentDocument == None or self.currentProfile == None:
+        if self.currentDocument is None or self.currentProfile is None:
             wx.Bell()
             return
         
@@ -569,7 +569,7 @@ class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
         """Show / hide profile overlay in main viewer."""
         
         # update tmp spectrum
-        if self.currentProfile == None or not config.spectrumGenerator['showOverlay']:
+        if self.currentProfile is None or not config.spectrumGenerator['showOverlay']:
             self.parent.updateTmpSpectrum(None)
         else:
             self.parent.updateTmpSpectrum(self.currentProfile, flipped=config.spectrumGenerator['showFlipped'])

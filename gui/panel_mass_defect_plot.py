@@ -283,7 +283,7 @@ class panelMassDefectPlot(wx.MiniFrame):
         """Highlight selected point in spectrum."""
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             evt.Skip()
             return
         

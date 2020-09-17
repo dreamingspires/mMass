@@ -1158,7 +1158,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
             return
         
         # check document
-        if self.currentDocument == None and not self.currentTool in ('math', 'batch'):
+        if self.currentDocument is None and not self.currentTool in ('math', 'batch'):
             wx.Bell()
             return
         
@@ -1384,7 +1384,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         self.mathSpectrumA_choice.Clear()
         
         # check document
-        if self.currentDocument == None:
+        if self.currentDocument is None:
             self.mathSpectrumA_choice.Append('None')
             self.mathSpectrumA_choice.Select(0)
             return

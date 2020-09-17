@@ -637,7 +637,7 @@ class panelDocuments(wx.Panel):
         """Select document"""
         
         # deselect all documents
-        if docIndex == None:
+        if docIndex is None:
             self.documentTree.Unselect()
             self.parent.onDocumentSelected(None)
             return
@@ -667,7 +667,7 @@ class panelDocuments(wx.Panel):
         """Delete selected document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # remove from tree
@@ -679,7 +679,7 @@ class panelDocuments(wx.Panel):
         """Enable/disable selected document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # get item
@@ -695,7 +695,7 @@ class panelDocuments(wx.Panel):
         """Update document title."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # get item
@@ -716,7 +716,7 @@ class panelDocuments(wx.Panel):
         """Update bullet of selected document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # get document item
@@ -732,7 +732,7 @@ class panelDocuments(wx.Panel):
         """Set new annotations for document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # get item
@@ -769,7 +769,7 @@ class panelDocuments(wx.Panel):
         """Select sequence"""
         
         # check index
-        if docIndex == None or seqIndex == None:
+        if docIndex is None or seqIndex is None:
             return
         
         # get item
@@ -785,7 +785,7 @@ class panelDocuments(wx.Panel):
         """Append new sequence to the tree."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # get document item
@@ -804,7 +804,7 @@ class panelDocuments(wx.Panel):
         """Delete selected sequence."""
         
         # check document
-        if docIndex == None or seqIndex == None:
+        if docIndex is None or seqIndex is None:
             return
         
         # collapse document first
@@ -825,7 +825,7 @@ class panelDocuments(wx.Panel):
         """Set new label for sequence."""
         
         # check document
-        if docIndex == None or seqIndex == None:
+        if docIndex is None or seqIndex is None:
             return
         
         # get item
@@ -841,7 +841,7 @@ class panelDocuments(wx.Panel):
         """Set new matches for sequence."""
         
         # check document
-        if docIndex == None or seqIndex == None:
+        if docIndex is None or seqIndex is None:
             return
         
         # get item
@@ -875,7 +875,7 @@ class panelDocuments(wx.Panel):
         """Set new sequences for current document."""
         
         # check document
-        if docIndex == None:
+        if docIndex is None:
             return
         
         # collapse document first
@@ -1046,7 +1046,7 @@ class documentsTree(wx.TreeCtrl):
         """Get item by its data."""
         
         # get root
-        if root == None:
+        if root is None:
             root = self.GetRootItem()
         
         # check children

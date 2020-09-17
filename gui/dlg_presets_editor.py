@@ -146,7 +146,7 @@ class dlgPresetsEditor(wx.Dialog):
         """Rename item."""
         
         # check selection
-        if self.selectedItem == None:
+        if self.selectedItem is None:
             wx.Bell()
             return
         

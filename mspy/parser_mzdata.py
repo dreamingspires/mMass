@@ -478,7 +478,7 @@ class scanHandler(xml.sax.handler.ContentHandler):
                 scanID = int(scanID)
             
             # selected scan
-            if self.scanID == None or scanID == self.scanID:
+            if self.scanID is None or scanID == self.scanID:
                 self._isMatch = True
                 
                 self.data = {
