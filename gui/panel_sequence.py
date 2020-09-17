@@ -1,4 +1,3 @@
-import pdb
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 
@@ -1203,7 +1202,6 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
                 return
         
         # empty current sequence and set new type
-        pdb.set_trace()
         del self.currentSequence[:]
         self.currentSequence.chainType = chainType
         

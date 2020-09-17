@@ -118,95 +118,98 @@ class sequence:
         return len(self.chain)
     # ----
     
-    
+
     def __getitem__(self, i):
-        return self.chain[i]
-    # ----
-    
-    
-    def __getslice__(self, start, stop):
-        """Get slice of the sequence."""
-        
-        # check slice
-        if stop <= start and not self.cyclic:
-            raise ValueError('Invalid slice!')
-        
-        # break the links
-        parent = copy.deepcopy(self)
-        
-        # check slice
-        start = max(start, 0)
-        stop = min(stop, len(parent))
-        
-        # make new sequence object
-        if start < stop:
-            seq = parent.chain[start:stop]
-            peptide = sequence(seq, chainType=parent.chainType, cyclic=False)
-        elif self.cyclic:
-            seq = parent.chain[start:] + parent.chain[:stop]
-            peptide = sequence(seq, chainType=parent.chainType, cyclic=False)
-        
-        # add previous history
-        peptide.history = parent.history
-        
-        # add modifications
-        for mod in parent.modifications:
-            if mod[1] == 'nTerm' and start == 0:
-                peptide.modifications.append(mod)
-            elif mod[1] == 'cTerm' and (stop == -1 or stop == len(parent)):
-                peptide.modifications.append(mod)
-            elif type(mod[1]) in (str, str) and mod[1] in peptide.chain:
-                peptide.modifications.append(mod)
-            elif type(mod[1]) == int:
-                if start <= mod[1] < stop:
-                    mod[1] -= start
+        if isinstance(i, int):
+            return self.chain[i]
+        elif isinstance(i, slice):
+            # check slice
+            if i.step != None:
+                raise NotImplementedError('Sequence slicing with steps not implemented')
+            start = i.start if i.start is not None else 0
+            stop = i.stop if i.stop is not None else len(self.chain)
+
+            if stop <= start and not self.cyclic:
+                raise ValueError('Invalid slice!')
+            
+            # break the links
+            parent = copy.deepcopy(self)
+            
+            # check slice
+            start = max(start, 0)
+            stop = min(stop, len(parent))
+            
+            # make new sequence object
+            if start < stop:
+                seq = parent.chain[start:stop]
+                peptide = sequence(seq, chainType=parent.chainType, cyclic=False)
+            elif self.cyclic:
+                seq = parent.chain[start:] + parent.chain[:stop]
+                peptide = sequence(seq, chainType=parent.chainType, cyclic=False)
+            
+            # add previous history
+            peptide.history = parent.history
+            
+            # add modifications
+            for mod in parent.modifications:
+                if mod[1] == 'nTerm' and start == 0:
                     peptide.modifications.append(mod)
-                elif start >= stop and mod[1] >= start:
-                    mod[1] -= start
+                elif mod[1] == 'cTerm' and (stop == -1 or stop == len(parent)):
                     peptide.modifications.append(mod)
-                elif start >= stop and mod[1] < stop:
-                    mod[1] += len(parent) - start
+                elif type(mod[1]) in (str, str) and mod[1] in peptide.chain:
                     peptide.modifications.append(mod)
-        
-        # add labels
-        for mod in parent.labels:
-            if type(mod[1]) in (str, str) and mod[1] in peptide.chain:
-                peptide.labels.append(mod)
-            elif type(mod[1]) == int:
-                if start <= mod[1] < stop:
-                    mod[1] -= start
+                elif type(mod[1]) == int:
+                    if start <= mod[1] < stop:
+                        mod[1] -= start
+                        peptide.modifications.append(mod)
+                    elif start >= stop and mod[1] >= start:
+                        mod[1] -= start
+                        peptide.modifications.append(mod)
+                    elif start >= stop and mod[1] < stop:
+                        mod[1] += len(parent) - start
+                        peptide.modifications.append(mod)
+            
+            # add labels
+            for mod in parent.labels:
+                if type(mod[1]) in (str, str) and mod[1] in peptide.chain:
                     peptide.labels.append(mod)
-                elif start >= stop and mod[1] >= start:
-                    mod[1] -= start
-                    peptide.labels.append(mod)
-                elif start >= stop and mod[1] < stop:
-                    mod[1] += len(parent) - start
-                    peptide.labels.append(mod)
-        
-        # add terminal modifications
-        if start == 0:
-            peptide.nTermFormula = parent.nTermFormula
-        if stop >= len(parent):
-            peptide.cTermFormula = parent.cTermFormula
-        if parent.cyclic:
-            peptide.nTermFormula = 'H'
-            peptide.cTermFormula = 'OH'
-        
-        # set adjacent monomers
-        if start > 0 or parent.cyclic:
-            peptide.itemBefore = parent.chain[start-1]
-        if stop < len(parent):
-            peptide.itemAfter = parent.chain[stop]
-        if stop == len(parent) and parent.cyclic:
-            peptide.itemAfter = parent.chain[0]
-        
-        # add event to history
-        peptide.history.append(('slice', start, stop))
-        
-        # ensure buffers are cleaned
-        peptide.reset()
-        
-        return peptide
+                elif type(mod[1]) == int:
+                    if start <= mod[1] < stop:
+                        mod[1] -= start
+                        peptide.labels.append(mod)
+                    elif start >= stop and mod[1] >= start:
+                        mod[1] -= start
+                        peptide.labels.append(mod)
+                    elif start >= stop and mod[1] < stop:
+                        mod[1] += len(parent) - start
+                        peptide.labels.append(mod)
+            
+            # add terminal modifications
+            if start == 0:
+                peptide.nTermFormula = parent.nTermFormula
+            if stop >= len(parent):
+                peptide.cTermFormula = parent.cTermFormula
+            if parent.cyclic:
+                peptide.nTermFormula = 'H'
+                peptide.cTermFormula = 'OH'
+            
+            # set adjacent monomers
+            if start > 0 or parent.cyclic:
+                peptide.itemBefore = parent.chain[start-1]
+            if stop < len(parent):
+                peptide.itemAfter = parent.chain[stop]
+            if stop == len(parent) and parent.cyclic:
+                peptide.itemAfter = parent.chain[0]
+            
+            # add event to history
+            peptide.history.append(('slice', start, stop))
+            
+            # ensure buffers are cleaned
+            peptide.reset()
+            
+            return peptide
+        else:
+            raise TypeError('Index must be int, not {}'.format(type(i).__name__))
     # ----
     
     
@@ -236,46 +239,70 @@ class sequence:
     
     
     # SEQUENCE EDITOR ESSENTIALS
-    
-    def __setslice__(self, start, stop, value):
-        """Insert sequence object (essential for sequence editor)."""
-        
-        # check slice
-        if stop < start:
-            raise ValueError('Invalid slice!')
-        
+
+    def __setitem__(self, i, value):
+        if isinstance(i, slice):
+            # check slice
+            if i.step != None:
+                raise NotImplementedError('Sequence slicing with steps not implemented')
+            start = i.start if i.start is not None else 0
+            stop = i.stop if i.stop is not None else len(self.chain)
+
+            if stop < start:
+                raise ValueError('Invalid slice!')
+            
+        elif not isinstance(i, int):
+            raise TypeError('Index must be int, not {}'.format(type(i).__name__))
+
         # check value
         if not isinstance(value, sequence):
-            raise TypeError('Invalid object to instert!')
+            raise TypeError('Invalid object to insert!')
         
         # check chain type
         if value.chainType != self.chainType:
-            raise TypeError('Invalid chain type to instert!')
+            raise TypeError('Invalid chain type to insert!')
         
         # break the links
         value = copy.deepcopy(value)
-        
-        # delete slice
-        if stop != start:
-            del(self[start:stop])
-        
-        # insert sequence
-        self.chain = self.chain[:start] + value.chain + self.chain[start:]
-        
-        # shift modifications
-        for x, mod in enumerate(self.modifications):
-            if type(mod[1]) == int and mod[1] >= start:
-                self.modifications[x][1] += (len(value))
-        
-        # shift labels
-        for x, mod in enumerate(self.labels):
-            if type(mod[1]) == int and mod[1] >= start:
-                self.labels[x][1] += (len(value))
-        
+
+        if isinstance(i, int):
+            # delete at index
+            del(self[i])
+
+            # insert sequence
+            self.chain = self.chain[:i] + value.chain + self.chain[i+1:]
+            
+            # shift modifications
+            for x, mod in enumerate(self.modifications):
+                if type(mod[1]) == int and mod[1] > i:
+                    self.modifications[x][1] += (len(value))
+            
+            # shift labels
+            for x, mod in enumerate(self.labels):
+                if type(mod[1]) == int and mod[1] > i:
+                    self.labels[x][1] += (len(value))
+        else:
+            # delete slice
+            if stop != start:
+                del(self[start:stop])
+            
+            # insert sequence
+            self.chain = self.chain[:start] + value.chain + self.chain[start:]
+            
+            # shift modifications
+            for x, mod in enumerate(self.modifications):
+                if type(mod[1]) == int and mod[1] >= start:
+                    self.modifications[x][1] += (len(value))
+            
+            # shift labels
+            for x, mod in enumerate(self.labels):
+                if type(mod[1]) == int and mod[1] >= start:
+                    self.labels[x][1] += (len(value))
+            
         # adding modifications not implemented
         if value.modifications or value.labels:
-            raise NotImplementedError("Sequence __setslice__ doesn't support modifications and labels.")
-        
+            raise NotImplementedError("Sequence __setitem__ doesn't support modifications and labels.")
+            
         # clear some values
         self.history = [('init', 0, len(self.chain))]
         self.itemBefore = ''
@@ -284,41 +311,34 @@ class sequence:
         
         # clear buffers
         self.reset()
-    # ----
     
-    
-    def __delslice__(self, start, stop):
-        """Delete slice of sequence (essential for sequence editor)."""
-        
-        # check slice
-        if stop < start:
-            raise ValueError('Invalid slice!')
-        
-        # remove sequence
-        self.chain = self.chain[:start] + self.chain[stop:]
-        
-        # remove modifications
+    # TODO: confirm that the sequence processing here makes sense
+    def __delitem__(self, i):
+        # Remove sequence
+        print(i)
+        print(type(i))
+        self.chain = self.chain[:i] + self.chain[i+1:]
+
+        # Remove modifications
         keep = []
         for mod in self.modifications:
-            if type(mod[1]) == int and (mod[1] < start or mod[1] >= stop):
-                if mod[1] >= stop:
-                    mod[1] -= (stop - start)
+            if type(mod[1]) == int and mod[1] > i:
+                mod[1] -= 1
                 keep.append(mod)
             elif type(mod[1]) in (str, str) and (mod[1] in self.chain or mod[1] in ('nTerm', 'cTerm')):
                 keep.append(mod)
-        self.modifications = keep
-        
-        # remove labels
+        self.modification = keep
+
+        # Remove labels
         keep = []
         for mod in self.labels:
-            if type(mod[1]) == int and (mod[1] < start or mod[1] >= stop):
-                if mod[1] >= stop:
-                    mod[1] -= (stop - start)
+            if type(mod[1]) == int and mod[1] > i:
+                mod[1] -= 1
                 keep.append(mod)
             elif type(mod[1]) in (str, str) and mod[1] in self.chain:
                 keep.append(mod)
         self.labels = keep
-        
+
         # clear some values
         self.history = [('init', 0, len(self.chain))]
         self.itemBefore = ''
@@ -327,10 +347,80 @@ class sequence:
         
         # clear buffers
         self.reset()
-    #----
-    
-    
-    
+        
+
+    def __delitem__(self, i):
+        if isinstance(i, int):
+            self.chain = self.chain[:i] + self.chain[i+1:]
+
+            # Remove modifications
+            keep = []
+            for mod in self.modifications:
+                if type(mod[1]) == int and mod[1] > i:
+                    mod[1] -= 1
+                    keep.append(mod)
+                elif type(mod[1]) in (str, str) and (mod[1] in self.chain or mod[1] in ('nTerm', 'cTerm')):
+                    keep.append(mod)
+            self.modification = keep
+
+            # Remove labels
+            keep = []
+            for mod in self.labels:
+                if type(mod[1]) == int and mod[1] > i:
+                    mod[1] -= 1
+                    keep.append(mod)
+                elif type(mod[1]) in (str, str) and mod[1] in self.chain:
+                    keep.append(mod)
+            self.labels = keep
+
+        if isinstance(i, slice):
+            # check slice
+            if i.step != None:
+                raise NotImplementedError('Sequence slicing with steps not implemented')
+            start = i.start if i.start is not None else 0
+            stop = i.stop if i.stop is not None else len(self.chain)
+
+            if stop < start:
+                raise ValueError('Invalid slice!')
+
+            # remove sequence
+            self.chain = self.chain[:start] + self.chain[stop:]
+            
+            # remove modifications
+            keep = []
+            for mod in self.modifications:
+                if type(mod[1]) == int and (mod[1] < start or mod[1] >= stop):
+                    if mod[1] >= stop:
+                        mod[1] -= (stop - start)
+                    keep.append(mod)
+                elif type(mod[1]) in (str, str) and (mod[1] in self.chain or mod[1] in ('nTerm', 'cTerm')):
+                    keep.append(mod)
+            self.modifications = keep
+            
+            # remove labels
+            keep = []
+            for mod in self.labels:
+                if type(mod[1]) == int and (mod[1] < start or mod[1] >= stop):
+                    if mod[1] >= stop:
+                        mod[1] -= (stop - start)
+                    keep.append(mod)
+                elif type(mod[1]) in (str, str) and mod[1] in self.chain:
+                    keep.append(mod)
+            self.labels = keep
+            
+        else:
+            raise TypeError('Index must be int, not {}'.format(type(i).__name__))
+
+        # clear some values
+        self.history = [('init', 0, len(self.chain))]
+        self.itemBefore = ''
+        self.itemAfter = ''
+        self.miscleavages = 0
+        
+        # clear buffers
+        self.reset()
+
+
     # GETTERS
     
     def duplicate(self):
