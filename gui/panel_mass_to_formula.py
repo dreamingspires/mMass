@@ -108,7 +108,10 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
         
         tolerance_label = wx.StaticText(panel, -1, "Tolerance:")
         tolerance_label.SetFont(wx.SMALL_FONT)
-        self.tolerance_value = wx.TextCtrl(panel, -1, str(config.massToFormula['tolerance']), size=(50, -1), validator=mwx.validator('floatPos'))
+        self.tolerance_value = wx.TextCtrl(panel, -1,
+            str(config.massToFormula['tolerance']), size=(50, -1),
+            style=wx.TE_PROCESS_ENTER,
+            validator=mwx.validator('floatPos'))
         self.tolerance_value.Bind(wx.EVT_TEXT_ENTER, self.onGenerate)
         
         self.unitsDa_radio = wx.RadioButton(panel, -1, "Da", style=wx.RB_GROUP)

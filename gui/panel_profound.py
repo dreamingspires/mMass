@@ -316,13 +316,13 @@ class panelProfound(wx.MiniFrame):
         
         pklSizer = wx.BoxSizer(wx.VERTICAL)
         if wx.Platform == '__WXMAC__': pklSizer.AddSpacer(mwx.PANEL_SPACE_MAIN)
-        pklSizer.Add(self.paramQuery_value, 1, wx.EXPAND|wx.ALIGN_CENTER|wx.LEFT|wx.RIGHT|wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
+        pklSizer.Add(self.paramQuery_value, 1, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.BOTTOM, mwx.PANEL_SPACE_MAIN)
         pklSizer.Fit(pklPanel)
         pklPanel.SetSizer(pklSizer)
         
         mainSizer = wx.BoxSizer(wx.VERTICAL)
-        mainSizer.Add(ctrlPanel, 0, wx.EXPAND|wx.ALIGN_CENTER)
-        mainSizer.Add(pklPanel, 1, wx.EXPAND|wx.ALIGN_CENTER)
+        mainSizer.Add(ctrlPanel, 0, wx.EXPAND)
+        mainSizer.Add(pklPanel, 1, wx.EXPAND)
         
         return mainSizer
     # ----

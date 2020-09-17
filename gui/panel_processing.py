@@ -523,7 +523,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         grid.Add(self.deisotopingRemoveIsotopes_check, (4,1))
         grid.Add(deisotopingRemoveUnknown_label, (5,0), flag=wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL)
         grid.Add(self.deisotopingRemoveUnknown_check, (5,1))
-        grid.Add(wx.StaticLine(panel), (6,0), (1,3), flag=wx.EXPAND|wx.ALIGN_CENTER_VERTICAL)
+        grid.Add(wx.StaticLine(panel), (6,0), (1,3), flag=wx.EXPAND)
         grid.Add(deisotopingLabelEnvelopeTool_label, (7,0), flag=wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL)
         grid.Add(self.deisotopingLabelEnvelopeTool_choice, (7,1), (1,2))
         grid.Add(deisotopingEnvelopeIntensity_label, (8,0), flag=wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL)

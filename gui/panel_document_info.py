@@ -261,7 +261,7 @@ class panelDocumentInfo(wx.MiniFrame):
         
         # pack elements
         mainSizer = wx.BoxSizer(wx.VERTICAL)
-        mainSizer.Add(self.notes_value, 1, wx.EXPAND|wx.ALIGN_CENTER|wx.ALL, mwx.PANEL_SPACE_MAIN)
+        mainSizer.Add(self.notes_value, 1, wx.EXPAND|wx.ALL, mwx.PANEL_SPACE_MAIN)
         
         # fit layout
         mainSizer.Fit(panel)
