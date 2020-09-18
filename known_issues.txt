@@ -7,14 +7,6 @@ In doc.py, line 550, we changed the strings into bytes strings
 When moving the cursor from an open dropdown to outside the window:
     Debug: window wxMenuBar(0x563af2a564f0) lost focus even though it didn't have it
 
-Migrate deprecated slicing methods:
-    __getslice__ -> __getitem__
-    __delslice__ -> __delitem__
-    __setslice__ -> __setitem__
-
-Fix sequence editor:
-    Ensure sequence processing code from mspy.obj_sequence is ported correctly
-
-wx.EXPAND can't be used anywhere with horizontal alignment flags
-
 Windows build
+
+Update README with build info (esp regarding long build times for wxPython)
