@@ -5,7 +5,7 @@ It is currently highly experimental - much of the UI remains broken amidst updat
 
 For more information please see the official mMass homepage at [www.mmass.org](http://www.mmass.org).  Many thanks to Martin Strohalm for his hard work on the project over many years!
 
-Thank you for your interest, and ... have fun!
+We are currently in pre-release mode.  Therefore, the software has not been packaged.  In the future, you can expect pre-built packages on PyPI.
 
 ## Building from source
 mMass3 uses [poetry](python-poetry.org/) as the build system.  To get started, clone the repository.
@@ -38,9 +38,14 @@ From within the repository, install the dependencies into the _venv_ with:
 
 `poetry install`
 
+Don't be surprised if installing wxPython takes a long time: the entire UI toolkit is being compiled from source.  This is necessitated by a [well-known issue](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html).
+
 Run the software:
 
 `poetry run mmass`
+
+## Contributing
+Issues can be file in the GitHub bug tracker.  PRs welcomed!
 
 ## Disclaimer
 
