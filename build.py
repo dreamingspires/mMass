@@ -9,9 +9,8 @@ pythonInclude = sys.prefix + '/include'
 def build(setup_kwargs):
     setup_kwargs.update({
         'ext_modules': [
-            Extension('calculations', ['calculations/calculations.c'],
-                include_dirs=[numpyInclude, pythonInclude],
-                libraries=['m']
+            Extension('calculations', ['cx/calculations.c'],
+                include_dirs=[numpyInclude, pythonInclude]
             )
         ]
     })

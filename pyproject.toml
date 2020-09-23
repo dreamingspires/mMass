@@ -9,9 +9,9 @@ build = 'build.py'
 packages = [
     { include = "gui" },
     { include = "mspy" },
+    { include = "cx" },
+    { include = "mmass.py" },
 ]
-
-include = ["calculations/"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

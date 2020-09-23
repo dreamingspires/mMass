@@ -1,4 +1,5 @@
 *.pyc
+*.pyd
 *__pycache__
 mspy/build/
 *~
@@ -8,3 +9,5 @@ documents/
 *.old
 *.o
 *.so
+configs/
+build/

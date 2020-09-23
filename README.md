@@ -8,7 +8,10 @@ For more information please see the official mMass homepage at [www.mmass.org](h
 We are currently in pre-release mode.  Therefore, the software has not been packaged.  In the future, you can expect pre-built packages on PyPI.
 
 ## Building from source
-mMass3 uses [poetry](python-poetry.org/) as the build system.  To get started, clone the repository.
+### Linux
+mMass3 uses [poetry](python-poetry.org/) as the build system.  To get started ensure poetry is [installed](https://python-poetry.org/docs/#installation), then clone the mMass3 repository.
+
+Due to this [well-known issue](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html), the wxPython toolkit must be compiled from scratch.  Poetry will handle this, but you require the build dependencies.
 
 Ensure all the [dependencies for building wxPython](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html) are installed on your system.  For Fedora GNU/Linux (32), this is currently:
 ```
@@ -38,11 +41,43 @@ From within the repository, install the dependencies into the _venv_ with:
 
 `poetry install`
 
-Don't be surprised if installing wxPython takes a long time: the entire UI toolkit is being compiled from source.  This is necessitated by a [well-known issue](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html).
+Don't be surprised if installing wxPython takes a long time: the entire UI toolkit is being compiled from source.
 
 Run the software:
 
 `poetry run mmass`
+
+Build software packages with:
+
+`poetry build`
+
+Your packages will be built within the `dist/` directory.
+
+### Windows
+Microsoft Windows does not come with a C compiler built in.  Since mMass uses a Python extension module, written in C, to speed up certain calculations, we must first install Microsoft Visual C++ 14.0 (or newer).
+
+Go to the [Visual Studio downloads page](https://visualstudio.microsoft.com/downloads/), and download Visual Studio 2019 (or newer) Community edition.  Run the installer.
+
+You will be presented with a list of packages to install.  Under the `Workloads` tab, select `Desktop development with C++, and in the sidebar ensure that the MSVC option is selected.
+
+You might also want to use this installed to install Python onto your machine, if you haven't already done so.
+
+Ensure you have installed the [poetry build system](https://python-poetry.org/docs/#installation), clone the mMass3 repository.
+
+From within the repository, install the dependencies into the _venv_ with:
+
+`poetry install`
+
+Run the software:
+
+`poetry run mmass`
+
+Build software packages with:
+
+`poetry build`
+
+Your packages will be built within the `dist/` directory.
+
 
 ## Contributing
 Issues can be file in the GitHub bug tracker.  PRs welcomed!
