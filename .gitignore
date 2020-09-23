@@ -9,5 +9,4 @@ documents/
 *.old
 *.o
 *.so
-configs/
 build/
