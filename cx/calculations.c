@@ -621,7 +621,10 @@ m_arrayd *signal_smooth_ma( m_arrayd *p_signal, int window, int cycles )
     // make kernel
     ksize = window + 1;
     ksum = window + 1;
-    double kernel[ksize];
+    double *kernel;
+    kernel = (double*) malloc(ksize*sizeof(double));
+    if (kernel == NULL) exit(1);
+
     for ( i = 0; i <= ksize; ++i ) {
         kernel[i] = 1/ksum;
     }
@@ -646,6 +649,7 @@ m_arrayd *signal_smooth_ma( m_arrayd *p_signal, int window, int cycles )
         }
     }
     
+    free(kernel);
     return p_result;
 }
 
@@ -680,7 +684,10 @@ m_arrayd *signal_smooth_ga( m_arrayd *p_signal, int window, int cycles )
     // make kernel
     ksize = window + 1;
     ksum = 0;
-    double kernel[ksize];
+    double *kernel;
+    kernel = (double*) malloc(ksize*sizeof(double));
+    if (kernel == NULL) exit(1);
+
     for ( i = 0; i <= ksize; ++i ) {
         r = (i - (ksize-1)/2.0);
         k = exp(-(r*r/(ksize*ksize/16.0)));
@@ -711,6 +718,7 @@ m_arrayd *signal_smooth_ga( m_arrayd *p_signal, int window, int cycles )
         }
     }
     
+    free(kernel);
     return p_result;
 }
 
@@ -1697,7 +1705,7 @@ PyObject *list_mi2py( m_arrayi *p_inarr )
     else if ( p_inarr->dim == 1 ) {
         p_outlist = PyList_New( p_inarr->len );
         for ( i = 0; i < p_inarr->len; ++i ) {
-            p_item = PyInt_FromLong( p_inarr->data[i] );
+            p_item = PyLong_FromLong( p_inarr->data[i] );
             PyList_SetItem( p_outlist, i, p_item );
         }
     }
@@ -1708,7 +1716,7 @@ PyObject *list_mi2py( m_arrayi *p_inarr )
         for ( i = 0; i < p_inarr->len; ++i ) {
             p_inner = PyList_New( p_inarr->cell );
             for ( j = 0; j < p_inarr->cell; ++j ) {
-                p_item = PyInt_FromLong( p_inarr->data[i*p_inarr->cell+j] );
+                p_item = PyLong_FromLong( p_inarr->data[i*p_inarr->cell+j] );
                 PyList_SetItem( p_inner, j,  p_item);
             }
             PyList_Append(p_outlist, p_inner);
@@ -2556,7 +2564,17 @@ static PyMethodDef calculations_methods[] = {
    {NULL, NULL, 0, NULL}
 };
 
-PyMODINIT_FUNC initcalculations(void) {
-    Py_InitModule3("calculations", calculations_methods,"");
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,      /* m_base */
+    "calculations",             /* m_name */
+    NULL,                       /* m_doc */
+    -1,                         /* m_size */
+    calculations_methods
+};
+
+PyMODINIT_FUNC PyInit_calculations(void) {
+    //Py_InitModule3("calculations", calculations_methods,"");
+    PyObject* m = PyModule_Create(&moduledef);
     import_array();
+    return m;
 }

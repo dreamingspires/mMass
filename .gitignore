@@ -1,0 +1,13 @@
+*.pyc
+*.pyd
+*__pycache__
+mspy/build/
+*~
+dist/
+mmass3.egg-info/
+documents/
+*.old
+*.o
+*.so
+configs/
+build/
