@@ -10,3 +10,4 @@ documents/
 *.o
 *.so
 build/
+configs/*

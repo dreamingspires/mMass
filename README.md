@@ -78,9 +78,41 @@ Build software packages with:
 
 Your packages will be built within the `dist/` directory.
 
+## Packaging
+### Windows
+
+Ensure that `makensis` is installed:
+
+```
+choco install nsis.portable
+```
+
+Build the executable in `dist/`.  From the root directory of the repo:
+
+```
+poetry install
+poetry run pyinstaller .\installer\windows.spec
+```
+
+Build the installer in `dist/`.  From the root directory of the repo:
+
+```
+makensis.exe /DPRODUCT_VERSION=0.1.0 installer\windows_installer.nsi
+```
 
 ## Contributing
+
 Issues can be file in the GitHub bug tracker.  PRs welcomed!
+
+## Release procedure
+
+* Update version in `pyproject.toml` and `gui/config.py`
+* (Future) run unit tests
+* Build installers (see below)
+* Test installers
+* Commit, tag, push
+* Publish to PyPi with poetry publish
+* Create a release on Github, including the changelog, source, and installers
 
 ## Disclaimer
 
