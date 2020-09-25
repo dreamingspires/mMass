@@ -1,6 +1,6 @@
-# mMass3
+# mMass
 
-This is the official repository for mMass3: [mMass](http://www.mmass.org) on Python3.
+This is the official repository for mMass: [mMass](http://www.mmass.org) on Python3.
 It is currently highly experimental - much of the UI remains broken amidst updating various dependencies.
 
 For more information please see the official mMass homepage at [www.mmass.org](http://www.mmass.org).  Many thanks to Martin Strohalm for his hard work on the project over many years!
@@ -9,7 +9,7 @@ We are currently in pre-release mode.  Therefore, the software has not been pack
 
 ## Building from source
 ### Linux
-mMass3 uses [poetry](python-poetry.org/) as the build system.  To get started ensure poetry is [installed](https://python-poetry.org/docs/#installation), then clone the mMass3 repository.
+mMass uses [poetry](python-poetry.org/) as the build system.  To get started ensure poetry is [installed](https://python-poetry.org/docs/#installation), then clone the mMass repository.
 
 Due to this [well-known issue](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html), the wxPython toolkit must be compiled from scratch.  Poetry will handle this, but you require the build dependencies.
 
@@ -62,7 +62,7 @@ You will be presented with a list of packages to install.  Under the `Workloads`
 
 You might also want to use this installed to install Python onto your machine, if you haven't already done so.
 
-Ensure you have installed the [poetry build system](https://python-poetry.org/docs/#installation), clone the mMass3 repository.
+Ensure you have installed the [poetry build system](https://python-poetry.org/docs/#installation), clone the mMass repository.
 
 From within the repository, install the dependencies into the _venv_ with:
 

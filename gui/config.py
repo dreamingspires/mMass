@@ -25,7 +25,7 @@ import xml.dom.minidom
 # SET VERSION
 # -----------
 
-version = '5.5.0'
+version = '6.0.0'
 nightbuild = ''
 
 

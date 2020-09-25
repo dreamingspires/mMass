@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "mMass3"
-version = "0.1.0"
+name = "mMass"
+version = "6.0.0"
 description = ""
 authors = ["Edd Salkield <edd@salkield.uk>", "Martin Strohalm"]
 license = "GPL-3.0-or-later"
