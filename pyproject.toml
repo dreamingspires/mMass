@@ -21,7 +21,7 @@ wxPython = "^4.1.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 pyinstaller = "^4.0"
-pywin32 = "^228"
+pywin32 = { version = "^228", platform = "win32" }
 
 [tool.poetry.scripts]
 mmass = "mmass:main"
