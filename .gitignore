@@ -11,3 +11,4 @@ documents/
 *.so
 build/
 configs/*
+mmass.egg-info/

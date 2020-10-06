@@ -189,7 +189,7 @@ def appInit():
     
     # set MAC
     if wx.Platform == '__WXMAC__':
-        wx.SystemOptions.SetOptionInt("mac.listctrl.always_use_generic", config.main['macListCtrlGeneric'])
+        wx.SystemOptions.SetOption("mac.listctrl.always_use_generic", config.main['macListCtrlGeneric'])
         wx.ToolTip.SetDelay(1500)
         if config.main['reverseScrolling']:
             global SCROLL_DIRECTION
