@@ -97,7 +97,8 @@ class parseXY():
                 continue
             
             # check pattern
-            parts = pattern.match(line)
+            # Assuming utf-8 encoding
+            parts = pattern.match(line.decode('utf-8'))
             if parts:
                 try:
                     mass = float(parts.group(1))
