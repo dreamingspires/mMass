@@ -375,7 +375,7 @@ class annotations:
         """Get bounding box for whole data or X selection"""
         
         # use relevant data
-        if minX != None and maxX != None:
+        if minX is not None and maxX is not None:
             self.cropPoints(minX, maxX)
             data = self.pointsCropped
         else:
@@ -386,7 +386,7 @@ class annotations:
             return False
         
         # get range
-        if minX != None and maxX != None:
+        if minX is not None and maxX is not None:
             minXY = numpy.minimum.reduce(data)
             maxXY = numpy.maximum.reduce(data)
         else:
@@ -663,7 +663,7 @@ class points:
         """Get bounding box for whole data or X selection"""
         
         # use relevant data
-        if minX != None and maxX != None:
+        if minX is not None and maxX is not None:
             self.cropPoints(minX, maxX)
             data = self.cropped
         else:
@@ -674,7 +674,7 @@ class points:
             return False
         
         # get range
-        if minX != None and maxX != None:
+        if minX is not None and maxX is not None:
             minXY = numpy.minimum.reduce(data)
             maxXY = numpy.maximum.reduce(data)
         else:
@@ -959,7 +959,7 @@ class spectrum:
         peaklistBox = None
         
         # use relevant data
-        if minX != None and maxX != None:
+        if minX is not None and maxX is not None:
             self.cropPoints(minX, maxX)
             spectrumData = self.spectrumCropped
             peaklistData = self.peaklistCropped
@@ -969,7 +969,7 @@ class spectrum:
         
         # calculate bounding box for spectrum
         if len(spectrumData) and self.properties['showSpectrum']:
-            if minX != None and maxX != None:
+            if minX is not None and maxX is not None:
                 minXY = numpy.minimum.reduce(spectrumData)
                 maxXY = numpy.maximum.reduce(spectrumData)
             else:
@@ -983,7 +983,7 @@ class spectrum:
         
         # calculate bounding box for peaklist
         if len(peaklistData) and (self.properties['showSpectrum'] or self.properties['showLabels'] or self.properties['showTicks']):
-            if minX != None and maxX != None:
+            if minX is not None and maxX is not None:
                 minXY = numpy.minimum.reduce(peaklistData)
                 maxXY = numpy.maximum.reduce(peaklistData)
             else:
@@ -1214,7 +1214,7 @@ class spectrum:
             label = format % self.peaklistCroppedPeaks[x].mz
             
             # add charge to label
-            if self.properties['labelCharge'] and self.peaklistCroppedPeaks[x].charge != None:
+            if self.properties['labelCharge'] and self.peaklistCroppedPeaks[x].charge is not None:
                 label += ' (%d)' % self.peaklistCroppedPeaks[x].charge
             
             # add group to label
@@ -1399,7 +1399,7 @@ class spectrum:
         dc.SetPen(wx.TRANSPARENT_PEN)
         dc.SetBrush(msmsBrush)
         for x, peak in enumerate(self.peaklistScaled):
-            if self.peaklistCroppedPeaks[x].childScanNumber != None:
+            if self.peaklistCroppedPeaks[x].childScanNumber is not None:
                 try: dc.DrawCircle(peak[0], peak[1], 3*printerScale['drawings'])
                 except OverflowError: pass
     # ----

@@ -674,7 +674,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         """Close panel."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -687,12 +687,12 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'peakpicking'
             if evt.GetId() == ID_processingMath:
                 tool = 'math'
@@ -2098,7 +2098,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
     def clearPreview(self):
         """Clear tmp preview spectrum."""
         
-        if self.previewData != None:
+        if self.previewData is not None:
             self.previewData = None
             self.parent.updateTmpSpectrum(None)
     # ----

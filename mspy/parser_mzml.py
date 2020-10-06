@@ -361,13 +361,13 @@ class scanlistHandler(xml.sax.handler.ContentHandler):
             paramName = attrs.get('name','')
             paramValue = attrs.get('value','')
             
-            if paramName == 'selected ion m/z' and paramValue != None:
+            if paramName == 'selected ion m/z' and paramValue is not None:
                 self.data[self.currentID]['precursorMZ'] = float(paramValue)
-            elif paramName == 'intensity' and paramValue != None:
+            elif paramName == 'intensity' and paramValue is not None:
                 self.data[self.currentID]['precursorIntensity'] = float(paramValue)
-            elif paramName == 'possible charge state' and paramValue != None:
+            elif paramName == 'possible charge state' and paramValue is not None:
                 self.data[self.currentID]['precursorCharge'] = int(paramValue)
-            elif paramName == 'charge state' and paramValue != None:
+            elif paramName == 'charge state' and paramValue is not None:
                 self.data[self.currentID]['precursorCharge'] = int(paramValue)
         
         # get scan metadata
@@ -382,7 +382,7 @@ class scanlistHandler(xml.sax.handler.ContentHandler):
                 self.data[self.currentID]['spectrumType'] = 'continuous'
             
             # MS level
-            elif paramName == 'ms level' and paramValue != None:
+            elif paramName == 'ms level' and paramValue is not None:
                 self.data[self.currentID]['msLevel'] = int(paramValue)
             
             # polarity
@@ -392,23 +392,23 @@ class scanlistHandler(xml.sax.handler.ContentHandler):
                 self.data[self.currentID]['polarity'] = -1
             
             # total ion current
-            elif paramName == 'total ion current' and paramValue != None:
+            elif paramName == 'total ion current' and paramValue is not None:
                 self.data[self.currentID]['totIonCurrent'] = max(0.0, float(paramValue))
             
             # base peak
-            elif paramName == 'base peak m/z' and paramValue != None:
+            elif paramName == 'base peak m/z' and paramValue is not None:
                 self.data[self.currentID]['basePeakMZ'] = float(paramValue)
-            elif paramName == 'base peak intensity' and paramValue != None:
+            elif paramName == 'base peak intensity' and paramValue is not None:
                 self.data[self.currentID]['basePeakIntensity'] = max(0.0, float(paramValue))
             
             # mass range
-            elif paramName == 'lowest observed m/z' and paramValue != None:
+            elif paramName == 'lowest observed m/z' and paramValue is not None:
                 self.data[self.currentID]['lowMZ'] = float(paramValue)
-            elif paramName == 'highest observed m/z' and paramValue != None:
+            elif paramName == 'highest observed m/z' and paramValue is not None:
                 self.data[self.currentID]['highMZ'] = float(paramValue)
             
             # retention time
-            elif paramName == 'scan start time' and paramValue != None:
+            elif paramName == 'scan start time' and paramValue is not None:
                 if attrs.get('unitName','') == 'minute':
                     self.data[self.currentID]['retentionTime'] = float(paramValue)*60
                 elif attrs.get('unitName','') == 'second':
@@ -532,13 +532,13 @@ class scanHandler(xml.sax.handler.ContentHandler):
             paramName = attrs.get('name','')
             paramValue = attrs.get('value','')
             
-            if paramName == 'selected ion m/z' and paramValue != None:
+            if paramName == 'selected ion m/z' and paramValue is not None:
                 self.data['precursorMZ'] = float(paramValue)
-            elif paramName == 'intensity' and paramValue != None:
+            elif paramName == 'intensity' and paramValue is not None:
                 self.data['precursorIntensity'] = float(paramValue)
-            elif paramName == 'possible charge state' and paramValue != None:
+            elif paramName == 'possible charge state' and paramValue is not None:
                 self.data['precursorCharge'] = int(paramValue)
-            elif paramName == 'charge state' and paramValue != None:
+            elif paramName == 'charge state' and paramValue is not None:
                 self.data['precursorCharge'] = int(paramValue)
         
         # get binary data metadata
@@ -576,7 +576,7 @@ class scanHandler(xml.sax.handler.ContentHandler):
                 self.data['spectrumType'] = 'continuous'
             
             # MS level
-            elif paramName == 'ms level' and paramValue != None:
+            elif paramName == 'ms level' and paramValue is not None:
                 self.data['msLevel'] = int(paramValue)
             
             # polarity
@@ -586,23 +586,23 @@ class scanHandler(xml.sax.handler.ContentHandler):
                 self.data['polarity'] = -1
             
             # total ion current
-            elif paramName == 'total ion current' and paramValue != None:
+            elif paramName == 'total ion current' and paramValue is not None:
                 self.data['totIonCurrent'] = max(0.0, float(paramValue))
             
             # base peak
-            elif paramName == 'base peak m/z' and paramValue != None:
+            elif paramName == 'base peak m/z' and paramValue is not None:
                 self.data['basePeakMZ'] = float(paramValue)
-            elif paramName == 'base peak intensity' and paramValue != None:
+            elif paramName == 'base peak intensity' and paramValue is not None:
                 self.data['basePeakIntensity'] = max(0.0, float(paramValue))
             
             # mass range
-            elif paramName == 'lowest observed m/z' and paramValue != None:
+            elif paramName == 'lowest observed m/z' and paramValue is not None:
                 self.data['lowMZ'] = float(paramValue)
-            elif paramName == 'highest observed m/z' and paramValue != None:
+            elif paramName == 'highest observed m/z' and paramValue is not None:
                 self.data['highMZ'] = float(paramValue)
             
             # retention time
-            elif paramName == 'scan start time' and paramValue != None:
+            elif paramName == 'scan start time' and paramValue is not None:
                 if attrs.get('unitName','') == 'minute':
                     self.data['retentionTime'] = float(paramValue)*60
                 elif attrs.get('unitName','') == 'second':
@@ -755,13 +755,13 @@ class runHandler(xml.sax.handler.ContentHandler):
             paramName = attrs.get('name','')
             paramValue = attrs.get('value','')
             
-            if paramName == 'selected ion m/z' and paramValue != None:
+            if paramName == 'selected ion m/z' and paramValue is not None:
                 self.data[self.currentID]['precursorMZ'] = float(paramValue)
-            elif paramName == 'intensity' and paramValue != None:
+            elif paramName == 'intensity' and paramValue is not None:
                 self.data[self.currentID]['precursorIntensity'] = float(paramValue)
-            elif paramName == 'possible charge state' and paramValue != None:
+            elif paramName == 'possible charge state' and paramValue is not None:
                 self.data[self.currentID]['precursorCharge'] = int(paramValue)
-            elif paramName == 'charge state' and paramValue != None:
+            elif paramName == 'charge state' and paramValue is not None:
                 self.data[self.currentID]['precursorCharge'] = int(paramValue)
         
         # get binary data metadata
@@ -799,7 +799,7 @@ class runHandler(xml.sax.handler.ContentHandler):
                 self.data[self.currentID]['spectrumType'] = 'continuous'
             
             # MS level
-            elif paramName == 'ms level' and paramValue != None:
+            elif paramName == 'ms level' and paramValue is not None:
                 self.data[self.currentID]['msLevel'] = int(paramValue)
             
             # polarity
@@ -809,23 +809,23 @@ class runHandler(xml.sax.handler.ContentHandler):
                 self.data[self.currentID]['polarity'] = -1
             
             # total ion current
-            elif paramName == 'total ion current' and paramValue != None:
+            elif paramName == 'total ion current' and paramValue is not None:
                 self.data[self.currentID]['totIonCurrent'] = max(0.0, float(paramValue))
             
             # base peak
-            elif paramName == 'base peak m/z' and paramValue != None:
+            elif paramName == 'base peak m/z' and paramValue is not None:
                 self.data[self.currentID]['basePeakMZ'] = float(paramValue)
-            elif paramName == 'base peak intensity' and paramValue != None:
+            elif paramName == 'base peak intensity' and paramValue is not None:
                 self.data[self.currentID]['basePeakIntensity'] = max(0.0, float(paramValue))
             
             # mass range
-            elif paramName == 'lowest observed m/z' and paramValue != None:
+            elif paramName == 'lowest observed m/z' and paramValue is not None:
                 self.data[self.currentID]['lowMZ'] = float(paramValue)
-            elif paramName == 'highest observed m/z' and paramValue != None:
+            elif paramName == 'highest observed m/z' and paramValue is not None:
                 self.data[self.currentID]['highMZ'] = float(paramValue)
             
             # retention time
-            elif paramName == 'scan start time' and paramValue != None:
+            elif paramName == 'scan start time' and paramValue is not None:
                 if attrs.get('unitName','') == 'minute':
                     self.data[self.currentID]['retentionTime'] = float(paramValue)*60
                 elif attrs.get('unitName','') == 'second':

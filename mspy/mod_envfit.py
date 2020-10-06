@@ -96,7 +96,7 @@ class envfit():
         peaklist.remshoulders(fwhm=fwhm)
         
         # correct signal baseline
-        if baseline != None:
+        if baseline is not None:
             self.spectrum = mod_signal.subbase(signal, baseline)
         
         # fit to peaklist

@@ -699,7 +699,7 @@ class panelMascot(wx.MiniFrame, mspy.MakeModalMixin):
         """Hide this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -739,12 +739,12 @@ class panelMascot(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'pmf'
             if evt and evt.GetId() == ID_mascotPMF:
                 tool = 'pmf'

@@ -246,7 +246,7 @@ class panelMassDefectPlot(wx.MiniFrame):
             return
         
         # show annotations for current document on top
-        if self.currentDocument != None and config.massDefectPlot['showNotations']:
+        if self.currentDocument is not None and config.massDefectPlot['showNotations']:
             
             buff = []
             for item in self.currentDocument.annotations:
@@ -268,7 +268,7 @@ class panelMassDefectPlot(wx.MiniFrame):
                     self.plotCanvasContainer.append(obj)
         
         # show current document only
-        elif self.currentDocument != None:
+        elif self.currentDocument is not None:
             points = self.makeDataPoints(self.currentDocument.spectrum.peaklist, self.currentDocument.spectrum.polarity)
             obj = mspy.plot.points(points, pointColour=(0,255,0), showPoints=True, showLines=False)
             self.plotCanvasContainer.append(obj)

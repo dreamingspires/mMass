@@ -205,17 +205,17 @@ class document():
         points = self.spectrum.profile
         mzArray, intArray = self._convertSpectrum(points, precision)
         attributes = 'points="%s"' % len(points)
-        if self.spectrum.scanNumber != None:
+        if self.spectrum.scanNumber is not None:
                 attributes += ' scanNumber="%s"' % self.spectrum.scanNumber
-        if self.spectrum.msLevel != None:
+        if self.spectrum.msLevel is not None:
                 attributes += ' msLevel="%s"' % self.spectrum.msLevel
-        if self.spectrum.retentionTime != None:
+        if self.spectrum.retentionTime is not None:
                 attributes += ' retentionTime="%s"' % self.spectrum.retentionTime
-        if self.spectrum.precursorMZ != None:
+        if self.spectrum.precursorMZ is not None:
                 attributes += ' precursorMZ="%s"' % self.spectrum.precursorMZ
-        if self.spectrum.precursorCharge != None:
+        if self.spectrum.precursorCharge is not None:
                 attributes += ' precursorCharge="%s"' % self.spectrum.precursorCharge
-        if self.spectrum.polarity != None:
+        if self.spectrum.polarity is not None:
                 attributes += ' polarity="%s"' % self.spectrum.polarity
         
         buff += '  <spectrum %s>\n' % attributes
@@ -229,13 +229,13 @@ class document():
             buff += '  <peaklist>\n'
             for peak in self.spectrum.peaklist:
                 attributes = 'mz="%.6f" intensity="%.6f" baseline="%.6f"' % (peak.mz, peak.ai, peak.base)
-                if peak.sn != None:
+                if peak.sn is not None:
                     attributes += ' sn="%.3f"' % peak.sn
-                if peak.charge != None:
+                if peak.charge is not None:
                     attributes += ' charge="%d"' % peak.charge
-                if peak.isotope != None:
+                if peak.isotope is not None:
                     attributes += ' isotope="%d"' % peak.isotope
-                if peak.fwhm != None:
+                if peak.fwhm is not None:
                     attributes += ' fwhm="%.6f"' % peak.fwhm
                 if peak.group:
                     attributes += ' group="%s"' % self._escape(peak.group)
@@ -247,13 +247,13 @@ class document():
             buff += '  <annotations>\n'
             for annot in self.annotations:
                 attributes = 'peakMZ="%.6f" peakIntensity="%.6f" peakBaseline="%.6f"' % (annot.mz, annot.ai, annot.base)
-                if annot.charge != None:
+                if annot.charge is not None:
                     attributes += ' charge="%d"' % annot.charge
                 if annot.radical:
                     attributes += ' radical="1"'
-                if annot.theoretical != None:
+                if annot.theoretical is not None:
                     attributes += ' calcMZ="%.6f"' % annot.theoretical
-                if annot.formula != None:
+                if annot.formula is not None:
                     attributes += ' formula="%s"' % annot.formula
                 buff += '    <annotation %s>%s</annotation>\n' % (attributes, self._escape(annot.label))
             buff += '  </annotations>\n\n'
@@ -299,19 +299,19 @@ class document():
                     buff += '      <matches>\n'
                     for match in sequence.matches:
                         attributes = 'peakMZ="%.6f" peakIntensity="%.6f" peakBaseline="%.6f"' % (match.mz, match.ai, match.base)
-                        if match.charge != None:
+                        if match.charge is not None:
                             attributes += ' charge="%d"' % match.charge
                         if match.radical:
                             attributes += ' radical="1"'
-                        if match.theoretical != None:
+                        if match.theoretical is not None:
                             attributes += ' calcMZ="%.6f"' % match.theoretical
-                        if match.formula != None:
+                        if match.formula is not None:
                             attributes += ' formula="%s"' % match.formula
-                        if match.sequenceRange != None:
+                        if match.sequenceRange is not None:
                             attributes += ' sequenceRange="%d-%d"' % tuple(match.sequenceRange)
-                        if match.fragmentSerie != None:
+                        if match.fragmentSerie is not None:
                             attributes += ' fragmentSerie="%s"' % match.fragmentSerie
-                        if match.fragmentIndex != None:
+                        if match.fragmentIndex is not None:
                             attributes += ' fragmentIndex="%s"' % match.fragmentIndex
                         buff += '        <match %s>%s</match>\n' % (attributes, self._escape(match.label))
                     buff += '      </matches>\n'
@@ -348,13 +348,13 @@ class document():
         if basePeak:
             basePeak = basePeak.intensity
         
-        if self.spectrum.scanNumber != None:
+        if self.spectrum.scanNumber is not None:
             scanNumber = self.spectrum.scanNumber
-        if self.spectrum.retentionTime != None:
+        if self.spectrum.retentionTime is not None:
             retentionTime = self.spectrum.retentionTime
-        if self.spectrum.msLevel != None:
+        if self.spectrum.msLevel is not None:
             msLevel = self.spectrum.msLevel
-        if self.spectrum.precursorMZ != None:
+        if self.spectrum.precursorMZ is not None:
             precursorMZ = self.spectrum.precursorMZ
             
         if self.spectrum.polarity == 1:
@@ -647,7 +647,7 @@ class document():
         # get ranges
         ranges = []
         for m in sequence.matches:
-            if m.sequenceRange != None:
+            if m.sequenceRange is not None:
                 ranges.append(m.sequenceRange)
         
         # get coverage
@@ -732,7 +732,7 @@ class annotation():
     def delta(self, units):
         """Get error in specified units."""
         
-        if self.theoretical != None:
+        if self.theoretical is not None:
             return mspy.delta(self.mz, self.theoretical, units)
         else:
             return None
@@ -767,7 +767,7 @@ class match():
     def delta(self, units):
         """Get error in specified units."""
         
-        if self.theoretical != None :
+        if self.theoretical is not None :
             return mspy.delta(self.mz, self.theoretical, units)
         else:
             return None

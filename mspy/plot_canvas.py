@@ -1186,7 +1186,7 @@ class canvas(wx.Window):
     def drawOutside(self, dc, filterSize):
         """Used for printing and exporting."""
         
-        if self.lastDraw != None:
+        if self.lastDraw is not None:
             graphics, xAxis, yAxis = self.lastDraw
             self.draw(graphics, xAxis, yAxis, dc, filterSize=filterSize)
     # ----
@@ -1749,7 +1749,7 @@ class canvas(wx.Window):
             intensity = None
             if self.currentObject:
                 point = self.getPoint(isotope, coord='screen')
-                if point != None:
+                if point is not None:
                     intensity = min(point[1], maxYPlot-5)
                     intensity = max(intensity, minYPlot+5)
             

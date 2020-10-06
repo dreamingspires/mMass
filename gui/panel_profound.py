@@ -346,7 +346,7 @@ class panelProfound(wx.MiniFrame):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'pmf'
             if evt and evt.GetId() == ID_profoundPMF:
                 tool = 'pmf'

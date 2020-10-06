@@ -587,7 +587,7 @@ class panelPeaklist(wx.Panel):
             # use s/n
             elif thresholdType == 's/n':
                 for i, peak in enumerate(self.currentDocument.spectrum.peaklist):
-                    if peak.sn != None and peak.sn < threshold:
+                    if peak.sn is not None and peak.sn < threshold:
                         indexes.append(i)
             
             # delete peaks
@@ -792,11 +792,11 @@ class panelPeaklist(wx.Panel):
                     data = '%0.2f' % (item[x])
             
             elif column == 'sn':
-                if item[x] != None:
+                if item[x] is not None:
                     data = '%0.1f' % (item[x])
             
             elif column == 'z':
-                if item[x] != None:
+                if item[x] is not None:
                     data = str(item[x])
             
             elif column == 'mass':
@@ -812,7 +812,7 @@ class panelPeaklist(wx.Panel):
                     data = '%0.0f' % (item[x])
             
             elif column == 'group':
-                if item[x] != None:
+                if item[x] is not None:
                     data = str(item[x])
             
             else:
@@ -1071,7 +1071,7 @@ class dlgThreshold(wx.Dialog):
         """Delete."""
         
         # check value and end
-        if self.threshold != None:
+        if self.threshold is not None:
             self.EndModal(wx.ID_OK)
         else:
             wx.Bell()

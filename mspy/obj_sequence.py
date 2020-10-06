@@ -124,7 +124,7 @@ class sequence:
             return self.chain[i]
         elif isinstance(i, slice):
             # check slice
-            if i.step != None:
+            if i.step is not None:
                 raise NotImplementedError('Sequence slicing with steps not implemented')
             start = i.start if i.start is not None else 0
             stop = i.stop if i.stop is not None else len(self.chain)
@@ -243,7 +243,7 @@ class sequence:
     def __setitem__(self, i, value):
         if isinstance(i, slice):
             # check slice
-            if i.step != None:
+            if i.step is not None:
                 raise NotImplementedError('Sequence slicing with steps not implemented')
             start = i.start if i.start is not None else 0
             stop = i.stop if i.stop is not None else len(self.chain)
@@ -375,7 +375,7 @@ class sequence:
 
         if isinstance(i, slice):
             # check slice
-            if i.step != None:
+            if i.step is not None:
                 raise NotImplementedError('Sequence slicing with steps not implemented')
             start = i.start if i.start is not None else 0
             stop = i.stop if i.stop is not None else len(self.chain)
@@ -443,7 +443,7 @@ class sequence:
         """Get formula."""
         
         # check formula buffer
-        if self._formula != None:
+        if self._formula is not None:
             return self._formula
         
         # get composition
@@ -465,7 +465,7 @@ class sequence:
         """Get elemental composition."""
         
         # check composition buffer
-        if self._composition != None:
+        if self._composition is not None:
             return self._composition
         
         self._composition = {}
@@ -614,7 +614,7 @@ class sequence:
         keys['f'] = ''
         if 'f' in template and self.fragmentSerie:
             keys['f'] = self.fragmentSerie
-            if self.fragmentIndex != None:
+            if self.fragmentIndex is not None:
                 keys['f'] += str(self.fragmentIndex)
             for gain in self.fragmentGains:
                 keys['f'] += ' +'+gain
@@ -828,7 +828,7 @@ class sequence:
         
         # set break points
         breakPoints = list(range(len(self)))
-        if breakPoint != None:
+        if breakPoint is not None:
             breakPoints = [breakPoint]
         
         # make peptides for all break points
@@ -887,7 +887,7 @@ class sequence:
         """
         
         # check specified position only
-        if position != None:
+        if position is not None:
             for mod in self.modifications:
                 if (strict or mod[2]=='f'):
                     if mod[1] == position \
