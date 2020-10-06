@@ -1975,10 +1975,9 @@ class canvas(wx.Window):
         
         # draw under mac
         if wx.Platform == '__WXMAC__':
-            textDC.SetTextForeground(wx.WHITE)
-            textDC.SetLogicalFunction(wx.INVERT)
+            textDC.SetTextBackground(wx.WHITE)
+            textDC.SetTextForeground(wx.BLACK)
             textDC.DrawText(text, 0, 0)
-            textDC.SetLogicalFunction(wx.COPY)
             # TODO: doesn't invert the colour as before, since
             # wxPython dropped support for inverting colours
             # on Mac:

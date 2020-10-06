@@ -1,3 +1,4 @@
+import pdb
 # -------------------------------------------------------------------------
 #     Copyright (C) 2008-2011 Martin Strohalm <www.mmass.org>
 
@@ -220,9 +221,9 @@ class parseMZML():
             intPrecision = 'd'
         
         # convert from binary
-        count = len(mzData) / struct.calcsize('<' + mzPrecision)
+        count = int(len(mzData) / struct.calcsize('<' + mzPrecision))
         mzData = struct.unpack('<' + mzPrecision * count, mzData[0:len(mzData)])
-        count = len(intData) / struct.calcsize('<' + intPrecision)
+        count = int(len(intData) / struct.calcsize('<' + intPrecision))
         intData = struct.unpack('<' + intPrecision * count, intData[0:len(intData)])
         
         # format
