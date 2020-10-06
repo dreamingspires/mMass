@@ -1974,18 +1974,18 @@ class canvas(wx.Window):
         textDC.SelectObject(tmpBuffer)
         
         # draw under mac
-        if wx.Platform == '__WXMAC__':
-            textDC.SetTextForeground(wx.WHITE)
-            textDC.SetLogicalFunction(wx.INVERT)
-            textDC.DrawText(text, 0, 0)
-            textDC.SetLogicalFunction(wx.COPY)
-            dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.INVERT)
+        #if wx.Platform == '__WXMAC__':
+        #    textDC.SetTextForeground(wx.WHITE)
+        #    textDC.SetLogicalFunction(wx.INVERT)
+        #    textDC.DrawText(text, 0, 0)
+        #    textDC.SetLogicalFunction(wx.COPY)
+       #     dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.INVERT)
         
         # draw under others
-        else:
-            textDC.Clear()
-            textDC.DrawText(text, 0, 0)
-            dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.EQUIV)
+        #else:
+        textDC.Clear()
+        textDC.DrawText(text, 0, 0)
+        dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.EQUIV)
     # ----
     
     
