@@ -525,7 +525,7 @@ def deisotope(peaklist, maxCharge=1, mzTolerance=0.15, intTolerance=0.5, isotope
                 continue
             
             # get theoretical isotopic pattern
-            mass = min(15000, int( mod_basics.mz( parent.mz, 0, z))) / 200
+            mass = int(min(15000, int( mod_basics.mz( parent.mz, 0, z))) / 200)
             pattern = patternLookupTable[mass]
             
             # check minimal number of isotopes in the cluster
