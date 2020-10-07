@@ -979,8 +979,11 @@ class parseMSD():
                 intData = self._convertDataPoints(intData, compression, precision, endian)
             
             # check data
-            if not mzData or not intData:
-                return False
+            if mzData is None or mzData is False:
+                raise ValueError('mzData could not be handled')
+
+            if intData is None or intData is False:
+                raise ValueError('mzData could not be handled')
             
             # format data
             mzData = numpy.array(mzData)
@@ -1358,7 +1361,7 @@ class parseMSD():
                 data = zlib.decompress(data)
             
             # convert form binary
-            count = len(data) / struct.calcsize(endian + precision)
+            count = int(len(data)) / struct.calcsize(endian + precision)
             data = struct.unpack(endian + precision * count, data[0:len(data)])
             
             return data
