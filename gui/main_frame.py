@@ -1539,7 +1539,7 @@ class mainFrame(wx.Frame):
                 return False
         
         # init processing gauge
-        gauge = mwx.gaugePanel(self, 'Formating data...')
+        gauge = mwx.gaugePanel(self, 'Formatting data...')
         gauge.show()
         
         # get document XML
