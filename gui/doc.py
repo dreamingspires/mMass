@@ -220,8 +220,8 @@ class document():
         
         buff += '  <spectrum %s>\n' % attributes
         if len(points) > 0:
-            buff += '    <mzArray precision="%s" compression="zlib" endian="%s">%s</mzArray>\n' % (precision, endian, mzArray)
-            buff += '    <intArray precision="%s" compression="zlib" endian="%s">%s</intArray>\n' % (precision, endian, intArray)
+            buff += '    <mzArray precision="%s" compression="zlib" endian="%s">%s</mzArray>\n' % (precision, endian, mzArray.decode('utf-8'))
+            buff += '    <intArray precision="%s" compression="zlib" endian="%s">%s</intArray>\n' % (precision, endian, intArray.decode('utf-8'))
         buff += '  </spectrum>\n\n'
         
         # format peaklist
@@ -1351,24 +1351,18 @@ class parseMSD():
     def _convertDataPoints(self, data, compression, precision='f', endian='<'):
         """Convert spectrum data points."""
         
-        try:
-            
-            # convert from base64
-            data = base64.b64decode(data)
-            
-            # decompress
-            if compression:
-                data = zlib.decompress(data)
-            
-            # convert form binary
-            count = int(len(data)) / struct.calcsize(endian + precision)
-            data = struct.unpack(endian + precision * count, data[0:len(data)])
-            
-            return data
+        # convert from base64
+        data = base64.b64decode(data)
         
-        except:
-            self.errors.append('Incorrect spectrum data.')
-            return False
+        # decompress
+        if compression:
+            data = zlib.decompress(data)
+        
+        # convert form binary
+        count = int(len(data) / struct.calcsize(endian + precision))
+        data = struct.unpack(endian + precision * count, data[0:len(data)])
+        
+        return data
     # ----
     
     
