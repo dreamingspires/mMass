@@ -1975,14 +1975,17 @@ class canvas(wx.Window):
         
         # draw under mac
         if wx.Platform == '__WXMAC__':
-            textDC.SetTextBackground(wx.WHITE)
-            textDC.SetTextForeground(wx.BLACK)
-            textDC.DrawText(text, 0, 0)
+            pass
+            # TODO: fix text inversion on Mac
+            # For now, such text rendering has been disabled
+            #textDC.SetTextBackground(wx.WHITE)
+            #textDC.SetTextForeground(wx.BLACK)
+            #textDC.DrawText(text, 0, 0)
             # TODO: doesn't invert the colour as before, since
             # wxPython dropped support for inverting colours
             # on Mac:
             # https://docs.wxpython.org/wx.DC.html#wx.DC.SetLogicalFunction
-            dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.COPY)
+            #dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.COPY)
         
         # draw under others
         else:
