@@ -4105,7 +4105,10 @@ class mainFrame(wx.Frame):
         self.toolbar.EnableTool(ID_toolsSequence, enable)
         self.toolbar.EnableTool(ID_toolsCompoundsSearch, enable)
         self.toolbar.EnableTool(ID_toolsPeakDifferences, enable)
-        self.toolbar.EnableTool(ID_toolsComparePeaklists, bool(self.documents))
+        # TODO: compare peaklists panel temporarily disabled
+        # Mentioned in issue #2
+        self.toolbar.EnableTool(ID_toolsComparePeaklists, False)
+        #self.toolbar.EnableTool(ID_toolsComparePeaklists, bool(self.documents))
         self.toolbar.EnableTool(ID_toolsSpectrumGenerator, enable)
         self.toolbar.EnableTool(ID_toolsEnvelopeFit, enable)
         self.toolbar.EnableTool(ID_toolsMassDefectPlot, enable)
