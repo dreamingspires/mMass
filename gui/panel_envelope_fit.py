@@ -326,7 +326,7 @@ class panelEnvelopeFit(wx.MiniFrame, mspy.MakeModalMixin):
         """Close panel."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -552,7 +552,7 @@ class panelEnvelopeFit(wx.MiniFrame, mspy.MakeModalMixin):
         
         # get label
         label = "Average X: "
-        if self.currentFit != None:
+        if self.currentFit is not None:
             label += '%0.1f' % (self.currentFit.average)
         
         # set label

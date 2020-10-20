@@ -286,7 +286,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
         """Hide this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -792,11 +792,11 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
                 elif config.comparePeaklists['compare'] == 'theoretical':
                     items = []
                     for item in document.annotations:
-                        if item.theoretical != None:
+                        if item.theoretical is not None:
                             items.append(item)
                     for sequence in document.sequences:
                         for item in sequence.matches:
-                            if item.theoretical != None:
+                            if item.theoretical is not None:
                                 items.append(item)
                     for item in items:
                         self.currentPeaklist.append( [ round(item.theoretical,6), x, item.charge, item.ai-item.base, count*[False] ] )
@@ -847,7 +847,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
                     matched = False
                     
                     # check charge
-                    if not config.comparePeaklists['ignoreCharge'] and (p1[2] != p2[2]) and (p1[2] != None and p2[2] != None):
+                    if not config.comparePeaklists['ignoreCharge'] and (p1[2] != p2[2]) and (p1[2] is not None and p2[2] is not None):
                         continue
                     
                     # check error
@@ -892,7 +892,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
         for p2 in self.currentPeaklist:
             
             # check charge
-            if not config.comparePeaklists['ignoreCharge'] and (p1[2] != p2[2]) and (p1[2] != None and p2[2] != None):
+            if not config.comparePeaklists['ignoreCharge'] and (p1[2] != p2[2]) and (p1[2] is not None and p2[2] is not None):
                 continue
             
             # check error

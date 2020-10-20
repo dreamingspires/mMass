@@ -78,11 +78,11 @@ def interpolate(p1, p2, x=None, y=None):
     """
     
     # interpolate y point
-    if x != None:
+    if x is not None:
         return calculations.signal_interpolate_y(float(p1[0]), float(p1[1]), float(p2[0]), float(p2[1]), float(x))
     
     # interpolate x point
-    elif y != None:
+    elif y is not None:
         return calculations.signal_interpolate_x(float(p1[0]), float(p1[1]), float(p2[0]), float(p2[1]), float(y))
     
     # no value
@@ -211,7 +211,7 @@ def area(signal, minX=None, maxX=None, baseline=None):
         raise TypeError("Signal data must be float64!")
     
     # check baseline type
-    if baseline != None:
+    if baseline is not None:
         if not isinstance(baseline, numpy.ndarray):
             raise TypeError("Baseline must be NumPy array!")
         if baseline.dtype.name != 'float64':
@@ -222,15 +222,15 @@ def area(signal, minX=None, maxX=None, baseline=None):
         return 0.0
     
     # check range
-    if minX != None and maxX != None and minX == maxX:
+    if minX is not None and maxX is not None and minX == maxX:
         return 0.0
     
     # crop data
-    if minX != None and maxX != None:
+    if minX is not None and maxX is not None:
         signal = crop(signal, minX, maxX)
     
     # subtract baseline
-    if baseline != None:
+    if baseline is not None:
         signal = subbase(signal, baseline)
     
     # calculate area
@@ -257,12 +257,12 @@ def noise(signal, minX=None, maxX=None, x=None, window=0.1):
         return (0.0, 0.0)
     
     # use specified signal range
-    if minX != None and maxX != None:
+    if minX is not None and maxX is not None:
         i1 = locate(signal, minX)
         i2 = locate(signal, maxX)
     
     # use specified x +- window
-    elif x != None and window != None:
+    elif x is not None and window is not None:
         window = x*window
         i1 = locate(signal, x-window)
         i2 = locate(signal, x+window)

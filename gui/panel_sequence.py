@@ -936,7 +936,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         """Hide this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -1041,7 +1041,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -1050,7 +1050,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             self.matchPanel.Close()
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'editor'
             if evt and evt.GetId() == ID_sequenceEditor:
                 tool = 'editor'
@@ -1305,19 +1305,19 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             self.updateModificationsList()
             
             # update digest panel
-            if self.currentDigest != None:
+            if self.currentDigest is not None:
                 self.currentDigest = None
                 self.updateDigestList()
                 self.updateCoverage()
             
             # update fragment panel
             self.updateAvailableFragments()
-            if self.currentFragments != None:
+            if self.currentFragments is not None:
                 self.currentFragments = None
                 self.updateFragmentsList()
             
             # update search panel
-            if self.currentSearch != None:
+            if self.currentSearch is not None:
                 self.currentSearch = None
                 self.updateSearchList()
             
@@ -2001,19 +2001,19 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         self.updateModificationsList()
         
         # update digest panel
-        if self.currentDigest != None:
+        if self.currentDigest is not None:
             self.currentDigest = None
             self.updateDigestList()
             self.updateCoverage()
         
         # update fragment panel
         self.updateAvailableFragments()
-        if self.currentFragments != None:
+        if self.currentFragments is not None:
             self.currentFragments = None
             self.updateFragmentsList()
         
         # update search panel
-        if self.currentSearch != None:
+        if self.currentSearch is not None:
             self.currentSearch = None
             self.updateSearchList()
         
@@ -2391,7 +2391,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             # filter data
             if self._digestFilter == 1 and item[5] is None:
                 continue
-            elif self._digestFilter == -1 and item[5] != None:
+            elif self._digestFilter == -1 and item[5] is not None:
                 continue
             
             # format data
@@ -2399,7 +2399,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             mz = mzFormat % (item[2])
             
             error = ''
-            if item[5] != None:
+            if item[5] is not None:
                 error = errFormat % (item[5])
             
             # add data
@@ -2413,7 +2413,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             self.digestList.SetItemData(row, index)
             
             # mark matched
-            if item[5] != None:
+            if item[5] is not None:
                 self.digestList.SetItemTextColour(row, (0,200,0))
                 self.digestList.SetItemFont(row, fontMatched)
         
@@ -2451,7 +2451,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             # filter data
             if self._fragmentsFilter == 1 and item[5] is None:
                 continue
-            elif self._fragmentsFilter == -1 and item[5] != None:
+            elif self._fragmentsFilter == -1 and item[5] is not None:
                 continue
             
             # format data
@@ -2459,7 +2459,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             mz = mzFormat % (item[2])
             
             error = ''
-            if item[5] != None:
+            if item[5] is not None:
                 error = errFormat % (item[5])
             
             # add data
@@ -2476,10 +2476,10 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             if item[6].fragmentFiltered and item[5] is None:
                 self.fragmentsList.SetItemTextColour(row, (150,150,150))
                 self.fragmentsList.SetItemFont(row, fontFiltered)
-            elif item[6].fragmentFiltered and item[5] != None:
+            elif item[6].fragmentFiltered and item[5] is not None:
                 self.fragmentsList.SetItemTextColour(row, (0,200,0))
                 self.fragmentsList.SetItemFont(row, fontFiltered)
-            elif item[5] != None:
+            elif item[5] is not None:
                 self.fragmentsList.SetItemTextColour(row, (0,200,0))
                 self.fragmentsList.SetItemFont(row, fontMatched)
         
@@ -2566,7 +2566,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         for peptide in self.currentDigest:
             section = [peptide[6].history[-1][1]+1, peptide[6].history[-1][2]]
             totalRanges.append(section)
-            if peptide[5] != None:
+            if peptide[5] is not None:
                 matchedRanges.append(section)
         
         # get coverages
@@ -2742,7 +2742,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
         """Clear matched data."""
         
         # update digest panel
-        if self.currentDigest != None:
+        if self.currentDigest is not None:
             for item in self.currentDigest:
                 item[5] = None # error col
                 item[-1] = [] # matches
@@ -2750,7 +2750,7 @@ class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
             self.updateCoverage()
         
         # update fragment panel
-        if self.currentFragments != None:
+        if self.currentFragments is not None:
             for item in self.currentFragments:
                 item[5] = None # error col
                 item[-1] = [] # matches
@@ -3553,7 +3553,7 @@ class sequenceGrid(wx.StaticBoxSizer):
             item.SetBackgroundColour(wx.NullColour)
         
         # update items
-        if self.currentSequence != None:
+        if self.currentSequence is not None:
             for x, monomer in enumerate(self.currentSequence):
                 self.items[x].ChangeValue(monomer)
         

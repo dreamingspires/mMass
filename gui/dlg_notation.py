@@ -160,7 +160,7 @@ class dlgNotation(wx.Dialog):
             self.theoreticalMZ_value.SetValue(str(self.notation.theoretical))
         
         # set charge
-        if self.notation.charge != None:
+        if self.notation.charge is not None:
             self.charge_value.SetValue(str(self.notation.charge))
         
         # set radical
@@ -241,7 +241,7 @@ class dlgNotation(wx.Dialog):
     def onFormula(self, evt=None):
         """Check formula and calculate m/z."""
         
-        if evt != None:
+        if evt is not None:
             evt.Skip()
         
         # user-defined m/z

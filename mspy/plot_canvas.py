@@ -1186,7 +1186,7 @@ class canvas(wx.Window):
     def drawOutside(self, dc, filterSize):
         """Used for printing and exporting."""
         
-        if self.lastDraw != None:
+        if self.lastDraw is not None:
             graphics, xAxis, yAxis = self.lastDraw
             self.draw(graphics, xAxis, yAxis, dc, filterSize=filterSize)
     # ----
@@ -1749,7 +1749,7 @@ class canvas(wx.Window):
             intensity = None
             if self.currentObject:
                 point = self.getPoint(isotope, coord='screen')
-                if point != None:
+                if point is not None:
                     intensity = min(point[1], maxYPlot-5)
                     intensity = max(intensity, minYPlot+5)
             
@@ -1975,11 +1975,17 @@ class canvas(wx.Window):
         
         # draw under mac
         if wx.Platform == '__WXMAC__':
-            textDC.SetTextForeground(wx.WHITE)
-            textDC.SetLogicalFunction(wx.INVERT)
-            textDC.DrawText(text, 0, 0)
-            textDC.SetLogicalFunction(wx.COPY)
-            dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.INVERT)
+            pass
+            # TODO: fix text inversion on Mac
+            # For now, such text rendering has been disabled
+            #textDC.SetTextBackground(wx.WHITE)
+            #textDC.SetTextForeground(wx.BLACK)
+            #textDC.DrawText(text, 0, 0)
+            # TODO: doesn't invert the colour as before, since
+            # wxPython dropped support for inverting colours
+            # on Mac:
+            # https://docs.wxpython.org/wx.DC.html#wx.DC.SetLogicalFunction
+            #dc.Blit(x, y, size[0], size[1], textDC, 0, 0, wx.COPY)
         
         # draw under others
         else:

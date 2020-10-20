@@ -263,7 +263,7 @@ class sortListCtrl(wx.ListCtrl):
     def OnGetItemText(self, row, col):
         """Get text for selected cell."""
         
-        if self._getItemTextFn != None:
+        if self._getItemTextFn is not None:
             return self._getItemTextFn(row, col)
         else:
             return str(self._data[row][col])
@@ -275,7 +275,7 @@ class sortListCtrl(wx.ListCtrl):
         
         # get user defined attr
         attr = None
-        if self._getItemAttrFn != None:
+        if self._getItemAttrFn is not None:
             attr = self._getItemAttrFn(row)
         
         # set background colour
@@ -356,7 +356,7 @@ class sortListCtrl(wx.ListCtrl):
         """Sort items."""
         
         comp = cmp(item1[self._currentColumn], item2[self._currentColumn])
-        if comp == 0 and self._secondarySortColumn != None:
+        if comp == 0 and self._secondarySortColumn is not None:
             comp = cmp(item1[self._secondarySortColumn], item2[self._secondarySortColumn])
         
         return comp * self._currentDirection
@@ -376,7 +376,7 @@ class sortListCtrl(wx.ListCtrl):
         
         # compare values
         comp = cmp(item1, item2)
-        if comp == 0 and self._secondarySortColumn != None:
+        if comp == 0 and self._secondarySortColumn is not None:
             item1 = self._data[key1][self._secondarySortColumn]
             item2 = self._data[key2][self._secondarySortColumn]
             comp = cmp(item1, item2)
@@ -597,9 +597,9 @@ class scrollTextCtrl(wx.TextCtrl):
             return
         
         # check limits
-        if self._min != None and new < self._min:
+        if self._min is not None and new < self._min:
             new = self._min
-        elif self._max != None and new > self._max:
+        elif self._max is not None and new > self._max:
             new = self._max
         
         # format value

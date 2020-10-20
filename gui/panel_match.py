@@ -313,7 +313,7 @@ class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
         """Destroy this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -326,7 +326,7 @@ class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'errors'
             if evt and evt.GetId() == ID_matchErrors:
                 tool = 'errors'

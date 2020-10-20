@@ -340,7 +340,7 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
         """Destroy this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -352,12 +352,12 @@ class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'image'
             if evt.GetId() == ID_documentExportImage:
                 tool = 'image'

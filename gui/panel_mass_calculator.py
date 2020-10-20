@@ -393,7 +393,7 @@ class panelMassCalculator(wx.MiniFrame):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'summary'
             if evt and evt.GetId() == ID_massCalculatorSummary:
                 tool = 'summary'
@@ -465,7 +465,7 @@ class panelMassCalculator(wx.MiniFrame):
     def onCompoundChanged(self, evt=None):
         """Recalc all if compound changed."""
         
-        if evt != None:
+        if evt is not None:
             evt.Skip()
         
         # get all params
@@ -585,7 +585,7 @@ class panelMassCalculator(wx.MiniFrame):
             return
         
         # get ion
-        if self.currentIon != None:
+        if self.currentIon is not None:
             charge = self.currentIon[3]
             ion = self.currentIon[4]
         else:
@@ -643,23 +643,23 @@ class panelMassCalculator(wx.MiniFrame):
             self.ionseriesAgentCharge_value.ChangeValue(str(agentCharge))
         self.patternShift_value.ChangeValue('0')
         
-        if fwhm != None:
+        if fwhm is not None:
             fwhm = max(0.001, fwhm)
             fwhm = min(10, fwhm)
             self.patternFwhm_value.ChangeValue(str(round(fwhm,3)))
         
-        if intensity != None and baseline != None and baseline >= intensity:
+        if intensity is not None and baseline is not None and baseline >= intensity:
             intensity = 2*baseline
             if intensity == 0.:
                 intensity = 1.
         
-        if intensity != None:
+        if intensity is not None:
             intensity = round(intensity)
             if intensity > 10000 or intensity < -10000:
                 intensity = '%0.1e' % intensity
             self.patternIntensity_value.ChangeValue(str(intensity))
         
-        if baseline != None:
+        if baseline is not None:
             baseline = round(baseline)
             if baseline > 10000 or baseline < -10000:
                 baseline = '%0.1e' % baseline
@@ -688,7 +688,7 @@ class panelMassCalculator(wx.MiniFrame):
         
         # select propper ion and update pattern
         done = False
-        if self.currentIons and charge != None:
+        if self.currentIons and charge is not None:
             for x, ion in enumerate(self.currentIons):
                 if ion[3] == charge:
                     self.ionsList.SetItemState(x, wx.LIST_STATE_SELECTED, wx.LIST_STATE_SELECTED)
@@ -855,7 +855,7 @@ class panelMassCalculator(wx.MiniFrame):
         
         # get selected charge
         legend = '[M]'
-        if self.currentIon != None:
+        if self.currentIon is not None:
             legend = self.currentIon[4]
         
         # add main profile spectrum to container
@@ -875,7 +875,7 @@ class panelMassCalculator(wx.MiniFrame):
         container.append(spectrum)
         
         # add individual peaks to container
-        if self.currentPatternPeaks != None:
+        if self.currentPatternPeaks is not None:
             for peak in self.currentPatternPeaks:
                 spectrum = mspy.plot.points(peak,
                     lineColour = (50,140,0),
@@ -986,7 +986,7 @@ class panelMassCalculator(wx.MiniFrame):
             
             # get selected charge
             charge = 0
-            if self.currentIon != None:
+            if self.currentIon is not None:
                 charge = self.currentIon[3]
             
             # calculate pattern
@@ -1024,7 +1024,7 @@ class panelMassCalculator(wx.MiniFrame):
         
         # get selected charge
         charge = 0
-        if self.currentIon != None:
+        if self.currentIon is not None:
             charge = self.currentIon[3]
         
         # make profile

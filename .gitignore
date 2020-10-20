@@ -12,3 +12,4 @@ documents/
 build/
 configs/*
 mmass.egg-info/
+test_files/

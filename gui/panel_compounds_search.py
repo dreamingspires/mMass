@@ -307,7 +307,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
         """Hide this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -356,7 +356,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'compounds'
             if evt.GetId() == ID_compoundsSearchCompounds:
                 tool = 'compounds'
@@ -725,7 +725,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
             # filter data
             if self._compoundsFilter == 1 and item[5] is None:
                 continue
-            elif self._compoundsFilter == -1 and item[5] != None:
+            elif self._compoundsFilter == -1 and item[5] is not None:
                 continue
             
             # format data
@@ -734,15 +734,15 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
             adduct = ''
             formula = ''
             error = ''
-            if item[1] != None:
+            if item[1] is not None:
                 mz = mzFormat % (item[1])
-            if item[2] != None:
+            if item[2] is not None:
                 z = str(item[2])
-            if item[3] != None:
+            if item[3] is not None:
                 adduct = item[3]
-            if item[4] != None:
+            if item[4] is not None:
                 formula = item[4]
-            if item[5] != None:
+            if item[5] is not None:
                 error = errFormat % (item[5])
             
             # add data
@@ -757,7 +757,7 @@ class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
             self.compoundsList.SetItemData(row, index)
             
             # mark matched
-            if item[5] != None:
+            if item[5] is not None:
                 self.compoundsList.SetItemTextColour(row, (0,200,0))
                 self.compoundsList.SetItemFont(row, fontMatched)
         

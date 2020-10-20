@@ -211,7 +211,7 @@ def profile(peaklist, fwhm=0.1, points=10, noise=0, raster=None, forceFwhm=False
         peaklist = obj_peaklist.peaklist(peaklist)
     
     # check raster type
-    if raster != None and not isinstance(raster, numpy.ndarray):
+    if raster is not None and not isinstance(raster, numpy.ndarray):
         raster = numpy.array(raster)
     
     # get peaks
@@ -231,7 +231,7 @@ def profile(peaklist, fwhm=0.1, points=10, noise=0, raster=None, forceFwhm=False
         shape = 2
     
     # make profile
-    if raster != None:
+    if raster is not None:
         data = calculations.signal_profile_to_raster(numpy.array(peaks), raster, float(noise), shape)
     else:
         data = calculations.signal_profile(numpy.array(peaks), int(points), float(noise), shape)
@@ -262,7 +262,7 @@ def matchpattern(signal, pattern, pickingHeight=0.75, baseline=None):
         raise TypeError("Signal must be NumPy array!")
     
    # check baseline type
-    if baseline != None and not isinstance(baseline, numpy.ndarray):
+    if baseline is not None and not isinstance(baseline, numpy.ndarray):
         raise TypeError("Baseline must be NumPy array!")
     
     # check signal data

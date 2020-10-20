@@ -498,7 +498,7 @@ class panelProspector(wx.MiniFrame):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'msfit'
             if evt and evt.GetId() == ID_prospectorMSFit:
                 tool = 'msfit'

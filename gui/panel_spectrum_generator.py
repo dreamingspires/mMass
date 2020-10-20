@@ -254,7 +254,7 @@ class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
         """Close panel."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -520,7 +520,7 @@ class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
         
         # get current profile data
         profile = []
-        if self.currentProfile != None:
+        if self.currentProfile is not None:
             profile = self.currentProfile
         
         # add main profile spectrum to container
@@ -541,7 +541,7 @@ class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
         
         # add individual peaks to container
         if config.spectrumGenerator['showPeaks']:
-            if self.currentPeaks != None:
+            if self.currentPeaks is not None:
                 for peak in self.currentPeaks:
                     spectrum = mspy.plot.points(
                         points = peak,

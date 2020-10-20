@@ -202,7 +202,7 @@ class peaklist:
         # get used names
         used = []
         for peak in self.peaks:
-            if peak.group != None and not peak.group in used:
+            if peak.group is not None and not peak.group in used:
                 used.append(peak.group)
         
         # generate new name
@@ -464,7 +464,7 @@ class peaklist:
         # get indexes to delete
         indexes = []
         for x, peak in enumerate(self.peaks):
-            if peak.intensity < threshold or (peak.sn != None and peak.sn < snThreshold):
+            if peak.intensity < threshold or (peak.sn is not None and peak.sn < snThreshold):
                 indexes.append(x)
         
         # delete peaks
@@ -528,7 +528,7 @@ class peaklist:
         # get indexes to delete
         indexes = []
         for x, peak in enumerate(self.peaks):
-            if peak.isotope != 0 and peak.charge != None:
+            if peak.isotope != 0 and peak.charge is not None:
                 indexes.append(x)
         
         # delete peaks

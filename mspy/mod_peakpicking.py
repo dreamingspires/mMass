@@ -60,7 +60,7 @@ def labelpoint(signal, mz, baseline=None):
         raise TypeError("Signal must be NumPy array!")
     
    # check baseline type
-    if baseline != None and not isinstance(baseline, numpy.ndarray):
+    if baseline is not None and not isinstance(baseline, numpy.ndarray):
         raise TypeError("Baseline must be NumPy array!")
     
     # check signal data
@@ -121,7 +121,7 @@ def labelpeak(signal, mz=None, minX=None, maxX=None, pickingHeight=0.75, baselin
         raise TypeError("Signal must be NumPy array!")
     
    # check baseline type
-    if baseline != None and not isinstance(baseline, numpy.ndarray):
+    if baseline is not None and not isinstance(baseline, numpy.ndarray):
         raise TypeError("Baseline must be NumPy array!")
     
     # check m/z value or range
@@ -133,13 +133,13 @@ def labelpeak(signal, mz=None, minX=None, maxX=None, pickingHeight=0.75, baselin
         return None
     
     # check m/z value
-    if mz != None:
+    if mz is not None:
         minX = mz
     if minX <= 0:
         return False
     
     # get index of given m/z or range maximum
-    if mz != None:
+    if mz is not None:
         imax = mod_signal.locate(signal, mz)
     else:
         i1 = mod_signal.locate(signal, minX)
@@ -152,7 +152,7 @@ def labelpeak(signal, mz=None, minX=None, maxX=None, pickingHeight=0.75, baselin
     
     # get centroid height
     h = signal[imax][1] * pickingHeight
-    if baseline != None:
+    if baseline is not None:
         idx = mod_signal.locate(baseline, signal[imax][0])
         if (idx > 0) and (idx < len(baseline)):
             base = mod_signal.interpolate( (baseline[idx-1][0], baseline[idx-1][1]), (baseline[idx][0], baseline[idx][1]), x=signal[imax][0])
@@ -175,7 +175,7 @@ def labelpeak(signal, mz=None, minX=None, maxX=None, pickingHeight=0.75, baselin
         return None
     
     # label peak in the newly found selection
-    if mz != None and leftMZ != rightMZ:
+    if mz is not None and leftMZ != rightMZ:
         peak = labelpeak(
             signal = signal,
             minX = leftMZ,
@@ -213,11 +213,11 @@ def labelscan(signal, minX=None, maxX=None, pickingHeight=0.75, absThreshold=0.,
         raise TypeError("Signal must be NumPy array!")
     
    # check baseline type
-    if baseline != None and not isinstance(baseline, numpy.ndarray):
+    if baseline is not None and not isinstance(baseline, numpy.ndarray):
         raise TypeError("Baseline must be NumPy array!")
     
     # crop data
-    if minX != None and maxX != None:
+    if minX is not None and maxX is not None:
         i1 = mod_signal.locate(signal, minX)
         i2 = mod_signal.locate(signal, maxX)
         signal = signal[i1:i2]
@@ -238,7 +238,7 @@ def labelscan(signal, minX=None, maxX=None, pickingHeight=0.75, absThreshold=0.,
     
     # get peaks baseline and s/n
     basepeak = 0.0
-    if baseline != None:
+    if baseline is not None:
         for peak in buff:
             idx = mod_signal.locate(baseline, peak[0])
             if (idx > 0) and (idx < len(baseline)):
@@ -298,7 +298,7 @@ def labelscan(signal, minX=None, maxX=None, pickingHeight=0.75, absThreshold=0.,
                 continue
             
             # try to group with previous peak
-            if previous != None and leftMZ < previous:
+            if previous is not None and leftMZ < previous:
                 if peak[1] > buff[-1][1]:
                     buff[-1] = peak
                     previous = rightMZ
@@ -313,7 +313,7 @@ def labelscan(signal, minX=None, maxX=None, pickingHeight=0.75, absThreshold=0.,
     
     # get peaks baseline and s/n
     basepeak = 0.0
-    if baseline != None:
+    if baseline is not None:
         for peak in candidates:
             idx = mod_signal.locate(baseline, peak[0])
             if (idx > 0) and (idx < len(baseline)):
@@ -502,7 +502,7 @@ def deisotope(peaklist, maxCharge=1, mzTolerance=0.15, intTolerance=0.5, isotope
         CHECK_FORCE_QUIT()
         
         # skip assigned peaks
-        if parent.isotope != None:
+        if parent.isotope is not None:
             continue
         
         # try all charge states
@@ -525,7 +525,7 @@ def deisotope(peaklist, maxCharge=1, mzTolerance=0.15, intTolerance=0.5, isotope
                 continue
             
             # get theoretical isotopic pattern
-            mass = min(15000, int( mod_basics.mz( parent.mz, 0, z))) / 200
+            mass = int(min(15000, int( mod_basics.mz( parent.mz, 0, z))) / 200)
             pattern = patternLookupTable[mass]
             
             # check minimal number of isotopes in the cluster

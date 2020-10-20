@@ -281,7 +281,7 @@ class panelDocumentInfo(wx.MiniFrame):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'summary'
             if evt.GetId() == ID_documentInfoSummary:
                 tool = 'summary'
@@ -473,15 +473,15 @@ class panelDocumentInfo(wx.MiniFrame):
             self.instrument_value.ChangeValue(document.instrument)
             self.notes_value.ChangeValue(document.notes)
             
-            if document.spectrum.scanNumber != None:
+            if document.spectrum.scanNumber is not None:
                 self.scanNumber_value.ChangeValue(str(document.spectrum.scanNumber))
-            if document.spectrum.retentionTime != None:
+            if document.spectrum.retentionTime is not None:
                 self.retentionTime_value.ChangeValue(str(document.spectrum.retentionTime))
-            if document.spectrum.msLevel != None:
+            if document.spectrum.msLevel is not None:
                 self.msLevel_value.ChangeValue(str(document.spectrum.msLevel))
-            if document.spectrum.precursorMZ != None:
+            if document.spectrum.precursorMZ is not None:
                 self.precursorMZ_value.ChangeValue(str(document.spectrum.precursorMZ))
-            if document.spectrum.precursorCharge != None:
+            if document.spectrum.precursorCharge is not None:
                 self.precursorCharge_value.ChangeValue(str(document.spectrum.precursorCharge))
             
             if document.spectrum.polarity == 1:

@@ -502,7 +502,7 @@ class panelSpectrum(wx.Panel):
         """Update canvas properties."""
         
         # update button image
-        if ID != None:
+        if ID is not None:
             if ID == ID_viewLabels:
                 image = (images.lib['spectrumLabelsOff'], images.lib['spectrumLabelsOn'])[bool(config.spectrum['showLabels'])]
                 self.showLabels_butt.SetBitmapLabel(image)
@@ -581,7 +581,7 @@ class panelSpectrum(wx.Panel):
         
         # get spectrum polarity
         polarity = 1
-        if self.currentDocument != None and self.documents[self.currentDocument].spectrum.polarity == -1:
+        if self.currentDocument is not None and self.documents[self.currentDocument].spectrum.polarity == -1:
             polarity = -1
             return
         
@@ -666,7 +666,7 @@ class panelSpectrum(wx.Panel):
                 format = 'mass (p): %s   ' % mzFormat
                 label += format % pmass
             
-            if 'area' in config.main['cursorInfo'] and self.currentDocument != None:
+            if 'area' in config.main['cursorInfo'] and self.currentDocument is not None:
                 area = self.documents[self.currentDocument].spectrum.area(
                     minX = position[0]-distance[0],
                     maxX = position[0],
@@ -704,7 +704,7 @@ class panelSpectrum(wx.Panel):
         normalization = None
         xOffset = 0
         yOffset = 0
-        if self.currentDocument != None and len(points):
+        if self.currentDocument is not None and len(points):
             
             # get normalization
             if config.spectrum['normalize']:
@@ -763,7 +763,7 @@ class panelSpectrum(wx.Panel):
         flipped = False
         xOffset = 0
         yOffset = 0
-        if self.currentDocument != None and len(notations):
+        if self.currentDocument is not None and len(notations):
             
             # normalize points
             if config.spectrum['normalize']:
@@ -850,13 +850,13 @@ class panelSpectrum(wx.Panel):
         """Set document as active."""
         
         # hide labels on last active document
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             self.container[self.currentDocument+2].setProperties(showLabels=(config.spectrum['showLabels'] and config.spectrum['showAllLabels']))
             self.container[self.currentDocument+2].setProperties(tickColour=self.documents[self.currentDocument].colour)
         
         # set current document
         self.currentDocument = docIndex
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             self.spectrumCanvas.setCurrentObject(self.currentDocument+2)
             self.container[self.currentDocument+2].setProperties(showLabels=config.spectrum['showLabels'])
             self.container[self.currentDocument+2].setProperties(tickColour=config.spectrum['tickColour'])
@@ -1417,7 +1417,7 @@ class dlgSpectrumOffset(wx.Dialog):
         """Offset."""
         
         # check value and end
-        if self.offset != None:
+        if self.offset is not None:
             self.EndModal(wx.ID_OK)
         else:
             wx.Bell()

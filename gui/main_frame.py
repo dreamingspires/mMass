@@ -912,7 +912,7 @@ class mainFrame(wx.Frame):
         """Set current document."""
         
         # get document and application title
-        if docIndex != None:
+        if docIndex is not None:
             docData = self.documents[docIndex]
             title = 'mMass - %s' % (docData.title)
             if docData.dirty:
@@ -1316,7 +1316,7 @@ class mainFrame(wx.Frame):
         """Open dropped documents."""
         
         # get paths
-        if evt != None:
+        if evt is not None:
             paths = evt.GetFiles()
         
         # open documents
@@ -1539,7 +1539,7 @@ class mainFrame(wx.Frame):
                 return False
         
         # init processing gauge
-        gauge = mwx.gaugePanel(self, 'Formating data...')
+        gauge = mwx.gaugePanel(self, 'Formatting data...')
         gauge.show()
         
         # get document XML
@@ -1724,7 +1724,7 @@ class mainFrame(wx.Frame):
             self.documentInfoPanel.Show(True)
         
         # set current document
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             self.documentInfoPanel.setData(self.documents[self.currentDocument])
             self.documentInfoPanel.Raise()
         else:
@@ -1845,7 +1845,7 @@ class mainFrame(wx.Frame):
         """Offset spectrum."""
         
         # set offset for current document
-        if evt.GetId() == ID_documentOffset and self.currentDocument != None:
+        if evt.GetId() == ID_documentOffset and self.currentDocument is not None:
             if config.spectrum['normalize']:
                 wx.Bell()
                 return
@@ -1859,7 +1859,7 @@ class mainFrame(wx.Frame):
                 dlg.Destroy()
         
         # clear offset for current document
-        elif evt.GetId() == ID_documentClearOffset and self.currentDocument != None:
+        elif evt.GetId() == ID_documentClearOffset and self.currentDocument is not None:
             self.documents[self.currentDocument].offset = [0,0]
             self.spectrumPanel.updateSpectrumProperties(self.currentDocument)
         
@@ -1982,7 +1982,7 @@ class mainFrame(wx.Frame):
         
         # delete annotations
         self.documents[self.currentDocument].backup(('annotations'))
-        if annotIndex != None:
+        if annotIndex is not None:
             del self.documents[self.currentDocument].annotations[annotIndex]
         else:
             del self.documents[self.currentDocument].annotations[:]
@@ -2002,7 +2002,7 @@ class mainFrame(wx.Frame):
         # get annotations
         annotations = []
         for annotation in self.documents[self.currentDocument].annotations:
-            if annotation.theoretical != None:
+            if annotation.theoretical is not None:
                 annotations.append([annotation.label, annotation.theoretical, annotation.mz])
         if not annotations:
             wx.Bell()
@@ -2379,7 +2379,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2397,7 +2397,7 @@ class mainFrame(wx.Frame):
             return
         
         # select first sequence in document or make new
-        if not self.sequencePanel and self.currentDocument != None and self.currentSequence is None and evt and evt.GetId()==ID_toolsSequence:
+        if not self.sequencePanel and self.currentDocument is not None and self.currentSequence is None and evt and evt.GetId()==ID_toolsSequence:
             if self.documents[self.currentDocument].sequences:
                 self.documentsPanel.selectSequence(self.currentDocument, 0)
             else:
@@ -2437,7 +2437,7 @@ class mainFrame(wx.Frame):
         
         # get current document sequence
         seqData = None
-        if self.currentDocument != None and self.currentSequence != None:
+        if self.currentDocument is not None and self.currentSequence is not None:
             seqData = self.documents[self.currentDocument].sequences[self.currentSequence]
         
         # set data
@@ -2467,7 +2467,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2521,7 +2521,7 @@ class mainFrame(wx.Frame):
             baseline = None
             
             # try to approximate intensity and baseline
-            if self.currentDocument != None and charge != None and self.documents[self.currentDocument].spectrum.hasprofile():
+            if self.currentDocument is not None and charge is not None and self.documents[self.currentDocument].spectrum.hasprofile():
                 compound = mspy.compound(formula)
                 mz = compound.mz(charge=charge, agentFormula=agentFormula, agentCharge=agentCharge)[0]
                 peak = mspy.labelpeak(
@@ -2566,7 +2566,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2596,7 +2596,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2626,7 +2626,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2656,7 +2656,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2686,7 +2686,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set current document
@@ -2743,7 +2743,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2773,11 +2773,11 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # get data from sequence
-        if sequence != None:
+        if sequence is not None:
             formula = sequence.formula()
             if scale is None and config.envelopeFit['loss'] == 'H' and config.envelopeFit['gain'] == 'H{2}':
                 scale = (0, len(sequence) - sequence.count('P') - 1)
@@ -2813,7 +2813,7 @@ class mainFrame(wx.Frame):
             tool = 'mis'
         elif evt and evt.GetId() == ID_mascotSQ:
             tool = 'sq'
-        elif self.currentDocument != None and self.documents[self.currentDocument].spectrum.precursorMZ:
+        elif self.currentDocument is not None and self.documents[self.currentDocument].spectrum.precursorMZ:
             tool = 'mis'
         
         self.mascotPanel.onToolSelected(tool=tool)
@@ -2825,7 +2825,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2856,7 +2856,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2888,7 +2888,7 @@ class mainFrame(wx.Frame):
             tool = 'msfit'
         elif evt and evt.GetId() == ID_prospectorMSTag:
             tool = 'mstag'
-        elif self.currentDocument != None and self.documents[self.currentDocument].spectrum.precursorMZ:
+        elif self.currentDocument is not None and self.documents[self.currentDocument].spectrum.precursorMZ:
             tool = 'mstag'
         
         self.prospectorPanel.onToolSelected(tool=tool)
@@ -2897,7 +2897,7 @@ class mainFrame(wx.Frame):
         
         # get current document
         docData = None
-        if self.currentDocument != None:
+        if self.currentDocument is not None:
             docData = self.documents[self.currentDocument]
         
         # set data
@@ -2950,7 +2950,7 @@ class mainFrame(wx.Frame):
         """Set current sequence."""
         
         # get sequence
-        if seqIndex != None:
+        if seqIndex is not None:
             seqData = self.documents[self.currentDocument].sequences[seqIndex]
         else:
             seqData = None
@@ -3085,7 +3085,7 @@ class mainFrame(wx.Frame):
         
         # delete matches
         self.documents[self.currentDocument].backup(('sequences'))
-        if matchIndex != None:
+        if matchIndex is not None:
             del self.documents[self.currentDocument].sequences[self.currentSequence].matches[matchIndex]
         else:
             del self.documents[self.currentDocument].sequences[self.currentSequence].matches[:]
@@ -4023,7 +4023,7 @@ class mainFrame(wx.Frame):
             points += [[a.mz, a.ai, a.label] for a in document.annotations]
         
         # get sequence matches
-        elif selected in ('sequence', 'match') and self.currentSequence != None:
+        elif selected in ('sequence', 'match') and self.currentSequence is not None:
             sequence = self.documents[self.currentDocument].sequences[self.currentSequence]
             points += [[m.mz, m.ai, m.label] for m in sequence.matches]
         
@@ -4105,7 +4105,10 @@ class mainFrame(wx.Frame):
         self.toolbar.EnableTool(ID_toolsSequence, enable)
         self.toolbar.EnableTool(ID_toolsCompoundsSearch, enable)
         self.toolbar.EnableTool(ID_toolsPeakDifferences, enable)
-        self.toolbar.EnableTool(ID_toolsComparePeaklists, bool(self.documents))
+        # TODO: compare peaklists panel temporarily disabled
+        # Mentioned in issue #2
+        self.toolbar.EnableTool(ID_toolsComparePeaklists, False)
+        #self.toolbar.EnableTool(ID_toolsComparePeaklists, bool(self.documents))
         self.toolbar.EnableTool(ID_toolsSpectrumGenerator, enable)
         self.toolbar.EnableTool(ID_toolsEnvelopeFit, enable)
         self.toolbar.EnableTool(ID_toolsMassDefectPlot, enable)

@@ -306,7 +306,7 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
         """Hide this frame."""
         
         # check processing
-        if self.processing != None:
+        if self.processing is not None:
             wx.Bell()
             return
         
@@ -340,7 +340,7 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
         """Selected tool."""
         
         # get the tool
-        if evt != None:
+        if evt is not None:
             tool = 'references'
             if evt.GetId() == ID_calibrationReferences:
                 tool = 'references'
@@ -409,7 +409,7 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
         # recalculate errors
         if self.currentReferences:
             for x, item in enumerate(self.currentReferences):
-                if item[2] != None and item[3] != None:
+                if item[2] is not None and item[3] is not None:
                     self.currentReferences[x][4] = mspy.delta(item[2], item[1], config.calibration['units'])
                     self.currentReferences[x][5] = mspy.delta(item[3], item[1], config.calibration['units'])
         
@@ -602,11 +602,11 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
             calibrated = ''
             errorBefore = ''
             errorAfter = ''
-            if item[2] != None:
+            if item[2] is not None:
                 measured = mzFormat % (item[2])
-            if item[3] != None:
+            if item[3] is not None:
                 calibrated = mzFormat % (item[3])
-            if item[4] != None and item[5] != None:
+            if item[4] is not None and item[5] is not None:
                 if config.calibration['units'] == 'Da':
                     errorBefore = mzFormat % (item[4])
                     errorAfter = mzFormat % (item[5])
@@ -656,7 +656,7 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
             # get after points
             pointsAfter = []
             for item in self.currentReferences:
-                if item[6] and item[5] != None:
+                if item[6] and item[5] is not None:
                     pointsAfter.append([item[2], item[5]])
                     intensities.append(item[5])
             if pointsAfter:
@@ -667,7 +667,7 @@ class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
             # get before points
             pointsBefore = []
             for item in self.currentReferences:
-                if item[6] and item[4] != None:
+                if item[6] and item[4] is not None:
                     pointsBefore.append([item[2], item[4]])
                     intensities.append(item[4])
             if pointsBefore:

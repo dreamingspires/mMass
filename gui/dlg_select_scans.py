@@ -186,38 +186,38 @@ class dlgSelectScans(wx.Dialog):
         for scanID, scan in sorted(self.scans.items()):
             
             retentionTime = ''
-            if scan['retentionTime'] != None:
+            if scan['retentionTime'] is not None:
                 try: retentionTime = '%.2f (%s)' % (scan['retentionTime']/60, str(datetime.timedelta(seconds=round(scan['retentionTime']))))
                 except: pass
             
             msLevel = ''
-            if scan['msLevel'] != None:
+            if scan['msLevel'] is not None:
                 msLevel = str(scan['msLevel'])
             
             precursorMZ = ''
-            if scan['precursorMZ'] != None:
+            if scan['precursorMZ'] is not None:
                 try: precursorMZ = '%.4f' % (scan['precursorMZ'])
                 except: pass
             
             precursorCharge = ''
-            if scan['precursorCharge'] != None:
+            if scan['precursorCharge'] is not None:
                 if scan['polarity']:
                     precursorCharge = str(scan['precursorCharge'] * scan['polarity'])
                 else:
                     precursorCharge = str(scan['precursorCharge'])
             
             mzRange = ''
-            if scan['lowMZ'] != None and scan['highMZ'] != None:
+            if scan['lowMZ'] is not None and scan['highMZ'] is not None:
                 try: mzRange = '%d-%d' % (scan['lowMZ'], scan['highMZ'])
                 except: pass
             
             totIonCurrent = ''
-            if scan['totIonCurrent'] != None:
+            if scan['totIonCurrent'] is not None:
                 try: totIonCurrent = '%.0f' % (scan['totIonCurrent'])
                 except: pass
             
             pointsCount = ''
-            if scan['pointsCount'] != None:
+            if scan['pointsCount'] is not None:
                 try: pointsCount = str(scan['pointsCount'])
                 except: pass
             
@@ -249,9 +249,9 @@ class dlgSelectScans(wx.Dialog):
         for scanID, scan in sorted(self.scans.items()):
             if scan['msLevel'] != 1 or scan['retentionTime'] is None:
                 continue
-            if scan['totIonCurrent'] != None:
+            if scan['totIonCurrent'] is not None:
                 ticData.append((scan['retentionTime']/60, scan['totIonCurrent']))
-            if scan['basePeakIntensity'] != None:
+            if scan['basePeakIntensity'] is not None:
                 bpcData.append((scan['retentionTime']/60, scan['basePeakIntensity']))
         
         # make objects
@@ -283,7 +283,7 @@ class dlgSelectScans(wx.Dialog):
         points = []
         for scanID in self.getSelecedScans():
             retention = self.scans[scanID]['retentionTime']
-            if retention != None:
+            if retention is not None:
                 points.append(retention/60)
         
         # highlight retentions
@@ -318,17 +318,17 @@ class dlgSelectScans(wx.Dialog):
         nearest = None
         retention = position[0]*60
         for scanID, scan in sorted(self.scans.items()):
-            if scan['retentionTime'] != None and diff is None:
+            if scan['retentionTime'] is not None and diff is None:
                 diff = abs(scan['retentionTime'] - retention)
                 nearest = scanID
-            elif scan['retentionTime'] != None:
+            elif scan['retentionTime'] is not None:
                 current = abs(scan['retentionTime'] - retention)
                 if current < diff:
                     diff = current
                     nearest = scanID
         
         # show scan in the list
-        if nearest != None:
+        if nearest is not None:
             i = -1
             while True:
                 i = self.scanList.GetNextItem(i, wx.LIST_NEXT_ALL)
