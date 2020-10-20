@@ -26,7 +26,7 @@ import xml.dom.minidom
 # -----------
 
 version = '6.0.0'
-nightbuild = ''
+nightbuild = '6.0.1'
 
 
 # SET CONFIG FOLDER

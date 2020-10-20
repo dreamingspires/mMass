@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mMass"
-version = "6.0.0"
-description = ""
+version = "6.0.1"
+description = "Mass Spectrometry Tool"
 authors = ["Edd Salkield <edd@salkield.uk>", "Martin Strohalm"]
 license = "GPL-3.0-or-later"
 build = 'build.py'
