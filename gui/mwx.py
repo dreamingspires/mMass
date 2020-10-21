@@ -178,7 +178,12 @@ elif wx.Platform == '__WXGTK__':
 def cmp(a, b):
     if a == b:
         return 0
-    return (a > b) - (a < b)
+    elif a is None:
+        return -1
+    elif b is None:
+        return 1
+    else:
+        return (a > b) - (a < b)
 
 
 # RUN AFTER APP INIT
