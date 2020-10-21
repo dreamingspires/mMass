@@ -151,12 +151,17 @@ class _DerivVar:
         else:
             raise IndexError
     
-    # TODO: confirm that this can be deprecated
-#    def __cmp__(self, other):
-#        if isinstance(other, _DerivVar):
-#            return cmp(self.value, other.value)
-#        else:
-#            return cmp(self.value, other)
+    def __lt__(self, other):
+        if isinstance(other, _DerivVar):
+            return self.value < other.value
+        else:
+            return self.value < other
+
+    def __eq__(self, other):
+        if isinstance(other, _DerivVar):
+            return self.value == other.value
+        else:
+            return self.value == other
     
     def __add__(self, other):
         if isinstance(other, _DerivVar):
