@@ -19,6 +19,7 @@
 import time
 import copy
 import wx
+import numpy as np
 
 # load modules
 from .ids import *
@@ -183,7 +184,10 @@ def cmp(a, b):
     elif b is None:
         return 1
     else:
-        return (a > b) - (a < b)
+        try:
+            return (a > b) - (a < b)
+        except TypeError:
+            return (a > b) ^ (a < b)
 
 
 # RUN AFTER APP INIT
