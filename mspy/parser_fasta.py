@@ -27,65 +27,68 @@ from . import obj_sequence
 
 
 # compile basic patterns
-spPattern = re.compile('^(sp\|[A-Z][A-Z0-9]+)\|(.*)')
-giPattern = re.compile('^(gi\|[0-9]+[\.0-9]*)\|(.*)')
-gbPattern = re.compile('^(gb\|[A-Z]{3}[0-9]{5}[\.0-9]*)\|(.*)')
-refPattern = re.compile('^(ref\|[A-Z]{2}_[0-9]+[\.0-9]*)\|(.*)')
+spPattern = re.compile("^(sp\|[A-Z][A-Z0-9]+)\|(.*)")
+giPattern = re.compile("^(gi\|[0-9]+[\.0-9]*)\|(.*)")
+gbPattern = re.compile("^(gb\|[A-Z]{3}[0-9]{5}[\.0-9]*)\|(.*)")
+refPattern = re.compile("^(ref\|[A-Z]{2}_[0-9]+[\.0-9]*)\|(.*)")
 
 
 # PARSE FASTA SEQUENCE FILE
 # -------------------------
 
-class parseFASTA():
+
+class parseFASTA:
     """Parse data from FASTA."""
-    
+
     def __init__(self, path):
         self.path = path
-        
+
         # check path
         if not os.path.exists(path):
-            raise IOError('File not found! --> ' + self.path)
+            raise IOError("File not found! --> " + self.path)
+
     # ----
-    
-    
+
     def sequences(self):
         """Get sequences from document."""
-        
+
         # open document
         try:
-            with open(self.path, 'rb') as document:
+            with open(self.path, "rb") as document:
                 rawData = document.readlines()
             document.close()
         except IOError:
             return False
-        
+
         # read data
         reading = False
         data = []
         for line in rawData:
             line = line.strip()
-            
+
             # discard comments and empty lines
-            if not line or line[0] == ';':
+            if not line or line[0] == ";":
                 continue
-            
+
             # new sequence started
-            if line[0] == '>':
-                
+            if line[0] == ">":
+
                 # store previous sequence
                 if reading:
                     try:
-                        sequence = obj_sequence.sequence(chain, title=title, accession=accession)
+                        sequence = obj_sequence.sequence(
+                            chain, title=title, accession=accession
+                        )
                         data.append(sequence)
                     except:
                         pass
-                
+
                 # start new sequence
                 title = line[1:]
-                accession = ''
-                chain = ''
+                accession = ""
+                chain = ""
                 reading = True
-                
+
                 # get accession
                 if spPattern.match(title):
                     match = spPattern.match(title)
@@ -103,22 +106,23 @@ class parseFASTA():
                     match = refPattern.match(title)
                     accession = match.group(1)
                     title = match.group(2)
-            
+
             # get sequence chain
             elif reading:
-                for char in ('\t','\n','\r','\f','\v',' ', '*'):
-                    line = line.replace(char, '')
+                for char in ("\t", "\n", "\r", "\f", "\v", " ", "*"):
+                    line = line.replace(char, "")
                 chain += line.upper()
-        
+
         # store last sequence
         if reading:
             try:
-                sequence = obj_sequence.sequence(chain, title=title, accession=accession)
+                sequence = obj_sequence.sequence(
+                    chain, title=title, accession=accession
+                )
                 data.append(sequence)
             except:
                 pass
-        
+
         return data
+
     # ----
-    
-    

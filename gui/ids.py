@@ -23,10 +23,10 @@ ID_quit = wx.ID_EXIT
 ID_about = wx.ID_ABOUT
 ID_preferences = wx.ID_PREFERENCES
 
-HK_quit = '\tCtrl+Q'
-HK_preferences = ''
-if wx.Platform == '__WXMAC__':
-    HK_preferences = '\tCtrl+,'
+HK_quit = "\tCtrl+Q"
+HK_preferences = ""
+if wx.Platform == "__WXMAC__":
+    HK_preferences = "\tCtrl+,"
 
 # file
 ID_documentNew = wx.NewId()
@@ -74,19 +74,19 @@ ID_documentRecent8 = wx.NewId()
 ID_documentRecent9 = wx.NewId()
 ID_documentRecentClear = wx.NewId()
 
-HK_documentNew = '\tCtrl+N'
-HK_documentNewFromClipboard = '\tShift+Ctrl+N'
-HK_documentOpen = '\tCtrl+O'
-HK_documentClose = '\tCtrl+W'
-HK_documentCloseAll = '\tShift+Ctrl+W'
-HK_documentSave = '\tCtrl+S'
-HK_documentSaveAs = '\tShift+Ctrl+S'
-HK_documentSaveAll = '\tAlt+Ctrl+S'
-HK_documentExport = '\tCtrl+E'
-HK_documentInfo = '\tCtrl+I'
-HK_documentPrintSpectrum = '\tCtrl+P'
-HK_documentReport = '\tShift+Ctrl+R'
-HK_documentFlip = '\tAlt+Ctrl+F'
+HK_documentNew = "\tCtrl+N"
+HK_documentNewFromClipboard = "\tShift+Ctrl+N"
+HK_documentOpen = "\tCtrl+O"
+HK_documentClose = "\tCtrl+W"
+HK_documentCloseAll = "\tShift+Ctrl+W"
+HK_documentSave = "\tCtrl+S"
+HK_documentSaveAs = "\tShift+Ctrl+S"
+HK_documentSaveAll = "\tAlt+Ctrl+S"
+HK_documentExport = "\tCtrl+E"
+HK_documentInfo = "\tCtrl+I"
+HK_documentPrintSpectrum = "\tCtrl+P"
+HK_documentReport = "\tShift+Ctrl+R"
+HK_documentFlip = "\tAlt+Ctrl+F"
 
 # view
 ID_viewGrid = wx.NewId()
@@ -135,17 +135,17 @@ ID_viewPeaklistColumnFwhm = wx.NewId()
 ID_viewPeaklistColumnResol = wx.NewId()
 ID_viewPeaklistColumnGroup = wx.NewId()
 
-HK_viewPosBars = '\tAlt+Ctrl+P'
-HK_viewGel = '\tAlt+Ctrl+G'
-HK_viewLabels = '\tAlt+Ctrl+L'
-HK_viewTicks = '\tAlt+Ctrl+T'
-HK_viewLabelAngle = '\tAlt+Ctrl+H'
-HK_viewAllLabels = '\tAlt+Ctrl+Shift+L'
-HK_viewOverlapLabels = '\tAlt+Ctrl+O'
-HK_viewAutoscale = '\tAlt+Ctrl+A'
-HK_viewNormalize = '\tAlt+Ctrl+N'
-HK_viewRange = '\tAlt+Ctrl+R'
-HK_viewCanvasProperties = '\tCtrl+J'
+HK_viewPosBars = "\tAlt+Ctrl+P"
+HK_viewGel = "\tAlt+Ctrl+G"
+HK_viewLabels = "\tAlt+Ctrl+L"
+HK_viewTicks = "\tAlt+Ctrl+T"
+HK_viewLabelAngle = "\tAlt+Ctrl+H"
+HK_viewAllLabels = "\tAlt+Ctrl+Shift+L"
+HK_viewOverlapLabels = "\tAlt+Ctrl+O"
+HK_viewAutoscale = "\tAlt+Ctrl+A"
+HK_viewNormalize = "\tAlt+Ctrl+N"
+HK_viewRange = "\tAlt+Ctrl+R"
+HK_viewCanvasProperties = "\tCtrl+J"
 
 # processing
 ID_processingUndo = wx.NewId()
@@ -159,12 +159,12 @@ ID_processingMath = wx.NewId()
 ID_processingBatch = wx.NewId()
 ID_toolsSwapData = wx.NewId()
 
-HK_processingUndo = '\tCtrl+Z'
-HK_processingPeakpicking = '\tCtrl+F'
-HK_processingDeisotoping = '\tCtrl+D'
-HK_processingDeconvolution = ''
-HK_processingSmoothing = '\tCtrl+G'
-HK_processingBaseline = '\tCtrl+B'
+HK_processingUndo = "\tCtrl+Z"
+HK_processingPeakpicking = "\tCtrl+F"
+HK_processingDeisotoping = "\tCtrl+D"
+HK_processingDeconvolution = ""
+HK_processingSmoothing = "\tCtrl+G"
+HK_processingBaseline = "\tCtrl+B"
 
 # sequence
 ID_sequenceNew = wx.NewId()
@@ -212,22 +212,22 @@ ID_toolsDocumentInfo = wx.NewId()
 ID_toolsDocumentReport = wx.NewId()
 ID_toolsDocumentExport = wx.NewId()
 
-HK_toolsCalibration = '\tCtrl+R'
-HK_toolsRuler = '\tShift+Ctrl+H'
-HK_toolsLabelPeak = '\tShift+Ctrl+P'
-HK_toolsLabelPoint = '\tShift+Ctrl+I'
-HK_toolsLabelEnvelope = '\tShift+Ctrl+E'
-HK_toolsDeleteLabel = '\tShift+Ctrl+X'
-HK_toolsPeriodicTable = '\tShift+Ctrl+T'
-HK_toolsMassCalculator = '\tShift+Ctrl+M'
-HK_toolsMassToFormula = '\tShift+Ctrl+B'
-HK_toolsMassDefectPlot = '\tShift+Ctrl+O'
-HK_toolsMassFilter = '\tShift+Ctrl+F'
-HK_toolsCompoundsSearch = '\tShift+Ctrl+U'
-HK_toolsPeakDifferences = '\tShift+Ctrl+D'
-HK_toolsComparePeaklists = '\tShift+Ctrl+C'
-HK_toolsSpectrumGenerator = '\tShift+Ctrl+G'
-HK_toolsEnvelopeFit = '\tShift+Ctrl+V'
+HK_toolsCalibration = "\tCtrl+R"
+HK_toolsRuler = "\tShift+Ctrl+H"
+HK_toolsLabelPeak = "\tShift+Ctrl+P"
+HK_toolsLabelPoint = "\tShift+Ctrl+I"
+HK_toolsLabelEnvelope = "\tShift+Ctrl+E"
+HK_toolsDeleteLabel = "\tShift+Ctrl+X"
+HK_toolsPeriodicTable = "\tShift+Ctrl+T"
+HK_toolsMassCalculator = "\tShift+Ctrl+M"
+HK_toolsMassToFormula = "\tShift+Ctrl+B"
+HK_toolsMassDefectPlot = "\tShift+Ctrl+O"
+HK_toolsMassFilter = "\tShift+Ctrl+F"
+HK_toolsCompoundsSearch = "\tShift+Ctrl+U"
+HK_toolsPeakDifferences = "\tShift+Ctrl+D"
+HK_toolsComparePeaklists = "\tShift+Ctrl+C"
+HK_toolsSpectrumGenerator = "\tShift+Ctrl+G"
+HK_toolsEnvelopeFit = "\tShift+Ctrl+V"
 
 # library
 ID_libraryCompounds = wx.NewId()
@@ -264,10 +264,10 @@ ID_windowLayout2 = wx.NewId()
 ID_windowLayout3 = wx.NewId()
 ID_windowLayout4 = wx.NewId()
 
-HK_windowLayout1 = '\tF5'
-HK_windowLayout2 = '\tF6'
-HK_windowLayout3 = '\tF7'
-HK_windowLayout4 = '\tF8'
+HK_windowLayout1 = "\tF5"
+HK_windowLayout2 = "\tF6"
+HK_windowLayout3 = "\tF7"
+HK_windowLayout4 = "\tF8"
 
 # help
 ID_helpAbout = wx.ID_ABOUT
@@ -281,7 +281,7 @@ ID_helpUserGuide = wx.NewId()
 ID_helpDownload = wx.NewId()
 ID_helpWhatsNew = wx.NewId()
 
-HK_helpUserGuide = '\tF1'
+HK_helpUserGuide = "\tF1"
 
 # peaklist panel
 ID_peaklistAnnotate = wx.NewId()

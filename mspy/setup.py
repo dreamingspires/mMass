@@ -13,20 +13,22 @@ from distutils.extension import Extension
 
 
 # make include paths
-numpyInclude = numpy.get_include() + '/numpy'
-pythonInclude = sys.prefix + '/include'
+numpyInclude = numpy.get_include() + "/numpy"
+pythonInclude = sys.prefix + "/include"
 
 # make setup
 setup(
-    name = 'calculations',
-    version = '1.1',
-    author = "Martin Strohalm",
-    maintainer = 'Martin Strohalm',
-    description = "Fast calculations for mspy.",
+    name="calculations",
+    version="1.1",
+    author="Martin Strohalm",
+    maintainer="Martin Strohalm",
+    description="Fast calculations for mspy.",
     ext_modules=[
-        Extension('calculations', ['calculations.c'],
+        Extension(
+            "calculations",
+            ["calculations.c"],
             include_dirs=[numpyInclude, pythonInclude],
-            libraries=['m']
+            libraries=["m"],
         )
     ],
 )

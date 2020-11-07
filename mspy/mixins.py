@@ -17,12 +17,14 @@
 
 import wx
 
+
 class MakeModalMixin(object):
     """
     Mixin with a method call to turn on or off the "modalness" of a window
     """
+
     def MakeModal(self, modal=True):
-        if modal and not hasattr(self, '_disabler'):
+        if modal and not hasattr(self, "_disabler"):
             self._disabler = wx.WindowDisabler(self)
-        if not modal and hasattr(self, '_disabler'):
+        if not modal and hasattr(self, "_disabler"):
             del self._disabler

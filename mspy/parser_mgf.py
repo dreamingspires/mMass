@@ -32,199 +32,211 @@ from . import obj_scan
 # PARSE MGF DATA
 # --------------
 
-class parseMGF():
+
+class parseMGF:
     """Parse data from MGF."""
-    
+
     def __init__(self, path):
         self.path = path
         self._scans = None
         self._scanlist = None
-        
+
         # check path
         if not os.path.exists(path):
-            raise IOError('File not found! --> ' + self.path)
+            raise IOError("File not found! --> " + self.path)
+
     # ----
-    
-    
+
     def load(self):
         """Load all scans into memory."""
         self._parseData()
+
     # ----
-    
-    
+
     def info(self):
         """Get document info."""
-        
+
         data = {
-            'title': '',
-            'operator': '',
-            'contact': '',
-            'institution': '',
-            'date': '',
-            'instrument': '',
-            'notes': '',
+            "title": "",
+            "operator": "",
+            "contact": "",
+            "institution": "",
+            "date": "",
+            "instrument": "",
+            "notes": "",
         }
-        
+
         return data
+
     # ----
-    
-    
+
     def scanlist(self):
         """Get list of all scans in the document."""
-        
+
         # use preloaded data if available
         if self._scanlist:
             return self._scanlist
-        
+
         # parse data
         self._parseData()
-        
+
         return self._scanlist
+
     # ----
-    
-    
+
     def scan(self, scanID=None, dataType=None):
         """Get spectrum from document."""
-        
+
         # parse file
         if not self._scans:
             self._parseData()
-        
+
         # check data
         if not self._scans:
             return False
-        
+
         # check selected scan
         if scanID in self._scans:
             data = self._scans[scanID]
         elif scanID is None:
             data = self._scans[0]
-        
+
         # return scan
         return self._makeScan(data, dataType)
+
     # ----
-    
-    
+
     def _parseData(self):
         """Parse data."""
-        
+
         # clear buffers
         self._scans = {}
         self._scanlist = None
-        
+
         # open document
         try:
-            with open(self.path, 'rb') as document:
+            with open(self.path, "rb") as document:
                 rawData = document.readlines()
         except IOError:
             return False
-        
-        headerPattern = re.compile('^([A-Z]+)=(.+)')
-        pointPattern = re.compile('[ \t]?')
+
+        headerPattern = re.compile("^([A-Z]+)=(.+)")
+        pointPattern = re.compile("[ \t]?")
         currentID = None
-        
+
         # parse each line
         for line in rawData:
             line = line.strip()
-            
+
             # discard comments
-            if not line or line[0] in ('#', ';', '!', '/'):
+            if not line or line[0] in ("#", ";", "!", "/"):
                 continue
-            
+
             # append default scan
-            if currentID is None or line == 'BEGIN IONS':
+            if currentID is None or line == "BEGIN IONS":
                 currentID = len(self._scans)
                 scan = {
-                    'title': '',
-                    'scanNumber': currentID,
-                    'parentScanNumber': None,
-                    'msLevel': None,
-                    'pointsCount': 0,
-                    'polarity': None,
-                    'retentionTime': None,
-                    'lowMZ': None,
-                    'highMZ': None,
-                    'basePeakMZ': None,
-                    'basePeakIntensity': None,
-                    'totIonCurrent': None,
-                    'precursorMZ': None,
-                    'precursorIntensity': None,
-                    'precursorCharge': None,
-                    'spectrumType': 'unknown',
-                    'data': [],
+                    "title": "",
+                    "scanNumber": currentID,
+                    "parentScanNumber": None,
+                    "msLevel": None,
+                    "pointsCount": 0,
+                    "polarity": None,
+                    "retentionTime": None,
+                    "lowMZ": None,
+                    "highMZ": None,
+                    "basePeakMZ": None,
+                    "basePeakIntensity": None,
+                    "totIonCurrent": None,
+                    "precursorMZ": None,
+                    "precursorIntensity": None,
+                    "precursorCharge": None,
+                    "spectrumType": "unknown",
+                    "data": [],
                 }
                 self._scans[currentID] = scan
-            
+
             # scan ended, use default scan
-            if line == 'END IONS':
+            if line == "END IONS":
                 currentID = 0
                 continue
-            
+
             # get header data
             parts = headerPattern.match(line)
             if parts:
-                if parts.group(1) == 'TITLE':
-                    self._scans[currentID]['title'] = parts.group(2).strip()
-                elif parts.group(1) == 'PEPMASS':
-                    try: self._scans[currentID]['precursorMZ'] = float(pointPattern.split(parts.group(2))[0])
-                    except: pass
-                elif parts.group(1) == 'CHARGE':
+                if parts.group(1) == "TITLE":
+                    self._scans[currentID]["title"] = parts.group(2).strip()
+                elif parts.group(1) == "PEPMASS":
+                    try:
+                        self._scans[currentID]["precursorMZ"] = float(
+                            pointPattern.split(parts.group(2))[0]
+                        )
+                    except:
+                        pass
+                elif parts.group(1) == "CHARGE":
                     charge = parts.group(2).strip()
-                    if charge[-1] in ('+', '-'):
-                        charge = charge[-1]+charge[:-1]
-                    try: self._scans[currentID]['precursorCharge'] = int(charge)
-                    except: pass
+                    if charge[-1] in ("+", "-"):
+                        charge = charge[-1] + charge[:-1]
+                    try:
+                        self._scans[currentID]["precursorCharge"] = int(charge)
+                    except:
+                        pass
                 continue
-            
+
             # append datapoint
             parts = pointPattern.split(line)
             if parts:
-                point = [0,100.]
-                try: point[0] = float(parts[0])
-                except ValueError: continue
-                try: point[1] = float(parts[1])
-                except ValueError as IndexError: pass
-                self._scans[currentID]['data'].append(point)
-                self._scans[currentID]['pointsCount'] += 1
+                point = [0, 100.0]
+                try:
+                    point[0] = float(parts[0])
+                except ValueError:
+                    continue
+                try:
+                    point[1] = float(parts[1])
+                except ValueError as IndexError:
+                    pass
+                self._scans[currentID]["data"].append(point)
+                self._scans[currentID]["pointsCount"] += 1
                 continue
-        
+
         # make scanlist
         if self._scans:
             self._scanlist = deepcopy(self._scans)
             for scanNumber in self._scanlist:
-                del self._scanlist[scanNumber]['data']
+                del self._scanlist[scanNumber]["data"]
+
     # ----
-    
-    
+
     def _makeScan(self, scanData, dataType):
         """Make scan object from raw data."""
-        
+
         # parse data as peaklist (discrete points)
-        if dataType == 'peaklist' or (dataType==None and len(scanData['data'])<3000):
+        if dataType == "peaklist" or (
+            dataType == None and len(scanData["data"]) < 3000
+        ):
             buff = []
-            for point in scanData['data']:
+            for point in scanData["data"]:
                 buff.append(obj_peak.peak(point[0], point[1]))
             scan = obj_scan.scan(peaklist=obj_peaklist.peaklist(buff))
-        
+
         # parse data as spectrum (continuous line)
         else:
-            scan = obj_scan.scan(profile=scanData['data'])
-        
+            scan = obj_scan.scan(profile=scanData["data"])
+
         # set metadata
-        scan.title = scanData['title']
-        scan.scanNumber = scanData['scanNumber']
-        scan.parentScanNumber = scanData['parentScanNumber']
-        scan.msLevel = scanData['msLevel']
-        scan.polarity = scanData['polarity']
-        scan.retentionTime = scanData['retentionTime']
-        scan.totIonCurrent = scanData['totIonCurrent']
-        scan.basePeakMZ = scanData['basePeakMZ']
-        scan.basePeakIntensity = scanData['basePeakIntensity']
-        scan.precursorMZ = scanData['precursorMZ']
-        scan.precursorIntensity = scanData['precursorIntensity']
-        scan.precursorCharge = scanData['precursorCharge']
-        
+        scan.title = scanData["title"]
+        scan.scanNumber = scanData["scanNumber"]
+        scan.parentScanNumber = scanData["parentScanNumber"]
+        scan.msLevel = scanData["msLevel"]
+        scan.polarity = scanData["polarity"]
+        scan.retentionTime = scanData["retentionTime"]
+        scan.totIonCurrent = scanData["totIonCurrent"]
+        scan.basePeakMZ = scanData["basePeakMZ"]
+        scan.basePeakIntensity = scanData["basePeakIntensity"]
+        scan.precursorMZ = scanData["precursorMZ"]
+        scan.precursorIntensity = scanData["precursorIntensity"]
+        scan.precursorCharge = scanData["precursorCharge"]
+
         return scan
+
     # ----
-    
-    

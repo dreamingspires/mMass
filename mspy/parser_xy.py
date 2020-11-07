@@ -31,74 +31,75 @@ from . import obj_scan
 # PARSE SIMPLE ASCII XY
 # ---------------------
 
-class parseXY():
+
+class parseXY:
     """Parse data from ASCII XY."""
-    
+
     def __init__(self, path):
         self.path = path
-        
+
         # check path
         if not os.path.exists(path):
-            raise IOError('File not found! --> ' + self.path)
+            raise IOError("File not found! --> " + self.path)
+
     # ----
-    
-    
+
     def info(self):
         """Get document info."""
-        
+
         data = {
-            'title': '',
-            'operator': '',
-            'contact': '',
-            'institution': '',
-            'date': '',
-            'instrument': '',
-            'notes': '',
+            "title": "",
+            "operator": "",
+            "contact": "",
+            "institution": "",
+            "date": "",
+            "instrument": "",
+            "notes": "",
         }
-        
+
         return data
+
     # ----
-    
-    
-    def scan(self, dataType='continuous'):
+
+    def scan(self, dataType="continuous"):
         """Get spectrum from document."""
-        
+
         # parse file
         data = self._parseData()
-        
+
         # check data
         if not data:
             return False
-        
+
         # return scan
         return self._makeScan(data, dataType)
+
     # ----
-    
-    
+
     def _parseData(self):
         """Parse data."""
-        
+
         # open document
         try:
-            with open(self.path, 'rb') as document:
+            with open(self.path, "rb") as document:
                 rawData = document.readlines()
         except IOError:
             return False
-        
-        pattern = re.compile('^([-0-9\.eE+]+)[ \t]*(;|,)?[ \t]*([-0-9\.eE+]*)$')
-        
+
+        pattern = re.compile("^([-0-9\.eE+]+)[ \t]*(;|,)?[ \t]*([-0-9\.eE+]*)$")
+
         # read lines
         data = []
         for line in rawData:
             line = line.strip()
-            
+
             # discard comment lines
-            if not line or line[0] == '#' or line[0:3] == 'm/z':
+            if not line or line[0] == "#" or line[0:3] == "m/z":
                 continue
-            
+
             # check pattern
             # Assuming utf-8 encoding
-            parts = pattern.match(line.decode('utf-8'))
+            parts = pattern.match(line.decode("utf-8"))
             if parts:
                 try:
                     mass = float(parts.group(1))
@@ -108,26 +109,25 @@ class parseXY():
                 data.append([mass, intensity])
             else:
                 return False
-        
+
         return data
+
     # ----
-    
-    
+
     def _makeScan(self, scanData, dataType):
         """Make scan object from raw data."""
-        
+
         # parse data as peaklist (discrete points)
-        if dataType == 'discrete':
+        if dataType == "discrete":
             buff = []
             for point in scanData:
                 buff.append(obj_peak.peak(point[0], point[1]))
             scan = obj_scan.scan(peaklist=obj_peaklist.peaklist(buff))
-        
+
         # parse data as spectrum (continuous line)
         else:
             scan = obj_scan.scan(profile=scanData)
-        
+
         return scan
+
     # ----
-    
-    

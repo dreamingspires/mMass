@@ -18,28 +18,29 @@
 # stop exception
 class ForceQuit(Exception):
     """Force quit all processing."""
+
     pass
 
 
 # define stopper class
 class stopper:
     """Deffinition of processing stopper class."""
-    
+
     def __init__(self):
         self.value = False
-    
+
     def __bool__(self):
         return self.value
-    
+
     def __repr__(self):
         return str(self.value)
-    
+
     def enable(self):
         self.value = True
-    
+
     def disable(self):
         self.value = False
-    
+
     def check(self):
         if self.value:
             self.value = False
@@ -55,6 +56,7 @@ CHECK_FORCE_QUIT = STOPPER.check
 def stop():
     """Set stopper to stop."""
     STOPPER.enable()
+
 
 def start():
     """Set stopper to start."""
