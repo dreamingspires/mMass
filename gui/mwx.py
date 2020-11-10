@@ -25,6 +25,7 @@ import numpy as np
 from .ids import *
 from . import images
 from . import config
+from .mixins import MakeModalMixin
 import mspy
 
 
@@ -753,7 +754,7 @@ class gauge(wx.Gauge):
     # ----
 
 
-class gaugePanel(wx.Dialog, mspy.MakeModalMixin):
+class gaugePanel(wx.Dialog, MakeModalMixin):
     """Processing panel."""
 
     def __init__(self, parent, label, title="Progress..."):

@@ -25,6 +25,7 @@ from . import mwx
 from . import images
 from . import config
 from . import libs
+from .mixins import MakeModalMixin
 import mspy
 
 
@@ -32,7 +33,7 @@ import mspy
 # -------------------------------------
 
 
-class panelEnvelopeFit(wx.MiniFrame, mspy.MakeModalMixin):
+class panelEnvelopeFit(wx.MiniFrame, MakeModalMixin):
     """Envelope fit tool."""
 
     def __init__(self, parent):

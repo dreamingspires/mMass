@@ -24,6 +24,7 @@ import wx.grid
 from . import mwx
 from . import images
 from . import config
+from .mixins import MakeModalMixin
 import mspy
 
 
@@ -31,7 +32,7 @@ import mspy
 # -----------------------------------------
 
 
-class panelPeakDifferences(wx.MiniFrame, mspy.MakeModalMixin):
+class panelPeakDifferences(wx.MiniFrame, MakeModalMixin):
     """Peak differences tool."""
 
     def __init__(self, parent):

@@ -27,6 +27,7 @@ from . import mwx
 from . import images
 from . import config
 from . import libs
+from .mixins import MakeModalMixin
 import mspy
 import mspy.plot
 
@@ -35,7 +36,7 @@ import mspy.plot
 # ------------------------------------
 
 
-class panelCalibration(wx.MiniFrame, mspy.MakeModalMixin):
+class panelCalibration(wx.MiniFrame, MakeModalMixin):
     """Calibration tool."""
 
     def __init__(self, parent, tool="references"):

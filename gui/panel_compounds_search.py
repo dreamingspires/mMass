@@ -26,6 +26,7 @@ from . import mwx
 from . import images
 from . import config
 from . import libs
+from .mixins import MakeModalMixin
 import mspy
 from . import doc
 
@@ -36,7 +37,7 @@ from gui.panel_match import panelMatch
 # ----------------------------------------
 
 
-class panelCompoundsSearch(wx.MiniFrame, mspy.MakeModalMixin):
+class panelCompoundsSearch(wx.MiniFrame, MakeModalMixin):
     """Compounds search tool."""
 
     def __init__(self, parent, tool="compounds"):

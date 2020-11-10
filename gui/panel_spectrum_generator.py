@@ -24,6 +24,7 @@ import numpy
 from . import mwx
 from . import images
 from . import config
+from .mixins import MakeModalMixin
 import mspy
 import mspy.plot
 
@@ -32,7 +33,7 @@ import mspy.plot
 # -------------------------------------------
 
 
-class panelSpectrumGenerator(wx.MiniFrame, mspy.MakeModalMixin):
+class panelSpectrumGenerator(wx.MiniFrame, MakeModalMixin):
     """Spectrum generator tool."""
 
     def __init__(self, parent):

@@ -27,6 +27,7 @@ from . import mwx
 from . import images
 from . import config
 from . import libs
+from .mixins import MakeModalMixin
 import mspy
 from . import doc
 
@@ -35,7 +36,7 @@ from . import doc
 # ------------------------------------
 
 
-class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
+class panelProcessing(wx.MiniFrame, MakeModalMixin):
     """Data processing tools."""
 
     def __init__(self, parent, tool="peakpicking"):
