@@ -1202,6 +1202,7 @@ class mainFrame(wx.Frame):
 
         # quit application
         evt.Skip()
+        self.AUIManager.UnInit()
         self.Destroy()
 
     # ----
