@@ -658,7 +658,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
             cellAttr = wx.grid.GridCellAttr()
             cellAttr.SetReadOnly(True)
             for x in range(count ** 2 + count):
-                self.documentsGrid.SetColAttr(x, cellAttr)
+                self.documentsGrid.SetColAttr(x, cellAttr.Clone())
                 if x % (count + 1):
                     self.documentsGrid.SetColLabelValue(x, "*")
                     self.documentsGrid.SetColSize(x, 20)
@@ -728,7 +728,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
             cellAttr = wx.grid.GridCellAttr()
             cellAttr.SetReadOnly(True)
             for x in range(count + 1):
-                self.peaklistGrid.SetColAttr(x, cellAttr)
+                self.peaklistGrid.SetColAttr(x, cellAttr.Clone())
             for x in range(1, count + 1):
                 self.peaklistGrid.SetColLabelValue(x, "*")
                 self.peaklistGrid.SetColSize(x, 20)
@@ -788,7 +788,7 @@ class panelComparePeaklists(wx.MiniFrame, mspy.MakeModalMixin):
         cellAttr = wx.grid.GridCellAttr()
         cellAttr.SetReadOnly(True)
         for x in range(5):
-            self.matchesGrid.SetColAttr(x, cellAttr)
+            self.matchesGrid.SetColAttr(x, cellAttr.Clone())
         self.matchesGrid.SetColSize(0, 20)
 
         # set formats
