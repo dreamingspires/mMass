@@ -20,6 +20,7 @@
 import sys
 import os
 import xml.dom.minidom
+from xdgenvpy import XDGPackage
 
 
 # SET VERSION
@@ -49,7 +50,7 @@ if sys.platform == "darwin":
 elif sys.platform.startswith("linux") or sys.platform.startswith("freebsd"):
     confdir = "configs"
     home = os.path.expanduser("~")
-    userconf = os.path.join(home, ".mmass")
+    userconf = XDGPackage("mmass").XDG_CONFIG_HOME
     if os.path.exists(home) and not os.path.exists(userconf):
         try:
             os.mkdir(userconf)
