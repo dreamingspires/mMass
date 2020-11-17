@@ -75,6 +75,7 @@ class canvas(wx.Window):
             "axisColour": (0, 0, 0),
             "gridColour": (235, 235, 235),
             "highlightColour": (255, 0, 0),
+            "zoomBoxColour": wx.TheColourDatabase.Find('sky blue'),
             "axisFont": wx.Font(
                 10, wx.SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0
             ),
@@ -130,12 +131,9 @@ class canvas(wx.Window):
     def onPaint(self, evt):
         """Repaint plot."""
 
-        # clear cursor tracker
-        if self.mouseTracker:
-            self.drawMouseTracker()
-
         # draw buffer to screen
         dc = wx.BufferedPaintDC(self, self.plotBuffer)
+        self.quickRefresh(dc)
 
     # ----
 
@@ -149,6 +147,7 @@ class canvas(wx.Window):
 
         # make new offscreen bitmap
         self.plotBuffer = wx.Bitmap(width, height)
+        self.cleanPlotBuffer = wx.Bitmap(width, height)
         self.setSize()
 
         # redraw plot or clear area
@@ -178,9 +177,8 @@ class canvas(wx.Window):
     def onLeave(self, evt):
         """Escape mouse events when cursor leave out of the canvas."""
 
-        # clear cursor tracker
-        if self.mouseTracker:
-            self.drawMouseTracker()
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
 
         # escape mouse events
         self.escMouseEvents()
@@ -209,9 +207,8 @@ class canvas(wx.Window):
         if self.mouseEvent:
             return
 
-        # clear cursor tracker
-        if self.mouseTracker:
-            self.drawMouseTracker()
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
 
         # get starting coords for movement
         self.draggingStart = self.cursorPosition[:]
@@ -220,32 +217,32 @@ class canvas(wx.Window):
         # set zooming with Control (for one-button mouse)
         if location == "plot" and evt.ControlDown():
             self.mouseEvent = "zoom"
-            self.drawZoomBox()
+            self.drawZoomBox(dc)
 
         # draw point tracker
         elif location == "plot" and self.mouseFnLMB == "point":
             self.mouseEvent = "point"
-            self.drawPointTracker()
+            self.drawPointTracker(dc)
 
         # draw isotope ruler
         elif location == "plot" and self.mouseFnLMB == "isotopes":
             self.mouseEvent = "isotopes"
-            self.drawIsotopeRuler()
+            self.drawIsotopeRuler(dc)
 
         # draw selection rectangle
         elif location == "plot" and self.mouseFnLMB == "rectangle":
             self.mouseEvent = "rectangle"
-            self.drawSelectionRect()
+            self.drawSelectionRect(dc)
 
         # draw selection range
         elif location == "plot" and self.mouseFnLMB == "range":
             self.mouseEvent = "range"
-            self.drawSelectionRange()
+            self.drawSelectionRange(dc)
 
         # draw distance arrow
         elif location == "plot" and self.mouseFnLMB in ("xDistance", "yDistance"):
             self.mouseEvent = "distance"
-            self.drawDistanceTracker()
+            self.drawDistanceTracker(dc)
 
         # set axis dragging
         elif location == "xAxis":
@@ -267,11 +264,13 @@ class canvas(wx.Window):
             self.SetFocus()
             return
 
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
+
         # zoom plot
         if self.mouseEvent == "zoom":
 
             # clear zoombox
-            self.drawZoomBox()
 
             # get zoom
             minX = min(self.draggingStart[0], self.cursorPosition[0])
@@ -281,31 +280,11 @@ class canvas(wx.Window):
 
             # apply zoom
             if self.properties["zoomAxis"] == "xy" and minX != maxX and minY != maxY:
-                self.zoom(xAxis=(minX, maxX), yAxis=(minY, maxY))
+                self.zoom(xAxis=(minX, maxX), yAxis=(minY, maxY), dc=dc)
             elif self.properties["zoomAxis"] == "x" and minX != maxX:
-                self.zoom(xAxis=(minX, maxX))
+                self.zoom(xAxis=(minX, maxX), dc=dc)
             elif self.properties["zoomAxis"] == "y" and minY != maxY:
-                self.zoom(yAxis=(minY, maxY))
-
-        # clear point selection
-        elif self.mouseEvent == "point":
-            self.drawPointTracker()
-
-        # clear isotope ruler
-        elif self.mouseEvent == "isotopes":
-            self.drawIsotopeRuler()
-
-        # clear selection rectangle
-        elif self.mouseEvent == "rectangle":
-            self.drawSelectionRect()
-
-        # clear selection range
-        elif self.mouseEvent == "range":
-            self.drawSelectionRange()
-
-        # clear distance arrow
-        elif self.mouseEvent == "distance":
-            self.drawDistanceTracker()
+                self.zoom(yAxis=(minY, maxY), dc=dc)
 
         # remember zoom
         elif self.mouseEvent in ("xShift", "yShift"):
@@ -329,10 +308,9 @@ class canvas(wx.Window):
         ):
             self.mouseEvent = False
 
-            # show point tracker
-            if self.getCursorLocation() == "plot":
-                self.drawMouseTracker()
-
+        # show point tracker
+        if self.getCursorLocation() == "plot":
+            self.drawMouseTracker(dc)
     # ----
 
     def onLMDC(self, evt):
@@ -355,8 +333,10 @@ class canvas(wx.Window):
         else:
             return
 
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+
         # redraw plot
-        self.draw(self.lastDraw[0], (minX, maxX), (minY, maxY))
+        self.draw(self.lastDraw[0], (minX, maxX), (minY, maxY), dc)
 
         # remember new zoom
         self.rememberView((minX, maxX), (minY, maxY))
@@ -367,7 +347,7 @@ class canvas(wx.Window):
 
         # show point tracker
         if self.getCursorLocation() == "plot":
-            self.drawMouseTracker()
+            self.drawMouseTracker(dc)
 
     # ----
 
@@ -390,10 +370,13 @@ class canvas(wx.Window):
         self.draggingStart = self.cursorPosition[:]
         location = self.getCursorLocation()
 
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
+
         # draw zoom box and set event
         if location == "plot" and self.mouseFnRMB == "zoom":
             self.mouseEvent = "zoom"
-            self.drawZoomBox()
+            self.drawZoomBox(dc)
 
         # set event
         elif location == "xAxis":
@@ -403,9 +386,6 @@ class canvas(wx.Window):
         elif location == "blank":
             self.mouseEvent = "ROut"
 
-        # clear cursor tracker
-        if self.mouseTracker:
-            self.drawMouseTracker()
 
     # ----
 
@@ -417,11 +397,13 @@ class canvas(wx.Window):
             self.SetFocus()
             return
 
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
+
         # zoom dragging
         if self.mouseEvent == "zoom":
 
             # clear zoombox
-            self.drawZoomBox()
 
             # get zoom
             minX = min(self.draggingStart[0], self.cursorPosition[0])
@@ -431,11 +413,11 @@ class canvas(wx.Window):
 
             # apply zoom
             if self.properties["zoomAxis"] == "xy" and minX != maxX and minY != maxY:
-                self.zoom(xAxis=(minX, maxX), yAxis=(minY, maxY))
+                self.zoom(xAxis=(minX, maxX), yAxis=(minY, maxY), dc=dc)
             elif self.properties["zoomAxis"] == "x" and minX != maxX:
-                self.zoom(xAxis=(minX, maxX))
+                self.zoom(xAxis=(minX, maxX), dc=dc)
             elif self.properties["zoomAxis"] == "y" and minY != maxY:
-                self.zoom(yAxis=(minY, maxY))
+                self.zoom(yAxis=(minY, maxY), dc=dc)
 
         # axis scaling
         elif self.mouseEvent in ("xScale", "yScale"):
@@ -449,9 +431,9 @@ class canvas(wx.Window):
         if self.mouseEvent in ("ROut", "zoom", "xScale", "yScale"):
             self.mouseEvent = False
 
-            # show point tracker
-            if self.getCursorLocation() == "plot":
-                self.drawMouseTracker()
+        # show point tracker
+        if self.getCursorLocation() == "plot":
+            self.drawMouseTracker(dc)
 
     # ----
 
@@ -465,8 +447,10 @@ class canvas(wx.Window):
         else:
             return
 
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+
         # redraw plot
-        self.draw(self.lastDraw[0], (minX, maxX), (minY, maxY))
+        self.draw(self.lastDraw[0], (minX, maxX), (minY, maxY), dc)
 
         # remember new zoom
         self.rememberView((minX, maxX), (minY, maxY))
@@ -477,40 +461,15 @@ class canvas(wx.Window):
 
         # show point tracker
         if self.getCursorLocation() == "plot":
-            self.drawMouseTracker()
+            self.drawMouseTracker(dc)
 
     # ----
 
     def onMMotion(self, evt):
         """Draw cursor on mouse motion."""
 
-        # clear cursor tracker
-        if not self.mouseEvent and self.mouseTracker:
-            self.drawMouseTracker()
-
-        # clear zoombox
-        elif self.mouseEvent == "zoom":
-            self.drawZoomBox()
-
-        # clear point tracker
-        elif self.mouseEvent == "point":
-            self.drawPointTracker()
-
-        # clear isotope ruler
-        elif self.mouseEvent == "isotopes":
-            self.drawIsotopeRuler()
-
-        # clear selection rectangle
-        elif self.mouseEvent == "rectangle":
-            self.drawSelectionRect()
-
-        # clear selection range
-        elif self.mouseEvent == "range":
-            self.drawSelectionRange()
-
-        # clear distance arrow
-        elif self.mouseEvent == "distance":
-            self.drawDistanceTracker()
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
 
         # store cursor positions
         self.cursorPosition[0], self.cursorPosition[1] = self.getXY(evt)
@@ -520,31 +479,31 @@ class canvas(wx.Window):
         if not self.mouseEvent:
             self.setCursorByLocation()
             if self.getCursorLocation() == "plot":
-                self.drawMouseTracker()
+                self.drawMouseTracker(dc)
 
         # draw zoombox
         elif self.mouseEvent == "zoom":
-            self.drawZoomBox()
+            self.drawZoomBox(dc)
 
         # draw point tracker
         elif self.mouseEvent == "point":
-            self.drawPointTracker()
+            self.drawPointTracker(dc)
 
         # draw isotope ruler
         elif self.mouseEvent == "isotopes":
-            self.drawIsotopeRuler()
+            self.drawIsotopeRuler(dc)
 
         # draw selection rectangle
         elif self.mouseEvent == "rectangle":
-            self.drawSelectionRect()
+            self.drawSelectionRect(dc)
 
         # draw selection range
         elif self.mouseEvent == "range":
-            self.drawSelectionRange()
+            self.drawSelectionRange(dc)
 
         # draw distance arrow
         elif self.mouseEvent == "distance":
-            self.drawDistanceTracker()
+            self.drawDistanceTracker(dc)
 
         # move x axis
         elif self.mouseEvent == "xShift":
@@ -571,9 +530,8 @@ class canvas(wx.Window):
         if self.mouseEvent:
             return
 
-        # clear cursor tracker
-        if self.mouseTracker:
-            self.drawMouseTracker()
+        dc = wx.BufferedDC(wx.ClientDC(self), self.plotBuffer)
+        self.quickRefresh(dc)
 
         # get scroll direction
         direction = 1
@@ -589,7 +547,7 @@ class canvas(wx.Window):
             else:
                 self.currentCharge = max(1, self.currentCharge + direction)
                 self.currentCharge = min(50, self.currentCharge)
-            self.drawMouseTracker()
+            self.drawMouseTracker(dc)
             return
 
         # store cursor positions
@@ -653,7 +611,7 @@ class canvas(wx.Window):
                 minY, maxY = self.getMaxYRange(minX, maxX)
 
         # redraw plot
-        self.draw(self.lastDraw[0], (minX, maxX), (minY, maxY))
+        self.draw(self.lastDraw[0], (minX, maxX), (minY, maxY), dc)
 
         # remember new zoom
         self.rememberView((minX, maxX), (minY, maxY))
@@ -1220,6 +1178,11 @@ class canvas(wx.Window):
         if self.properties["showLegend"]:
             self.drawLegend(dc, graphics)
 
+        # save plot state before any dynamic content is drawn
+        # used for quick refreshing
+        self.cleanPlotBuffer = self.plotBuffer.GetSubBitmap(
+            wx.Rect(0, 0, *self.plotBuffer.GetSize()))
+
     # ----
 
     def drawOutside(self, dc, filterSize):
@@ -1516,16 +1479,16 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawMouseTracker(self):
+    def drawMouseTracker(self, dc):
         """Draw selected mouse tracker."""
 
         # draw default cross tracker
         if self.mouseFn == "cross":
-            self.drawCursorTracker()
+            self.drawCursorTracker(dc)
 
         # draw isotope ruler
         elif self.mouseFn == "isotoperuler":
-            self.drawIsotopeRuler()
+            self.drawIsotopeRuler(dc)
 
         # no tracker set
         else:
@@ -1536,7 +1499,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawCursorTracker(self):
+    def drawCursorTracker(self, dc):
         """Draw cursor tracker"""
 
         # get plot coords
@@ -1560,9 +1523,8 @@ class canvas(wx.Window):
             maxYGel += 1
 
         # draw tracker lines
-        dc = wx.ClientDC(self)
-        dc.SetPen(wx.Pen(wx.BLACK))
-        dc.SetLogicalFunction(wx.INVERT)
+        dc.SetPen(wx.Pen(wx.BLACK, style=wx.PENSTYLE_SHORT_DASH))
+        # dc.SetLogicalFunction(wx.INVERT)
 
         dc.DrawLine(x, minYPlot, x, maxYPlot)
         dc.DrawLine(minXPlot, y, maxXPlot, y)
@@ -1609,7 +1571,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawDistanceTracker(self):
+    def drawDistanceTracker(self, dc):
         """Draw distance tracker."""
 
         # check cursor position
@@ -1641,8 +1603,7 @@ class canvas(wx.Window):
             maxY -= 1
 
         # draw tracker
-        dc = wx.ClientDC(self)
-        dc.SetLogicalFunction(wx.INVERT)
+        # dc.SetLogicalFunction(wx.INVERT)
         dc.SetPen(wx.Pen(wx.BLACK))
 
         if self.mouseFnLMB == "xDistance":
@@ -1694,7 +1655,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawPointTracker(self):
+    def drawPointTracker(self, dc):
         """Draw point tracker - follow the main plot"""
 
         # check cursor position
@@ -1718,9 +1679,8 @@ class canvas(wx.Window):
         currentY = self.getPoint(x, coord="screen")
 
         # draw tracker lines
-        dc = wx.ClientDC(self)
         dc.SetPen(wx.Pen(wx.BLACK))
-        dc.SetLogicalFunction(wx.INVERT)
+        # dc.SetLogicalFunction(wx.INVERT)
         if wx.Platform == "__WXMAC__":
             dc.DrawLine(x, minY, x, maxY - 1)
             if currentY:
@@ -1755,7 +1715,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawIsotopeRuler(self):
+    def drawIsotopeRuler(self, dc):
         """Draw charge ruler."""
 
         # check cursor position
@@ -1810,8 +1770,7 @@ class canvas(wx.Window):
             mz += diff
 
         # set pen
-        dc = wx.ClientDC(self)
-        dc.SetLogicalFunction(wx.INVERT)
+        # dc.SetLogicalFunction(wx.INVERT)
         dc.SetPen(wx.Pen(wx.BLACK))
 
         # draw lines
@@ -1852,7 +1811,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawZoomBox(self):
+    def drawZoomBox(self, dc):
         """Draw zoom-box"""
 
         # get coordinations
@@ -1881,11 +1840,14 @@ class canvas(wx.Window):
             minYGel = minYPlot - (8 * self.printerScale["drawings"])
             maxYGel = minYGel - self.gelsCount * self.properties["gelHeight"]
 
+        # use DC with transparency (only needed for MSW)
+        dc = wx.GCDC(dc)
+
         # set canvas and pen
-        dc = wx.ClientDC(self)
         dc.SetPen(wx.Pen(wx.BLACK))
-        dc.SetBrush(wx.Brush(wx.WHITE, wx.SOLID))
-        dc.SetLogicalFunction(wx.INVERT)
+        c = self.properties['zoomBoxColour']
+        dc.SetBrush(wx.Brush(wx.Colour(c.Red(), c.Green(), c.Blue(), 80), wx.SOLID))
+        dc.SetLogicalFunction(wx.COPY)
 
         # draw clasic zoom box
         if self.properties["zoomAxis"] == "xy":
@@ -1910,7 +1872,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawSelectionRect(self):
+    def drawSelectionRect(self, dc):
         """Draw selection rectangle"""
 
         # get coordinations
@@ -1934,8 +1896,7 @@ class canvas(wx.Window):
         height = y2 - y1
 
         # draw tracker lines
-        dc = wx.ClientDC(self)
-        dc.SetLogicalFunction(wx.INVERT)
+        # dc.SetLogicalFunction(wx.INVERT)
         dc.SetPen(wx.Pen(wx.BLACK))
         dc.SetBrush(wx.Brush(wx.BLACK, wx.TRANSPARENT))
         dc.DrawRectangle(x1, y1, width, height)
@@ -1943,7 +1904,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def drawSelectionRange(self):
+    def drawSelectionRange(self, dc):
         """Draw selection range line"""
 
         # get coordinations
@@ -1961,8 +1922,7 @@ class canvas(wx.Window):
             x1, x2 = x2, x1
 
         # draw tracker lines
-        dc = wx.ClientDC(self)
-        dc.SetLogicalFunction(wx.INVERT)
+        # dc.SetLogicalFunction(wx.INVERT)
         dc.SetPen(wx.Pen(wx.BLACK))
         dc.SetBrush(wx.Brush(wx.BLACK, wx.TRANSPARENT))
         if wx.Platform == "__WXMAC__":
@@ -2010,6 +1970,12 @@ class canvas(wx.Window):
 
     def drawInvertedText(self, dc, text, x, y, font):
         """Special function for drawing inverted text"""
+
+        # draw normal text as inverted text seems impossible to implement in wx
+        dc.SetTextForeground(wx.BLACK)
+        dc.SetFont(font)
+        dc.DrawText(text, x, y)
+        return
 
         # init dc
         textDC = wx.MemoryDC()
@@ -2086,6 +2052,12 @@ class canvas(wx.Window):
 
     # ----
 
+    def quickRefresh(self, dc):
+
+        dc.DrawBitmap(self.cleanPlotBuffer, 0, 0)
+
+    # ----
+
     def clear(self):
         """Clear plot window"""
 
@@ -2095,7 +2067,7 @@ class canvas(wx.Window):
 
     # ----
 
-    def zoom(self, xAxis=None, yAxis=None):
+    def zoom(self, xAxis=None, yAxis=None, dc=None):
         """Zoom plot to selected range"""
 
         # set X axis
@@ -2125,7 +2097,7 @@ class canvas(wx.Window):
 
         # draw plot
         if not xAxis is None or not yAxis is None:
-            self.draw(self.lastDraw[0], xAxis, yAxis)
+            self.draw(self.lastDraw[0], xAxis, yAxis, dc)
             self.rememberView(xAxis, yAxis)
 
     # ----
@@ -2262,29 +2234,29 @@ class canvas(wx.Window):
     def escMouseEvents(self):
         """Escape any mouse events function."""
 
-        # clear zoombox
-        if self.mouseEvent == "zoom":
-            self.drawZoomBox()
+        # # clear zoombox
+        # if self.mouseEvent == "zoom":
+        #     self.drawZoomBox()
 
-        # clear point tracker
-        elif self.mouseEvent == "point":
-            self.drawPointTracker()
+        # # clear point tracker
+        # elif self.mouseEvent == "point":
+        #     self.drawPointTracker()
 
-        # clear isotope ruler
-        elif self.mouseEvent == "isotopes":
-            self.drawIsotopeRuler()
+        # # clear isotope ruler
+        # elif self.mouseEvent == "isotopes":
+        #     self.drawIsotopeRuler()
 
-        # clear selection rectangle
-        elif self.mouseEvent == "rectangle":
-            self.drawSelectionRect()
+        # # clear selection rectangle
+        # elif self.mouseEvent == "rectangle":
+        #     self.drawSelectionRect()
 
-        # clear selection range
-        elif self.mouseEvent == "range":
-            self.drawSelectionRange()
+        # # clear selection range
+        # elif self.mouseEvent == "range":
+        #     self.drawSelectionRange()
 
-        # clear distance arrow
-        elif self.mouseEvent == "distance":
-            self.drawDistanceTracker()
+        # # clear distance arrow
+        # elif self.mouseEvent == "distance":
+        #     self.drawDistanceTracker()
 
         # reset mouse event flag
         self.mouseEvent = False
