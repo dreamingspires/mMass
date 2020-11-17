@@ -1261,7 +1261,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
     def onStop(self, evt):
         """Cancel current processing."""
 
-        if self.processing and self.processing.isAlive():
+        if self.processing and self.processing.is_alive():
             mspy.stop()
         else:
             wx.Bell()
@@ -1611,7 +1611,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
 
         # pulse gauge while working
         self.processing.start()
-        while self.processing and self.processing.isAlive():
+        while self.processing and self.processing.is_alive():
             self.gauge.pulse()
 
         # send tmp spectrum to plot canvas
@@ -1691,7 +1691,7 @@ class panelProcessing(wx.MiniFrame, mspy.MakeModalMixin):
 
         # pulse gauge while working
         self.processing.start()
-        while self.processing and self.processing.isAlive():
+        while self.processing and self.processing.is_alive():
             self.gauge.pulse()
 
         # update gui

@@ -14,7 +14,6 @@
 #     Complete text of GNU GPL can be found in the file LICENSE.TXT in the
 #     main directory of the program.
 # -------------------------------------------------------------------------
-import pdb
 
 # load libs
 import traceback
@@ -1161,7 +1160,6 @@ class mainFrame(wx.Frame):
 
         # set frame manager properties
         artProvider = self.AUIManager.GetArtProvider()
-        # pdb.set_trace()
         artProvider.SetColour(
             wx.aui.AUI_DOCKART_SASH_COLOUR, self.documentsPanel.GetBackgroundColour()
         )
@@ -1982,7 +1980,7 @@ class mainFrame(wx.Frame):
             target=self.runDocumentSave, kwargs={"docIndex": docIndex}
         )
         process.start()
-        while process.isAlive():
+        while process.is_alive():
             gauge.pulse()
 
         # save file
@@ -3815,7 +3813,7 @@ class mainFrame(wx.Frame):
             target=self.runLibrarySave, kwargs={"library": library}
         )
         process.start()
-        while process.isAlive():
+        while process.is_alive():
             gauge.pulse()
         gauge.close()
 
@@ -4160,7 +4158,7 @@ class mainFrame(wx.Frame):
                 kwargs={"path": path, "docType": docType, "scan": scan},
             )
             process.start()
-            while process.isAlive():
+            while process.is_alive():
                 gauge.pulse()
 
             # append document
@@ -4212,7 +4210,7 @@ class mainFrame(wx.Frame):
             kwargs={"rawData": rawData, "dataType": dataType},
         )
         process.start()
-        while process.isAlive():
+        while process.is_alive():
             gauge.pulse()
 
         # append document
@@ -4248,7 +4246,7 @@ class mainFrame(wx.Frame):
         gauge.show()
         process = threading.Thread(target=self.runCompassXport, kwargs={"path": path})
         process.start()
-        while process.isAlive():
+        while process.is_alive():
             gauge.pulse()
         gauge.close()
 
@@ -4610,7 +4608,7 @@ class mainFrame(wx.Frame):
             target=self.getDocumentScanList, kwargs={"path": path, "docType": docType}
         )
         process.start()
-        while process.isAlive():
+        while process.is_alive():
             gauge.pulse()
         gauge.close()
 
@@ -4653,7 +4651,7 @@ class mainFrame(wx.Frame):
             target=self.getDocumentSequences, kwargs={"path": path, "docType": docType}
         )
         process.start()
-        while process.isAlive():
+        while process.is_alive():
             gauge.pulse()
         gauge.close()
 

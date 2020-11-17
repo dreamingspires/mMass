@@ -1986,7 +1986,7 @@ class panelMascot(wx.MiniFrame, mspy.MakeModalMixin):
         self.processing.start()
 
         # pulse gauge while working
-        while self.processing and self.processing.isAlive():
+        while self.processing and self.processing.is_alive():
             self.gauge.pulse()
 
         # hide processing gauge

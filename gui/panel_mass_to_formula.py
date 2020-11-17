@@ -402,7 +402,7 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
     def onStop(self, evt):
         """Cancel current processing."""
 
-        if self.processing and self.processing.isAlive():
+        if self.processing and self.processing.is_alive():
             mspy.stop()
         else:
             wx.Bell()
@@ -617,7 +617,7 @@ class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
         self.processing.start()
 
         # pulse gauge while working
-        while self.processing and self.processing.isAlive():
+        while self.processing and self.processing.is_alive():
             self.gauge.pulse()
 
         # update gui
