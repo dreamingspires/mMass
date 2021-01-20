@@ -4021,7 +4021,7 @@ class mainFrame(wx.Frame):
                     )
                 )
             else:
-                title = "A newer version of mMass is available from mMass.org"  # update on merge
+                title = "A newer version of mMass is available from github.com"
                 message = (
                     "Version %s is now available for download.\nYou are currently using version %s."
                     % (config.main["updatesAvailable"], config.version)
@@ -5064,7 +5064,7 @@ class mainFrame(wx.Frame):
             and config.main["updatesAvailable"]
             and config.main["updatesAvailable"] != config.version
         ):
-            title = "A newer version of mMass is available from mMass.org"  # update on merge
+            title = "A newer version of mMass is available from github.com"
             message = (
                 "Version %s is now available for download.\nYou are currently using version %s."
                 % (config.main["updatesAvailable"], config.version)
