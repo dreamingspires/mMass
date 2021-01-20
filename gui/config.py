@@ -115,6 +115,7 @@ main = {
     "updatesChecked": "",
     "updatesCurrent": version,
     "updatesAvailable": version,
+    "latestVersionUrl": "https://api.github.com/repos/aith-q/mMass/releases/latest",    # update on merge
     "compassMode": "Profile",
     "compassFormat": "mzML",
     "compassDeleteFile": 1,
@@ -582,8 +583,8 @@ links = {
     "mMassTwitter": "http://www.twitter.com/mmassorg/",
     "mMassCite": "http://www.mmass.org/donate/papers.php",
     "mMassDonate": "http://www.mmass.org/donate/",
-    "mMassDownload": "http://www.mmass.org/download/",
-    "mMassWhatsNew": "http://www.mmass.org/download/history.php",
+    "mMassDownload": "http://www.mmass.org/download/",              # update on merge
+    "mMassWhatsNew": "http://www.mmass.org/download/history.php",   # update on merge
     "biomedmstools": "http://ms.biomed.cas.cz/MSTools/",
     "blast": "http://www.ebi.ac.uk/Tools/blastall/",
     "clustalw": "http://www.ebi.ac.uk/Tools/clustalw/",

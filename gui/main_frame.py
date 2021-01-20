@@ -28,8 +28,7 @@ import subprocess
 import re
 import random
 import mspy
-import socket
-import http.client
+import requests
 import webbrowser
 import tempfile
 import wx
@@ -161,8 +160,7 @@ class mainFrame(wx.Frame):
         self.Show(True)
 
         # check for available updates
-        # TODO: work out how updating should work (probably not self-updating)
-        # self.checkVersions()
+        self.checkVersions()
 
     # ----
 
@@ -4023,7 +4021,7 @@ class mainFrame(wx.Frame):
                     )
                 )
             else:
-                title = "A newer version of mMass is available from mMass.org"
+                title = "A newer version of mMass is available from mMass.org"  # update on merge
                 message = (
                     "Version %s is now available for download.\nYou are currently using version %s."
                     % (config.main["updatesAvailable"], config.version)
@@ -4908,40 +4906,6 @@ class mainFrame(wx.Frame):
 
     # ----
 
-    def getAvailableUpdates(self):
-        """Check for available updates."""
-
-        # get latest version available
-        socket.setdefaulttimeout(5)
-        conn = http.client.HTTPConnection("www.mmass.org")
-        try:
-            conn.connect()
-            url = "/update.php?version=%s&platform=%s" % (
-                config.version,
-                platform.platform(),
-            )
-            conn.request("GET", url)
-            response = conn.getresponse()
-        except:
-            return False
-
-        if response.status == 200:
-            data = response.read()
-            conn.close()
-        else:
-            conn.close()
-            return False
-
-        # check version
-        if re.match("^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$", data):
-            config.main["updatesAvailable"] = data
-            config.main["updatesChecked"] = time.strftime("%Y%m%d", time.localtime())
-            return True
-        else:
-            return False
-
-    # ----
-
     def getCurrentSpectrumPoints(self, currentView=False):
         """Get spectrum profile from current document."""
 
@@ -5039,6 +5003,48 @@ class mainFrame(wx.Frame):
 
     # ----
 
+    def decodeVersionString(self, versionString):
+        """Decode version string to int tuple."""
+        if re.match("^v?([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$", versionString):
+            return tuple(int(i) for i in re.sub(r"[^.0-9]", "", versionString).split("."))
+        else:
+            raise ValueError
+
+    # ----
+
+    def encodeVersionString(self, versionTuple):
+        """Encode int tuple to version string."""
+        if len(versionTuple) == 3:
+            return ".".join((str(i) for i in versionTuple))
+        else:
+            raise ValueError
+
+    # ----
+
+    def getAvailableUpdates(self):
+        """Check for available updates."""
+
+        try:
+            # get latest version available
+            r = requests.get(config.main["latestVersionUrl"], timeout=5)
+            r.raise_for_status()
+            data = r.json()
+
+            # convert to comparable tuples
+            new_version = self.decodeVersionString(data["name"])
+            current_version = self.decodeVersionString(config.version)
+
+            # this gives correct behaviour in case latest release is outdated
+            config.main["updatesAvailable"] = self.encodeVersionString(max(new_version, current_version))
+            config.main["updatesChecked"] = time.strftime("%Y%m%d", time.localtime())
+            return True
+
+        except Exception as e:
+            # print(e)
+            return False
+
+    # ----
+
     def checkVersions(self):
         """Check mMass version and available updates."""
 
@@ -5058,7 +5064,7 @@ class mainFrame(wx.Frame):
             and config.main["updatesAvailable"]
             and config.main["updatesAvailable"] != config.version
         ):
-            title = "A newer version of mMass is available from mMass.org"
+            title = "A newer version of mMass is available from mMass.org"  # update on merge
             message = (
                 "Version %s is now available for download.\nYou are currently using version %s."
                 % (config.main["updatesAvailable"], config.version)
