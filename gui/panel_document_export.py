@@ -25,6 +25,7 @@ from .ids import *
 from . import mwx
 from . import images
 from . import config
+from .mixins import MakeModalMixin
 import mspy
 
 
@@ -32,7 +33,7 @@ import mspy
 # -----------------------------------
 
 
-class panelDocumentExport(wx.MiniFrame, mspy.MakeModalMixin):
+class panelDocumentExport(wx.MiniFrame, MakeModalMixin):
     """Document export tools."""
 
     def __init__(self, parent, tool="image"):

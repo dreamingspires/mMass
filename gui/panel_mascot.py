@@ -31,6 +31,7 @@ from . import mwx
 from . import images
 from . import config
 from . import libs
+from .mixins import MakeModalMixin
 import mspy
 from . import doc
 
@@ -39,7 +40,7 @@ from . import doc
 # ---------------------------------
 
 
-class panelMascot(wx.MiniFrame, mspy.MakeModalMixin):
+class panelMascot(wx.MiniFrame, MakeModalMixin):
     """Mascot search tool."""
 
     def __init__(self, parent, tool=config.mascot["common"]["searchType"]):

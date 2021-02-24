@@ -24,6 +24,7 @@ from .ids import *
 from . import mwx
 from . import images
 from . import config
+from .mixins import MakeModalMixin
 import mspy
 import mspy.plot
 from . import doc
@@ -33,7 +34,7 @@ from . import doc
 # -------------------------------
 
 
-class panelMatch(wx.MiniFrame, mspy.MakeModalMixin):
+class panelMatch(wx.MiniFrame, MakeModalMixin):
     """Data match tool."""
 
     def __init__(self, parentTool, mainFrame, module):

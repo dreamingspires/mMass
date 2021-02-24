@@ -239,7 +239,7 @@ class panelDocuments(wx.Panel):
             style.Append(ID_documentStyleDot, "Dotted", "", wx.ITEM_RADIO)
             style.Append(ID_documentStyleDash, "Dashed", "", wx.ITEM_RADIO)
             style.Append(ID_documentStyleDotDash, "Dot and Dash", "", wx.ITEM_RADIO)
-            menu.AppendMenu(ID_documentStyle, "Line Style", style)
+            menu.Append(ID_documentStyle, "Line Style", style)
             menu.AppendSeparator()
             menu.Append(ID_documentFlip, "Flip Spectrum")
             menu.Append(ID_documentOffset, "Offset Spectrum...")

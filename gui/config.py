@@ -20,6 +20,7 @@
 import sys
 import os
 import xml.dom.minidom
+from xdgenvpy import XDGPackage
 
 
 # SET VERSION
@@ -49,7 +50,7 @@ if sys.platform == "darwin":
 elif sys.platform.startswith("linux") or sys.platform.startswith("freebsd"):
     confdir = "configs"
     home = os.path.expanduser("~")
-    userconf = os.path.join(home, ".mmass")
+    userconf = XDGPackage("mmass").XDG_CONFIG_HOME
     if os.path.exists(home) and not os.path.exists(userconf):
         try:
             os.mkdir(userconf)
@@ -114,6 +115,7 @@ main = {
     "updatesChecked": "",
     "updatesCurrent": version,
     "updatesAvailable": version,
+    "latestVersionUrl": "https://api.github.com/repos/dreamingspires/mMass/releases/latest",
     "compassMode": "Profile",
     "compassFormat": "mzML",
     "compassDeleteFile": 1,
@@ -581,8 +583,8 @@ links = {
     "mMassTwitter": "http://www.twitter.com/mmassorg/",
     "mMassCite": "http://www.mmass.org/donate/papers.php",
     "mMassDonate": "http://www.mmass.org/donate/",
-    "mMassDownload": "http://www.mmass.org/download/",
-    "mMassWhatsNew": "http://www.mmass.org/download/history.php",
+    "mMassDownload": "https://github.com/dreamingspires/mMass/",
+    "mMassWhatsNew": "https://github.com/dreamingspires/mMass/releases",
     "biomedmstools": "http://ms.biomed.cas.cz/MSTools/",
     "blast": "http://www.ebi.ac.uk/Tools/blastall/",
     "clustalw": "http://www.ebi.ac.uk/Tools/clustalw/",

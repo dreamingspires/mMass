@@ -220,14 +220,7 @@ class peaklist:
     def sort(self):
         """Sort peaks according to m/z."""
 
-        buff = []
-        for item in self.peaks:
-            buff.append((item.mz, item))
-        buff.sort()
-
-        self.peaks = []
-        for item in buff:
-            self.peaks.append(item[1])
+        self.peaks.sort(key=lambda x: x.mz)
 
     # ----
 

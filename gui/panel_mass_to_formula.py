@@ -28,6 +28,7 @@ from .ids import *
 from . import mwx
 from . import images
 from . import config
+from .mixins import MakeModalMixin
 import mspy
 
 
@@ -35,7 +36,7 @@ import mspy
 # ----------------------------------------
 
 
-class panelMassToFormula(wx.MiniFrame, mspy.MakeModalMixin):
+class panelMassToFormula(wx.MiniFrame, MakeModalMixin):
     """Mass to formula tool."""
 
     def __init__(self, parent):

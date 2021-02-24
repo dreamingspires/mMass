@@ -17,6 +17,8 @@ packages = [
 python = "^3.8"
 numpy = "^1.19.0"
 wxPython = "^4.1.0"
+xdgenvpy = "^2.3.3"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

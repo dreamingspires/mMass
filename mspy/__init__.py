@@ -28,9 +28,6 @@ from .obj_peak import *
 from .obj_peaklist import *
 from .obj_scan import *
 
-# load mixins
-from .mixins import *
-
 # load modules
 from .mod_basics import *
 from .mod_pattern import *

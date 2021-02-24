@@ -26,6 +26,7 @@ from . import mwx
 from . import images
 from . import config
 from . import libs
+from .mixins import MakeModalMixin
 import mspy
 
 from gui.panel_match import panelMatch
@@ -36,7 +37,7 @@ from gui.panel_monomer_library import panelMonomerLibrary
 # ----------------------------------
 
 
-class panelSequence(wx.MiniFrame, mspy.MakeModalMixin):
+class panelSequence(wx.MiniFrame, MakeModalMixin):
     """Sequence tools."""
 
     def __init__(self, parent, tool="editor"):
