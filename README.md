@@ -34,6 +34,14 @@ A Windows installer is provided with each release, and can be obtained by visiti
 A Mac app file is provided with each release, and can also be obtained by visiting the [releases page](https://github.com/dreamingspires/mMass/releases).
 
 
+## Sponsors
+
+Many thanks to the following projects for funding the ongoing work on mMass:
+
+[Warinner Lab](https://projects.iq.harvard.edu/warinnerlab)
+
+[FINDER](https://www.shh.mpg.de/453199/finder)
+
 ## Building from source
 ### Linux
 mMass uses [poetry](python-poetry.org/) as the build system.  To get started ensure poetry is [installed](https://python-poetry.org/docs/#installation), then clone the mMass repository.
