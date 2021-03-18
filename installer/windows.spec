@@ -5,7 +5,6 @@ block_cipher = None
 
 a = Analysis(['..\\scripts\\run.py'],
              pathex=[],
-#             pathex=['C:\\Users\\edd\\Documents\\mMass'],
              binaries=[],
              datas=[],
              hiddenimports=[],

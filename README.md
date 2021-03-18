@@ -78,7 +78,32 @@ Build software packages with:
 
 Your packages will be built within the `dist/` directory.
 
+
+### MacOS
+
+NB: mMass is currently known to not build correctly on M1 silicon, because of [this upstream issue](https://github.com/python-pillow/Pillow/issues/5093).  Once Python3.9 is supported on MacOS by default, it will become possible to build a new package supporting M1.
+
+mMass uses [poetry](python-poetry.org/) as the build system.  To get started ensure poetry is [installed](https://python-poetry.org/docs/#installation), then clone the mMass repository.
+
+You may need to add the poetry install location to your shell's $PATH depending on the install method.
+
+From within the repository, install the dependencies into the _venv_ with:
+
+`poetry install`
+
+Run the software:
+
+`poetry run mmass`
+
+Build software packages with:
+
+`poetry build`
+
+Your packages will be built within the `dist/` directory.
+
 ## Packaging
+Before proceeding with packaging steps, first ensure that you've built mMass from source on your current machine.
+
 ### Windows
 
 Ensure that `makensis` is installed:
@@ -99,6 +124,16 @@ Build the installer in `dist/`.  From the root directory of the repo:
 ```
 makensis.exe /DPRODUCT_VERSION=0.1.0 installer\windows_installer.nsi
 ```
+
+### MacOS
+
+From within the installed project directory:
+
+```
+poetry run python3 installer/mac_setup.py py2app
+```
+
+The resulting application will be built inside `./dist/mMass`.
 
 ## Contributing
 
