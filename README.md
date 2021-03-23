@@ -29,9 +29,17 @@ python3 -m mmass
 
 A Windows installer is provided with each release, and can be obtained by visiting the [releases page](https://github.com/dreamingspires/mMass/releases).
 
+To install, download and run `mMass_windows_installer.exe`.
+
 ### MacOS
 
 A Mac app file is provided with each release, and can also be obtained by visiting the [releases page](https://github.com/dreamingspires/mMass/releases).
+
+To install, download `mMass_mac_installer.zip`.  Extract the file, right click, and select open.
+
+Currently the installer is unsigned, so you might get a warning about the developer being unauthorised.  If this concerns you, you can verify our build by building from source.
+
+For technical reasons, mMass currently does not run on the M1 architecture.  For more information, see section [Building from source](#building-from-source).
 
 
 ## Sponsors
