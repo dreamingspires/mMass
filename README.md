@@ -1,11 +1,54 @@
 # mMass
 
-This is the official repository for mMass: [mMass](http://www.mmass.org) on Python3.
-It is currently highly experimental - much of the UI remains broken amidst updating various dependencies.
+This is the official repository for mMass] on Python3.
 
 For more information please see the official mMass homepage at [www.mmass.org](http://www.mmass.org).  Many thanks to Martin Strohalm for his hard work on the project over many years!
 
-We are currently in pre-release mode.  Therefore, the software has not been packaged.  In the future, you can expect pre-built packages on PyPI.
+## Installation
+### Linux
+
+We have a package available on `pip`.  To install:
+
+```
+pip install --user mmass
+```
+
+Then invoke at the command line with:
+
+```
+mmass
+```
+
+or, if you haven't configured your $PATH to contain the install location of `pip` programs:
+
+```
+python3 -m mmass
+```
+
+### Windows
+
+A Windows installer is provided with each release, and can be obtained by visiting the [releases page](https://github.com/dreamingspires/mMass/releases).
+
+To install, download and run `mMass_windows_installer.exe`.
+
+### MacOS
+
+A Mac app file is provided with each release, and can also be obtained by visiting the [releases page](https://github.com/dreamingspires/mMass/releases).
+
+To install, download `mMass_mac_installer.zip`.  Extract the file, right click, and select open.
+
+Currently the installer is unsigned, so you might get a warning about the developer being unauthorised.  If this concerns you, you can verify our build by building from source.
+
+For technical reasons, mMass currently does not run on the M1 architecture.  For more information, see section [Building from source](#building-from-source).
+
+
+## Sponsors
+
+Many thanks to the following projects for funding the ongoing work on mMass:
+
+[Warinner Lab](https://projects.iq.harvard.edu/warinnerlab)
+
+[FINDER](https://www.shh.mpg.de/453199/finder)
 
 ## Building from source
 ### Linux
@@ -58,7 +101,7 @@ Microsoft Windows does not come with a C compiler built in.  Since mMass uses a 
 
 Go to the [Visual Studio downloads page](https://visualstudio.microsoft.com/downloads/), and download Visual Studio 2019 (or newer) Community edition.  Run the installer.
 
-You will be presented with a list of packages to install.  Under the `Workloads` tab, select `Desktop development with C++, and in the sidebar ensure that the MSVC option is selected.
+You will be presented with a list of packages to install.  Under the `Workloads` tab, select Desktop development with C++, and in the sidebar ensure that the MSVC option is selected.
 
 You might also want to use this installed to install Python onto your machine, if you haven't already done so.
 
@@ -78,7 +121,43 @@ Build software packages with:
 
 Your packages will be built within the `dist/` directory.
 
+
+### MacOS
+
+NB: mMass is currently known to not build correctly on M1 silicon, because of [this upstream issue](https://github.com/python-pillow/Pillow/issues/5093).  Once Python3.9 is supported on MacOS by default, it will become possible to build a new package supporting M1.
+
+mMass uses [poetry](python-poetry.org/) as the build system.  To get started ensure poetry is [installed](https://python-poetry.org/docs/#installation), then clone the mMass repository.
+
+You may need to add the poetry install location to your shell's $PATH depending on the install method.
+
+From within the repository, install the dependencies into the _venv_ with:
+
+`poetry install`
+
+Run the software:
+
+`poetry run mmass`
+
+Build software packages with:
+
+`poetry build`
+
+Your packages will be built within the `dist/` directory.
+
 ## Packaging
+Before proceeding with packaging steps, first ensure that you've built mMass from source on your current machine.
+
+### Linux
+
+To prepare a release for pypi, see [this guide](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives).  In summary:
+
+```
+poetry install
+poetry build
+python3 -m twine upload --repository testpypi dist/*
+python3 -m twine upload --repository pypi dist/*
+```
+
 ### Windows
 
 Ensure that `makensis` is installed:
@@ -99,6 +178,18 @@ Build the installer in `dist/`.  From the root directory of the repo:
 ```
 makensis.exe /DPRODUCT_VERSION=0.1.0 installer\windows_installer.nsi
 ```
+
+### MacOS
+
+From within the installed project directory:
+
+```
+poetry run python3 installer/mac_setup.py py2app
+```
+
+The resulting application will be built inside `./dist/mMass`.
+
+Finally, package the application into a `.zip` archive for easier distribution.  You can do this by launching `Finder`, right-clicking on the application, and selecting `Compress "mMass"`.
 
 ## Contributing
 
@@ -124,7 +215,7 @@ For Research Use Only. Not for use in diagnostic procedures.
 
 ## License
 
-This program and its documentation are Copyright 2005-2013 by Martin Strohalm, 2020 by Edd Salkield.
+This program and its documentation are Copyright 2005-2013 by Martin Strohalm, 2020-2021 by Dreaming Spires.
 
 This program, along with all associated documentation, is free software;
 you can redistribute it and/or modify it under the terms of the GNU General
