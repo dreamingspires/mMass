@@ -60,24 +60,29 @@ Ensure all the [dependencies for building wxPython](https://wxpython.org/blog/20
 ```
 python3
 python3-devel
-gtk3
 gtk3-devel
-gstreamer1
 gstreamer1-devel
-freeglut
 freeglut-devel
-libjpeg-turbo
 libjpeg-turbo-devel
-libpng
 libpng-devel
-libtiff
 libtiff-devel
-SDL
 SDL-devel
-libnotify
 libnotify-devel
-libSM
 libSM-devel
+```
+
+For Debian, this is currently:
+```
+python3
+python3-dev
+freeglut3-dev
+libwebkitgtk-3.0-dev
+libjpeg-dev
+libpng-dev
+libtiff-dev
+libsdl-dev
+libnotify-dev
+libsm-dev
 ```
 
 From within the repository, install the dependencies into the _venv_ with:
@@ -148,6 +153,36 @@ Your packages will be built within the `dist/` directory.
 Before proceeding with packaging steps, first ensure that you've built mMass from source on your current machine.
 
 ### Linux
+
+We currently only compile mMass for x86_64.  This must be done using [manylinux](https://github.com/pypa/manylinux) to maintain ABI compatibility between versions.
+
+Firstly, get a fresh build environment container.  We're using [podman](https://podman.io):
+
+```
+podman pull quay.io/pypa/manylinux_2_24_x86_64
+podman run -i quay.io/pypa/manylinux_2_24_x86_64
+podman ps # To get CONTAINER ID
+podman exec -it [CONTAINER ID] /bin/bash
+```
+
+And then within the container:
+```
+cd /root
+git clone https://github.com/dreamingspires/mMass
+cd mMass
+```
+
+Now install and build the repository:
+```
+apt update
+apt install -y python3-pip libgtk-3-dev gstreamer1.0 gstreamer1.0-plugins-base freeglut3-dev libwebkitgtk-3.0-dev libjpeg-dev libpng-dev libtiff-dev libsdl-dev libnotify-dev libsm-dev libwebkitgtk-dev
+
+python3 -m pip install --user poetry
+python3 -m poetry env use /opt/python/cp37-cp37m/bin/python3
+
+python3 -m poetry install  # This will probably take a while
+poetry build
+```
 
 To prepare a release for pypi, see [this guide](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives).  In summary:
 
