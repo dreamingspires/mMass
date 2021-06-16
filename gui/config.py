@@ -26,7 +26,7 @@ from xdgenvpy import XDGPackage
 # SET VERSION
 # -----------
 
-version = "6.0.1"
+version = "6.0.2"
 nightbuild = ""
 
 
